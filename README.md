@@ -1,6 +1,7 @@
 # Clique
 #### _Largest social movie platform_
 ![Clique Logo!](./assets/images/logo.png "Clique Logo")
+
 Clique is a social platform for movie enthusiasts.
 
 - Social groups
