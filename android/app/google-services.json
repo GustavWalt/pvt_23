@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1012806088609",
+    "project_id": "pvt-23",
+    "storage_bucket": "pvt-23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012806088609:android:d587ca706d7507929bfde0",
+        "android_client_info": {
+          "package_name": "com.example.pvt_23"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012806088609-80crv33obrihdq4e717m07ie0hdnsgcb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSVv1yxTyRzfmWk0C5UB0Vxu0Bj1YZpGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012806088609-80crv33obrihdq4e717m07ie0hdnsgcb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
