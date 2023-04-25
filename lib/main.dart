@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pvt_23/screens/login/login_view.dart';
+import 'package:pvt_23/screens/login/home_page.dart';
+import 'package:pvt_23/screens/login/sign_in.dart';
+import 'package:pvt_23/screens/login/sign_up.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -10,13 +12,35 @@ void main() async {
   runApp(const MyApp());
 }
 
+/*
+Bra sen när vi vill redirect någon som inte är inloggad.
+redirect: (BuildContext context, GoRouterState state) {
+  if (AuthState.of(context).isSignedIn) {
+    return '/signin';
+  } else {
+    return null;
+  }   
+},
+*/
+
 // Route config
 final GoRouter _router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
-      path: '/',
+        path: '/',
+        builder: (BuildContext context, GoRouterState state) {
+          return const SignInView();
+        }),
+    GoRoute(
+      path: '/sign_up',
       builder: (BuildContext context, GoRouterState state) {
-        return const LoginView();
+        return const SignUpView();
+      },
+    ),
+    GoRoute(
+      path: '/home_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const HomePageView();
       },
     ),
   ],
