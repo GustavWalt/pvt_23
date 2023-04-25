@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pvt_23/screens/login/home_page.dart';
+import 'package:pvt_23/screens/homepage/home_page.dart';
 import 'package:pvt_23/screens/login/sign_in.dart';
-import 'package:pvt_23/screens/login/sign_up.dart';
+import 'package:pvt_23/screens/signup/sign_up.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -30,7 +30,7 @@ final GoRouter _router = GoRouter(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
           return const SignInView();
-        }),
+    }),
     GoRoute(
       path: '/sign_up',
       builder: (BuildContext context, GoRouterState state) {
@@ -48,7 +48,6 @@ final GoRouter _router = GoRouter(
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  //hejsan!
 
   @override
   Widget build(BuildContext context) {
