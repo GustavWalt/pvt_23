@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pvt_23/screens/homepage/home_page.dart';
-import 'package:pvt_23/screens/login/sign_in.dart';
-import 'package:pvt_23/screens/signup/sign_up.dart';
+import 'package:pvt_23/screens/login/sign_in_page.dart';
+import 'package:pvt_23/screens/signup/sign_up_page.dart';
+import 'package:pvt_23/screens/chatList/chat_list_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -29,7 +30,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return const SignInView();
+          return const ChatListView();
     }),
     GoRoute(
       path: '/sign_up',
@@ -41,6 +42,12 @@ final GoRouter _router = GoRouter(
       path: '/home_page',
       builder: (BuildContext context, GoRouterState state) {
         return const HomePageView();
+      },
+    ),
+    GoRoute(
+      path: '/chat_list',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ChatListView();
       },
     ),
   ],
