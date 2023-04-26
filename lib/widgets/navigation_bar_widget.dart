@@ -12,7 +12,6 @@ class MenuWidget extends StatelessWidget {
     int currentScreenIndex = navigationBarProvider.fetchCurrentScreenIndex;
     return BottomNavigationBar(
       currentIndex: currentScreenIndex,
-      onTap: (value) => navigationBarProvider.updateScreenIndex(value),
       items: [
         BottomNavigationBarItem(
             label: 'SignIn',
@@ -36,6 +35,24 @@ class MenuWidget extends StatelessWidget {
                 .indigo // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
             ),
       ],
+      onTap: (value) {
+        navigationBarProvider.updateScreenIndex(value);
+/*         if (value == 0) {
+          context.go('/sign_up');
+        } */
+        switch (value) {
+          case 0:
+            context.go('/');
+            break;
+
+          case 1:
+            context.go('/sign_up');
+            break;
+
+          case 2:
+            context.go('/home_page');
+        }
+      },
       selectedItemColor: Colors.amber[800],
     );
   }
