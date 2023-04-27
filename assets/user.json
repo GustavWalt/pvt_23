@@ -1,0 +1,11 @@
+{
+    "items": [
+  {
+    "name": "Jane Doe",
+    "username": "JDoe",
+    "email": "janedoe@gmail.com",
+    "password": "myNameIsNotJaneDoe",
+    "description": "I like to eat and talk about movies, especially at cafés with people I have never met before!"
+  }
+  ]
+  }

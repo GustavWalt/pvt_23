@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 
 class SignInView extends StatelessWidget {
   const SignInView({super.key});
@@ -7,6 +8,7 @@ class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const MenuWidget(),
       body: ListView(
         children: [
           const Padding(
@@ -58,8 +60,8 @@ class SignInView extends StatelessWidget {
                     minimumSize: const Size.fromHeight(50),
                     backgroundColor: Colors.black),
                 child: const Text('Sign in'),
-                //Ska inte gå till home page när man trycker på den här knappen, bara för test atm.
-                onPressed: () => context.go('/home_page'),
+                //Should not go to group page here, just a placeholder
+                onPressed: () => context.go('/group_page'),
               )),
           const Center(
             child: Text(
@@ -75,8 +77,8 @@ class SignInView extends StatelessWidget {
                     minimumSize: const Size.fromHeight(50),
                     backgroundColor: Colors.blue),
                 child: const Text('Sign in with Facebook'),
-                //Ska inte gå till sign_up när man trycker på den här knappen, bara för test atm.
-                onPressed: () => context.go('/sign_up'),
+                //SHould not go ti sign up here, just a placeholder
+                onPressed: () => context.go('/profile_page'),
               )),
           Container(
               height: 65,
@@ -87,7 +89,7 @@ class SignInView extends StatelessWidget {
                     backgroundColor: Colors.white),
                 child: const Text('Sign in with Google',
                     style: TextStyle(color: Colors.black)),
-                //Ska inte gå till sign_up när man trycker på den här knappen, bara för test atm.
+                //Should not go to sign up here, just a placeholder
                 onPressed: () => context.go('/sign_up'),
               )),
         ],
