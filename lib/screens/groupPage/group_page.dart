@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 
 class GroupPage extends StatefulWidget {
   const GroupPage({Key? key}) : super(key: key);
@@ -26,6 +27,7 @@ class _GroupPageState extends State<GroupPage> {
   Widget build(BuildContext context) {
     readJson();
     return Scaffold(
+      bottomNavigationBar: const MenuWidget(),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.black,

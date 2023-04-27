@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:pvt_23/providers/navigation_bar_provider.dart';
-import 'package:pvt_23/screens/homepage/home_page.dart';
-import 'package:pvt_23/screens/login/sign_in_page.dart';
-import 'package:pvt_23/screens/signup/sign_up_page.dart';
-import 'package:pvt_23/screens/chatList/chat_list_page.dart';
+import 'package:pvt_23/screens/homePage/home_page.dart';
+import 'package:pvt_23/screens/loginPage/login_page.dart';
+import 'package:pvt_23/screens/registerPage/register_page.dart';
+import 'package:pvt_23/screens/chatListPage/chat_list_page.dart';
 import 'package:pvt_23/screens/groupPage/group_page.dart';
 import 'package:pvt_23/screens/profilePage/profile_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,18 +28,23 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return const SignInView();
+          return const LoginPage();
         }),
     GoRoute(
-      path: '/sign_up',
+        path: '/login_page',
+        builder: (BuildContext context, GoRouterState state) {
+          return const LoginPage();
+        }),
+    GoRoute(
+      path: '/register_page',
       builder: (BuildContext context, GoRouterState state) {
-        return const SignUpView();
+        return const RegisterPage();
       },
     ),
     GoRoute(
       path: '/home_page',
       builder: (BuildContext context, GoRouterState state) {
-        return const HomePageView();
+        return const HomePage();
       },
     ),
     GoRoute(
@@ -52,6 +57,12 @@ final GoRouter _router = GoRouter(
       path: '/profile_page',
       builder: (BuildContext context, GoRouterState state) {
         return const ProfilePage();
+      },
+    ),
+    GoRoute(
+      path: '/chat_list_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ChatListPage();
       },
     ),
   ],
