@@ -76,7 +76,7 @@ class SignInView extends StatelessWidget {
                     backgroundColor: Colors.blue),
                 child: const Text('Sign in with Facebook'),
                 //SHould not go ti sign up here, just a placeholder
-                onPressed: () => context.go('/sign_up'),
+                onPressed: () => context.go('/profile_page'),
               )),
           Container(
               height: 65,
