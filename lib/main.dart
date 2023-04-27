@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pvt_23/screens/homepage/home_page.dart';
 import 'package:pvt_23/screens/login/sign_in.dart';
 import 'package:pvt_23/screens/groupPage/group_page.dart';
+import 'package:pvt_23/screens/profilePage/profile_page.dart';
 import 'package:pvt_23/screens/signup/sign_up.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -48,6 +49,12 @@ final GoRouter _router = GoRouter(
       path: '/group_page',
       builder: (BuildContext context, GoRouterState state) {
         return const GroupPage();
+      },
+    ),
+    GoRoute(
+      path: '/profile_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ProfilePage();
       },
     ),
   ],
