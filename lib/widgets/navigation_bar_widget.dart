@@ -14,46 +14,67 @@ class MenuWidget extends StatelessWidget {
       currentIndex: currentScreenIndex,
       items: [
         BottomNavigationBarItem(
-            label: 'SignIn',
+            label: 'Homepage',
             icon: Icon(
                 (currentScreenIndex == 0) ? Icons.home : Icons.home_outlined),
             backgroundColor: Colors
-                .indigo // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
+                .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
+            ),
+        BottomNavigationBarItem(
+            label: 'Profile',
+            icon: Icon(
+                (currentScreenIndex == 0) ? Icons.man : Icons.man_outlined),
+            backgroundColor: Colors
+                .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
             ),
         BottomNavigationBarItem(
             label: 'Register',
-            icon: Icon(
-                (currentScreenIndex == 1) ? Icons.home : Icons.home_outlined),
+            icon: Icon((currentScreenIndex == 1)
+                ? Icons.app_registration
+                : Icons.app_registration_outlined),
             backgroundColor: Colors
-                .indigo // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
+                .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
             ),
         BottomNavigationBarItem(
-            label: 'Homepage',
+            label: 'Chat',
             icon: Icon(
-                (currentScreenIndex == 2) ? Icons.home : Icons.home_outlined),
+                (currentScreenIndex == 2) ? Icons.chat : Icons.chat_outlined),
             backgroundColor: Colors
-                .indigo // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
+                .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
+            ),
+        BottomNavigationBarItem(
+            label: 'Groups',
+            icon: Icon(
+                (currentScreenIndex == 2) ? Icons.group : Icons.group_outlined),
+            backgroundColor: Colors
+                .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
             ),
       ],
       onTap: (value) {
         navigationBarProvider.updateScreenIndex(value);
-/*         if (value == 0) {
-          context.go('/sign_up');
-        } */
         switch (value) {
           case 0:
-            context.go('/');
+            context.go('/home_page');
             break;
 
           case 1:
-            context.go('/sign_up');
+            context.go('/profile_page');
             break;
 
           case 2:
-            context.go('/home_page');
+            context.go('/register_page');
+            break;
+
+          case 3:
+            context.go('/chat_list_page');
+            break;
+
+          case 4:
+            context.go('/group_page');
+            break;
         }
       },
-      selectedItemColor: Colors.amber[800],
+      selectedItemColor: Colors.red[500],
     );
   }
 }
