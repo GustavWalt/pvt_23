@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
@@ -7,6 +8,7 @@ class SignUpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const MenuWidget(),
       body: ListView(children: [
         const Padding(
           padding: EdgeInsets.fromLTRB(40, 70, 40, 50),
