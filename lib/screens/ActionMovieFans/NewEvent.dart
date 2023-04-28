@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //NEW EVENT PAGE
+
 class EventPage extends StatefulWidget {
   const EventPage({Key? key}) : super(key: key);
 
@@ -13,11 +14,15 @@ class _EventPageState extends State<EventPage> {
   late DateTime _endDate;
   late TimeOfDay _startTime;
   late TimeOfDay _endTime;
-  final String _location = '';
+  late String _location = '';
   final List<String> _selectedFilms = [];
-
   final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _eventNameController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _hostController = TextEditingController();
+  final TextEditingController _guestLimitController = TextEditingController();
+  final TextEditingController _rsvpController = TextEditingController();
 
   @override
   void initState() {
@@ -29,6 +34,37 @@ class _EventPageState extends State<EventPage> {
     _endTime = TimeOfDay.now();
   }
 
+  void _publishEvent() {
+    if (_formKey.currentState!.validate()) {
+      // Retrieve data from form
+      final eventName = _eventNameController.text;
+      final location = _locationController.text;
+      final host = _hostController.text;
+      final guestLimit = int.tryParse(_guestLimitController.text) ?? 0;
+      final rsvp = _rsvpController.text;
+      final startDate = DateTime(
+        _startDate.year,
+        _startDate.month,
+        _startDate.day,
+        _startTime.hour,
+        _startTime.minute,
+      );
+      // final startTime = _startTime;
+      final endDate = DateTime(
+        _endDate.year,
+        _endDate.month,
+        _endDate.day,
+        _endTime.hour,
+        _endTime.minute,
+      );
+      // final endTime = _endTime;
+      final films = _selectedFilms.toList();
+
+      // Publish event
+      // TODO: Add your publish event code here
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +73,8 @@ class _EventPageState extends State<EventPage> {
       ),
       body: Form(
         key: _formKey,
-        child: ListView(
+        child: // const SizedBox(height: 500),
+            ListView(
           padding: const EdgeInsets.all(16.0),
           children: [
             TextFormField(
@@ -52,6 +89,76 @@ class _EventPageState extends State<EventPage> {
               },
             ),
             const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Location',
+              ),
+              onChanged: (value) {
+                setState(() {
+                  _location = value;
+                });
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter event location';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Movie Selection',
+              ),
+              onChanged: (value) {
+                setState(() {
+                  _selectedFilms.add(value);
+                });
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter at least one movie selection';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Host',
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter event host';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Guest Limit',
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter guest limit';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'RSVP',
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter RSVP information';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16.0),
             Row(
               children: [
                 Expanded(
@@ -59,7 +166,7 @@ class _EventPageState extends State<EventPage> {
                     readOnly: true,
                     controller: TextEditingController(
                       text:
-                      '${_startDate.day}/${_startDate.month}/${_startDate.year}',
+                          '${_startDate.day}/${_startDate.month}/${_startDate.year}',
                     ),
                     decoration: const InputDecoration(
                       labelText: 'Start Date',
@@ -111,7 +218,7 @@ class _EventPageState extends State<EventPage> {
                     readOnly: true,
                     controller: TextEditingController(
                       text:
-                      '${_endDate.day}/${_endDate.month}/${_endDate.year}',
+                          '${_endDate.day}/${_endDate.month}/${_endDate.year}',
                     ),
                     decoration: const InputDecoration(
                       labelText: 'End Date',
@@ -155,6 +262,35 @@ class _EventPageState extends State<EventPage> {
                 ),
               ],
             ),
+            const SizedBox(height: 35.0),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(150, 60),
+              ),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  // Get all form data
+                  final eventName = _eventNameController.text;
+                  final location = _location;
+                  final movieSelection = _selectedFilms;
+                  final host = _hostController.text;
+                  final guestLimit = int.parse(_guestLimitController.text);
+                  final rsvp = _rsvpController.text;
+                  final startDate = _startDate;
+                  final startTime = _startTime;
+                  final endDate = _endDate;
+                  final endTime = _endTime;
+                  final films = _selectedFilms.toList();
+
+                  // TODO: Add code to publish event using the form data
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Event published')),
+                  );
+                }
+              },
+              child: const Text('Publish Event'),
+            )
           ],
         ),
       ),
