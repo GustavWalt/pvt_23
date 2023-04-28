@@ -28,14 +28,6 @@ class MenuWidget extends StatelessWidget {
                 .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
             ),
         BottomNavigationBarItem(
-            label: 'Register',
-            icon: Icon((currentScreenIndex == 1)
-                ? Icons.app_registration
-                : Icons.app_registration_outlined),
-            backgroundColor: Colors
-                .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
-            ),
-        BottomNavigationBarItem(
             label: 'Chat',
             icon: Icon(
                 (currentScreenIndex == 2) ? Icons.chat : Icons.chat_outlined),
@@ -62,14 +54,10 @@ class MenuWidget extends StatelessWidget {
             break;
 
           case 2:
-            context.go('/register_page');
-            break;
-
-          case 3:
             context.go('/chat_list_page');
             break;
 
-          case 4:
+          case 3:
             context.go('/group_page');
             break;
         }
