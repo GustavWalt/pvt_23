@@ -5,8 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 
+import '../ActionMovieFans/ActionFanatics.dart';
+
 class GroupPage extends StatefulWidget {
   const GroupPage({Key? key}) : super(key: key);
+
 
   @override
   _GroupPageState createState() => _GroupPageState();
@@ -56,8 +59,17 @@ class _GroupPageState extends State<GroupPage> {
                                 _items[index]["name"],
                                 style: TextStyle(color: Colors.black),
                               ),
+
                               //Should not go to group page, should go to view for specific group connected to the id of the buttom pressed.
-                              onPressed: () => context.go('/group_page'),
+                              //navigate to ActionFanatics page
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ActionFanatics()),
+                                );
+                              },
                             ));
                       },
                     ),

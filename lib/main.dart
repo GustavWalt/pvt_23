@@ -53,6 +53,8 @@ final GoRouter _router = GoRouter(
         return const GroupPage();
       },
     ),
+
+
     GoRoute(
       path: '/profile_page',
       builder: (BuildContext context, GoRouterState state) {
@@ -91,3 +93,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
