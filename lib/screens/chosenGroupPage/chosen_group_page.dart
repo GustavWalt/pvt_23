@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'NewEvent.dart';
+import 'package:go_router/go_router.dart';
 
 // ActionMovieFans
 
-class ActionFanatics extends StatelessWidget {
-  const ActionFanatics({Key? key}) : super(key: key);
-
-  void _goToEventPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const EventPage()),
-    );
-  }
+class ChosenGroupPage extends StatelessWidget {
+  const ChosenGroupPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +18,7 @@ class ActionFanatics extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             ElevatedButton(
-              onPressed: () {
-                _goToEventPage(context);
-              },
+              onPressed: () => context.go('/event_page'),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.orange,

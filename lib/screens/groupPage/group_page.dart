@@ -5,11 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 
-import '../ActionMovieFans/ActionFanatics.dart';
+import '../chosenGroupPage/chosen_group_page.dart';
 
 class GroupPage extends StatefulWidget {
   const GroupPage({Key? key}) : super(key: key);
-
 
   @override
   _GroupPageState createState() => _GroupPageState();
@@ -67,7 +66,7 @@ class _GroupPageState extends State<GroupPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const ActionFanatics()),
+                                          const ChosenGroupPage()),
                                 );
                               },
                             ));

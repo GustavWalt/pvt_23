@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
-//NEW EVENT PAGE
-
-class EventPage extends StatefulWidget {
-  const EventPage({Key? key}) : super(key: key);
+class NewEventPage extends StatefulWidget {
+  const NewEventPage({Key? key}) : super(key: key);
 
   @override
-  _EventPageState createState() => _EventPageState();
+  _NewEventPageState createState() => _NewEventPageState();
 }
 
-class _EventPageState extends State<EventPage> {
+class _NewEventPageState extends State<NewEventPage> {
   late DateTime _startDate;
   late DateTime _endDate;
   late TimeOfDay _startTime;
   late TimeOfDay _endTime;
   late String _location = '';
-  final List<String> _selectedFilms = [];
+  late List<String> _selectedFilms = [];
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _eventNameController = TextEditingController();

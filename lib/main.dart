@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:pvt_23/providers/navigation_bar_provider.dart';
+import 'package:pvt_23/screens/chosenGroupPage/chosen_group_page.dart';
+import 'package:pvt_23/screens/newEventPage/new_event_page.dart';
 import 'package:pvt_23/screens/homePage/home_page.dart';
 import 'package:pvt_23/screens/loginPage/login_page.dart';
 import 'package:pvt_23/screens/registerPage/register_page.dart';
@@ -28,7 +30,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return const LoginPage();
+          return const NewEventPage();
         }),
     GoRoute(
         path: '/login_page',
@@ -53,8 +55,6 @@ final GoRouter _router = GoRouter(
         return const GroupPage();
       },
     ),
-
-
     GoRoute(
       path: '/profile_page',
       builder: (BuildContext context, GoRouterState state) {
@@ -65,6 +65,18 @@ final GoRouter _router = GoRouter(
       path: '/chat_list_page',
       builder: (BuildContext context, GoRouterState state) {
         return const ChatListPage();
+      },
+    ),
+    GoRoute(
+      path: '/new_event_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const NewEventPage();
+      },
+    ),
+    GoRoute(
+      path: '/chosen_group_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const ChosenGroupPage();
       },
     ),
   ],
@@ -93,4 +105,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
