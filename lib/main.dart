@@ -8,6 +8,7 @@ import 'package:pvt_23/screens/registerPage/register_page.dart';
 import 'package:pvt_23/screens/chatListPage/chat_list_page.dart';
 import 'package:pvt_23/screens/groupPage/group_page.dart';
 import 'package:pvt_23/screens/profilePage/profile_page.dart';
+import 'package:pvt_23/screens/searchFunctionPage/search_function_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -63,6 +64,12 @@ final GoRouter _router = GoRouter(
       path: '/chat_list_page',
       builder: (BuildContext context, GoRouterState state) {
         return const ChatListPage();
+      },
+    ),
+    GoRoute(
+      path: '/search_function_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const SearchFunctionPage();
       },
     ),
   ],
