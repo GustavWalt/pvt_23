@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-// ActionMovieFans
+import '../newEventPage/new_event_page.dart';
+
+
 
 class ChosenGroupPage extends StatelessWidget {
   const ChosenGroupPage({Key? key}) : super(key: key);
+
+  void _goToCreateNewEventPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const NewEventPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Action Movie Fans'),
+        title: const Text('Events'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -18,7 +26,9 @@ class ChosenGroupPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             ElevatedButton(
-              onPressed: () => context.go('/event_page'),
+              onPressed: () {
+                _goToCreateNewEventPage(context);
+              },
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.orange,

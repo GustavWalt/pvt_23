@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
+//NEW EVENT PAGE
+
 class NewEventPage extends StatefulWidget {
   const NewEventPage({Key? key}) : super(key: key);
 
   @override
-  _NewEventPageState createState() => _NewEventPageState();
+  _CreateNewEventPageState createState() => _CreateNewEventPageState();
 }
 
-class _NewEventPageState extends State<NewEventPage> {
+class _CreateNewEventPageState extends State<NewEventPage> {
   late DateTime _startDate;
   late DateTime _endDate;
   late TimeOfDay _startTime;
@@ -15,6 +17,7 @@ class _NewEventPageState extends State<NewEventPage> {
   late String _location = '';
   late List<String> _selectedFilms = [];
   final _formKey = GlobalKey<FormState>();
+  late bool _isPublishing = false;
 
   final TextEditingController _eventNameController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
@@ -32,7 +35,7 @@ class _NewEventPageState extends State<NewEventPage> {
     _endTime = TimeOfDay.now();
   }
 
-  void _publishEvent() {
+  Future<void> _publishEvent() async {
     if (_formKey.currentState!.validate()) {
       // Retrieve data from form
       final eventName = _eventNameController.text;
@@ -57,9 +60,52 @@ class _NewEventPageState extends State<NewEventPage> {
       );
       // final endTime = _endTime;
       final films = _selectedFilms.toList();
+      // Show confirmation dialog
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Confirm'),
+          content: const Text('Are you sure you want to publish this event?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
 
-      // Publish event
-      // TODO: Add your publish event code here
+      if (confirmed != null && confirmed) {
+        try {
+          // Publish event
+          // TODO: Add your publish event code here
+
+          setState(() {
+            _isPublishing = false;
+          });
+
+          // Show success message
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Event published successfully'),
+            ),
+          );
+        } catch (e) {
+          setState(() {
+            _isPublishing = false;
+          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to publish event: $e'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
     }
   }
 
@@ -67,12 +113,12 @@ class _NewEventPageState extends State<NewEventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Event'),
+        title: const Text('Create new Event'),
       ),
       body: Form(
         key: _formKey,
         child: // const SizedBox(height: 500),
-            ListView(
+        ListView(
           padding: const EdgeInsets.all(16.0),
           children: [
             TextFormField(
@@ -164,7 +210,7 @@ class _NewEventPageState extends State<NewEventPage> {
                     readOnly: true,
                     controller: TextEditingController(
                       text:
-                          '${_startDate.day}/${_startDate.month}/${_startDate.year}',
+                      '${_startDate.day}/${_startDate.month}/${_startDate.year}',
                     ),
                     decoration: const InputDecoration(
                       labelText: 'Start Date',
@@ -188,8 +234,8 @@ class _NewEventPageState extends State<NewEventPage> {
                 Expanded(
                   child: TextFormField(
                     readOnly: true,
-                    controller: TextEditingController(
-                        text: '${_startTime.format(context)}'),
+                    controller:
+                    TextEditingController(text: _startTime.format(context)),
                     decoration: const InputDecoration(
                       labelText: 'Start Time',
                     ),
@@ -216,7 +262,7 @@ class _NewEventPageState extends State<NewEventPage> {
                     readOnly: true,
                     controller: TextEditingController(
                       text:
-                          '${_endDate.day}/${_endDate.month}/${_endDate.year}',
+                      '${_endDate.day}/${_endDate.month}/${_endDate.year}',
                     ),
                     decoration: const InputDecoration(
                       labelText: 'End Date',
@@ -240,8 +286,8 @@ class _NewEventPageState extends State<NewEventPage> {
                 Expanded(
                   child: TextFormField(
                     readOnly: true,
-                    controller: TextEditingController(
-                        text: '${_startTime.format(context)}'),
+                    controller:
+                    TextEditingController(text: _endTime.format(context)),
                     decoration: const InputDecoration(
                       labelText: 'End Time',
                     ),
@@ -265,29 +311,11 @@ class _NewEventPageState extends State<NewEventPage> {
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(150, 60),
               ),
-              //onpress
+              //onpressed
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  // Get all form data
-                  final eventName = _eventNameController.text;
-                  final location = _location;
-                  final movieSelection = _selectedFilms;
-                  final host = _hostController.text;
-                  final guestLimit = int.parse(_guestLimitController.text);
-                  final rsvp = _rsvpController.text;
-                  final startDate = _startDate;
-                  final startTime = _startTime;
-                  final endDate = _endDate;
-                  final endTime = _endTime;
-                  final films = _selectedFilms.toList();
-
-                  // TODO: Add code to publish event using the form data
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Event published')),
-                  );
-                }
+                _publishEvent();
               },
+
               child: const Text('Publish Event'),
             )
           ],
