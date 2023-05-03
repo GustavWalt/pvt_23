@@ -67,7 +67,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/images/logo1.png
+    - assets/images/
     - assets/sampleDB.json
     - assets/user.json
 
