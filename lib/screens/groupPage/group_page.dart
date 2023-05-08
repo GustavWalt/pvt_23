@@ -81,7 +81,7 @@ class _GroupPageState extends State<GroupPage> {
                     ),
                   ),
                   //Shuold not go to group page, this is placeholder. Should go to available groups.
-                  onPressed: () => context.go('/group_page'),
+                  onPressed: () => context.go('/find_group_page'),
                 )),
           ],
         ),
