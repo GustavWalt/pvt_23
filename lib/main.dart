@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:pvt_23/providers/navigation_bar_provider.dart';
 import 'package:pvt_23/screens/calendarPage/calendar_page.dart';
 import 'package:pvt_23/screens/chosenMoviePage/chosen_movie_page.dart';
+import 'package:pvt_23/screens/findGroupResultPage/find_group_result_page.dart';
 import 'package:pvt_23/screens/findGroupPage/find_group_page.dart';
 import 'package:pvt_23/screens/homePage/home_page.dart';
 import 'package:pvt_23/screens/loginPage/login_page.dart';
@@ -30,6 +31,11 @@ final GoRouter _router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
         path: '/',
+        builder: (BuildContext context, GoRouterState state) {
+          return const FindGroupResultPage();
+        }),
+    GoRoute(
+        path: '/chosen_movie_page',
         builder: (BuildContext context, GoRouterState state) {
           return const ChosenMoviePage();
         }),
