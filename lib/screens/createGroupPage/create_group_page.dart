@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../widgets/navigation_bar_widget.dart';
 
-//We need to add genres - either manually or through imdb's API.
 const List<String> genres = <String>['Horror', 'Comedy', 'Sci-fi'];
 const List<String> level = <String>["1", "2", "3"];
 const List<String> size = <String>[
@@ -20,52 +19,74 @@ const List<String> size = <String>[
   "12",
 ];
 
-class FindNewGroupPage extends StatefulWidget {
-  const FindNewGroupPage({super.key});
+class CreateGroupPage extends StatefulWidget {
+  const CreateGroupPage({super.key});
 
   @override
-  State<FindNewGroupPage> createState() => _FindNewGroupPageState();
+  State<CreateGroupPage> createState() => _CreateGroupPageState();
 }
 
-class _FindNewGroupPageState extends State<FindNewGroupPage> {
+class _CreateGroupPageState extends State<CreateGroupPage> {
+  String sizeValue = size.first;
   String genreValue = genres.first;
   String levelValue = level.first;
-  String sizeValue = size.first;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: const MenuWidget(),
-        backgroundColor: Color.fromARGB(255, 35, 33, 26),
-        appBar: AppBar(
-          actions: const [
-            Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(Icons.account_circle_rounded),
-            )
-          ],
-          leading: const Icon(Icons.arrow_back_rounded),
-          title: const Text('Find groups'),
-          backgroundColor: Colors.black,
-          centerTitle: true,
-        ),
-        body: Center(
-            child: Column(children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.all(15),
-          ),
-          Container(
-            height: 120.0,
-            width: 150.0,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/group_picture.png'),
-                fit: BoxFit.fill,
-              ),
+      bottomNavigationBar: const MenuWidget(),
+      backgroundColor: Color.fromARGB(255, 35, 33, 26),
+      appBar: AppBar(
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Icon(Icons.account_circle_rounded),
+          )
+        ],
+        leading: const Icon(Icons.arrow_back_rounded),
+        title: const Text('Create group'),
+        backgroundColor: Colors.black,
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Center(
+            child: Column(
+              children: [
+                Container(
+                  width: 600,
+                  color: Color.fromARGB(255, 147, 48, 48),
+                  child: Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Color.fromARGB(255, 44, 44, 44),
+                          child: CircleAvatar(
+                            radius: 48,
+                            backgroundImage:
+                                AssetImage("assets/images/logo1.png"),
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        child: const Text(
+                          "Choose name",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white),
+                        ),
+                        onPressed: () {
+                          /*Dunno yet*/
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(5),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(100, 7, 100, 7),
@@ -152,7 +173,20 @@ class _FindNewGroupPageState extends State<FindNewGroupPage> {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(30),
+            padding: EdgeInsets.fromLTRB(100, 7, 100, 7),
+            child: TextField(
+              decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 2),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 2),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  filled: true,
+                  hintStyle: TextStyle(color: Colors.black),
+                  hintText: "Description",
+                  fillColor: Color.fromARGB(255, 209, 217, 223)),
+            ),
           ),
           Container(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -172,14 +206,16 @@ class _FindNewGroupPageState extends State<FindNewGroupPage> {
                         child: Icon(Icons.add, size: 16),
                       ),
                       TextSpan(
-                          text: "Find groups",
+                          text: "Create group",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
-                //Shuold not go to group page, this is placeholder. Should go to available groups.
-                onPressed: () => context.go('/find_group_result_page'),
+                //Shuold go to specific group.
+                onPressed: () => context.go('/find_new_group_page'),
               ))
-        ])));
+        ],
+      ),
+    );
   }
 }
