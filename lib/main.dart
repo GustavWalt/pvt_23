@@ -13,6 +13,7 @@ import 'package:pvt_23/screens/GroupPage/group_page.dart';
 import 'package:pvt_23/screens/ProfilePage/profile_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'screens/createGroupPage/create_group_page.dart';
 
 /*
 Bra sen när vi vill redirect någon som inte är inloggad.
@@ -30,6 +31,11 @@ final GoRouter _router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
         path: '/',
+        builder: (BuildContext context, GoRouterState state) {
+          return const CreateGroupPage();
+        }),
+    GoRoute(
+        path: '/fetch_data_test_page',
         builder: (BuildContext context, GoRouterState state) {
           return const FetchDataTestPage();
         }),
@@ -71,6 +77,12 @@ final GoRouter _router = GoRouter(
       path: '/find_new_group_page',
       builder: (BuildContext context, GoRouterState state) {
         return const FindNewGroupPage();
+      },
+    ),
+    GoRoute(
+      path: '/find_group_result_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const FindGroupResultPage();
       },
     ),
   ],

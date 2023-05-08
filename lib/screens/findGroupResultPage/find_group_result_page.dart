@@ -16,7 +16,14 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
         bottomNavigationBar: const MenuWidget(),
         backgroundColor: Color.fromARGB(255, 35, 33, 26),
         appBar: AppBar(
-          title: const Text('Find groups'),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Icon(Icons.account_circle_rounded),
+            )
+          ],
+          leading: const Icon(Icons.arrow_back_rounded),
+          title: const Text('Groups'),
           backgroundColor: Colors.black,
           centerTitle: true,
         ),
@@ -28,7 +35,7 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              color: const Color.fromARGB(255, 163, 4, 4),
+              color: const Color.fromARGB(255, 147, 48, 48),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
