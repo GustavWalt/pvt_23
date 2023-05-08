@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:pvt_23/providers/navigation_bar_provider.dart';
-import 'package:pvt_23/screens/calendarPage/calendar_page.dart';
-import 'package:pvt_23/screens/chosenMoviePage/chosen_movie_page.dart';
-import 'package:pvt_23/screens/findGroupResultPage/find_group_result_page.dart';
-import 'package:pvt_23/screens/findGroupPage/find_group_page.dart';
-import 'package:pvt_23/screens/homePage/home_page.dart';
-import 'package:pvt_23/screens/loginPage/login_page.dart';
-import 'package:pvt_23/screens/registerPage/register_page.dart';
-import 'package:pvt_23/screens/chatListPage/chat_list_page.dart';
-import 'package:pvt_23/screens/groupPage/group_page.dart';
-import 'package:pvt_23/screens/profilePage/profile_page.dart';
+import 'package:pvt_23/screens/SpecificMovieResultPage/specific_movie_result_page.dart';
+import 'package:pvt_23/screens/FindGroupResultPage/find_group_result_page.dart';
+import 'package:pvt_23/screens/FindNewGroupPage/find_new_group_page.dart';
+import 'package:pvt_23/screens/FetchDataTestPage/fetch_data_test_page.dart';
+import 'package:pvt_23/screens/LoginPage/login_page.dart';
+import 'package:pvt_23/screens/RegisterPage/register_page.dart';
+import 'package:pvt_23/screens/ChatListPage/chat_list_page.dart';
+import 'package:pvt_23/screens/GroupPage/group_page.dart';
+import 'package:pvt_23/screens/ProfilePage/profile_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -32,12 +31,12 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return const FindGroupResultPage();
+          return const FetchDataTestPage();
         }),
     GoRoute(
-        path: '/chosen_movie_page',
+        path: '/specific_movie_result_page',
         builder: (BuildContext context, GoRouterState state) {
-          return const ChosenMoviePage();
+          return const SpecificMovieResultPage();
         }),
     GoRoute(
         path: '/login_page',
@@ -48,12 +47,6 @@ final GoRouter _router = GoRouter(
       path: '/register_page',
       builder: (BuildContext context, GoRouterState state) {
         return const RegisterPage();
-      },
-    ),
-    GoRoute(
-      path: '/home_page',
-      builder: (BuildContext context, GoRouterState state) {
-        return const UserInformation();
       },
     ),
     GoRoute(
@@ -75,9 +68,9 @@ final GoRouter _router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/find_group_page',
+      path: '/find_new_group_page',
       builder: (BuildContext context, GoRouterState state) {
-        return const FindGroupPage();
+        return const FindNewGroupPage();
       },
     ),
   ],

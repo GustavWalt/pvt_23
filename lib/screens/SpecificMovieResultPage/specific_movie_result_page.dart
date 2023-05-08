@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 
-class EventChosenMoviePage extends StatelessWidget {
-  const EventChosenMoviePage({super.key});
+class SpecificMovieResultPage extends StatelessWidget {
+  const SpecificMovieResultPage({super.key});
 
   @override
   Widget build(BuildContext context) {

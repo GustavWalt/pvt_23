@@ -7,14 +7,14 @@ import '../../widgets/navigation_bar_widget.dart';
 const List<String> genres = <String>['Horror', 'Comedy', 'Sci-fi'];
 const List<String> level = <String>["1", "2", "3"];
 
-class FindGroupPage extends StatefulWidget {
-  const FindGroupPage({super.key});
+class FindNewGroupPage extends StatefulWidget {
+  const FindNewGroupPage({super.key});
 
   @override
-  State<FindGroupPage> createState() => _FindGroupPageState();
+  State<FindNewGroupPage> createState() => _FindNewGroupPageState();
 }
 
-class _FindGroupPageState extends State<FindGroupPage> {
+class _FindNewGroupPageState extends State<FindNewGroupPage> {
   String genreValue = genres.first;
   String levelValue = level.first;
 

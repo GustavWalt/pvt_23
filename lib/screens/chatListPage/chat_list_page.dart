@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pvt_23/screens/chatListPage/chat_card.dart';
+import 'package:pvt_23/screens/ChatListPage/chat_card.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 
 class ChatListPage extends StatelessWidget {

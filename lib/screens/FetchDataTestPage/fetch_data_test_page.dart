@@ -5,13 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 
-class UserInformation extends StatefulWidget {
-  const UserInformation({Key? key}) : super(key: key);
+class FetchDataTestPage extends StatefulWidget {
+  const FetchDataTestPage({Key? key}) : super(key: key);
   @override
-  _UserInformationState createState() => _UserInformationState();
+  _FetchDataTestPageState createState() => _FetchDataTestPageState();
 }
 
-class _UserInformationState extends State<UserInformation> {
+class _FetchDataTestPageState extends State<FetchDataTestPage> {
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('users').snapshots();
 

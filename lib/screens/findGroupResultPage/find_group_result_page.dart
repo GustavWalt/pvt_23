@@ -22,43 +22,51 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
         ),
         body: Center(
             child: Column(children: [
-          Card(
-            color: const Color.fromARGB(255, 163, 4, 4),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const ListTile(
-                  title: Text('Group name',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white)),
-                  subtitle: Text('Group description',
-                      style: TextStyle(color: Colors.white)),
-                ),
-                Container(
-                    alignment: Alignment.bottomLeft,
-                    child: Text("Members: 7/10",
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              color: const Color.fromARGB(255, 163, 4, 4),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const ListTile(
+                    title: Text('Group name',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.white)),
+                    subtitle: Text('Group description',
                         style: TextStyle(color: Colors.white)),
-                    padding: EdgeInsets.fromLTRB(16, 0, 0, 0)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    TextButton(
-                      child: const Text('Info',
-                          style: TextStyle(fontSize: 16, color: Colors.white)),
-                      onPressed: () {/*To info about specific group*/},
-                    ),
-                    TextButton(
-                      child: const Text('Join',
-                          style: TextStyle(fontSize: 16, color: Colors.white)),
-                      onPressed: () {/*to join group*/},
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                  Container(
+                      alignment: Alignment.bottomLeft,
+                      child: Text("Members: 7/10",
+                          style: TextStyle(color: Colors.white)),
+                      padding: EdgeInsets.fromLTRB(16, 0, 0, 0)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      TextButton(
+                        child: const Text('Info',
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.white)),
+                        onPressed: () {/*To info about specific group*/},
+                      ),
+                      TextButton(
+                        child: const Text('Join',
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.white)),
+                        onPressed: () {/*to join group*/},
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
+          )
         ])));
   }
 }
