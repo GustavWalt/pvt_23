@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 
 import '../../logic/auth_service.dart';
 
