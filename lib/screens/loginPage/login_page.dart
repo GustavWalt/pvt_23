@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                     password: _passwordController.text,
                   );
                   if (message!.contains('Success')) {
-                    context.go('/home_page');
+                    context.go('/test_page');
                   }
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

@@ -261,6 +261,12 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                         .doc(docRef.id)
                         .collection("users")
                         .add(userData);
+
+                    final roomData = <String, dynamic>{
+                      "name": _nameController.text
+                    };
+
+                    await db.collection("rooms").doc(docRef.id).set(roomData);
                   }))
         ],
       ),
