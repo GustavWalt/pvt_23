@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -32,12 +33,12 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return const CreateGroupPage();
+          return const LoginPage();
         }),
     GoRoute(
-        path: '/fetch_data_test_page',
+        path: '/test_page',
         builder: (BuildContext context, GoRouterState state) {
-          return const FetchDataTestPage();
+          return FetchDataTestPage();
         }),
     GoRoute(
         path: '/specific_movie_result_page',
@@ -71,6 +72,12 @@ final GoRouter _router = GoRouter(
       path: '/chat_list_page',
       builder: (BuildContext context, GoRouterState state) {
         return const ChatListPage();
+      },
+    ),
+    GoRoute(
+      path: '/create_group_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const CreateGroupPage();
       },
     ),
     GoRoute(

@@ -21,6 +21,13 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
+  Future<void> loginUser() async {
+    await AuthService().login(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,21 +109,22 @@ class _RegisterPageState extends State<RegisterPage> {
                   minimumSize: const Size.fromHeight(50),
                   backgroundColor: Colors.black),
               child: const Text('Register'),
+              //Ska inte gå till Sign_in här, bara för test.
               onPressed: () async {
-                final registerMessage = await AuthService().registration(
+                final message = await AuthService().registration(
                   email: _emailController.text,
                   password: _passwordController.text,
                 );
-                if (registerMessage!.contains('Success')) {
-                  final loginMessage = await AuthService().login(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                  );
-
+                if (message!.contains('Success')) {
+                  // Logga in användaren för nuvarande session
+                  loginUser();
                   final FirebaseAuth auth = FirebaseAuth.instance;
+
+                  // Hämta UID
                   final User? currentUser = auth.currentUser;
                   final uid = currentUser!.uid;
 
+                  // Skicka till databas
                   final user = <String, dynamic>{
                     "fullname": _nameController.text,
                     "phone": int.parse(_phoneController.text),
@@ -124,18 +132,15 @@ class _RegisterPageState extends State<RegisterPage> {
                     "uid": uid
                   };
 
-                  await db.collection("users").add(user);
+                  await db.collection("users").doc(uid).set(user);
 
-                  if (loginMessage!.contains('Success')) {
-                    context.go('/home_page');
-                  }
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(loginMessage),
-                    ),
-                  );
+                  context.go('/create_group_page');
                 }
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(message),
+                  ),
+                );
               },
             )),
         Container(
