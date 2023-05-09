@@ -32,7 +32,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return const CreateGroupPage();
+          return const SpecificMovieResultPage();
         }),
     GoRoute(
         path: '/fetch_data_test_page',
