@@ -23,10 +23,12 @@ class ChatListPage extends StatelessWidget {
         ),
         body: ListView(
           children: const [
+            SizedBox(height: 30),
             ChatCard("Action-fantasterna"),
             ChatCard("Romantik-Gruppen"),
             ChatCard("Thriller-freaks"),
           ],
-        ));
+        )
+    );
   }
 }
