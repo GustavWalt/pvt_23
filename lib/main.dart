@@ -13,6 +13,7 @@ import 'package:pvt_23/screens/ChatListPage/chat_list_page.dart';
 import 'package:pvt_23/screens/GroupPage/group_page.dart';
 import 'package:pvt_23/screens/ProfilePage/profile_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pvt_23/screens/plannedEventPage/planned_event_page.dart';
 import 'firebase_options.dart';
 import 'screens/createGroupPage/create_group_page.dart';
 
@@ -34,6 +35,11 @@ final GoRouter _router = GoRouter(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
           return const LoginPage();
+        }),
+    GoRoute(
+        path: '/planned_event_page',
+        builder: (BuildContext context, GoRouterState state) {
+          return const PlannedEventPage();
         }),
     GoRoute(
         path: '/test_page',
