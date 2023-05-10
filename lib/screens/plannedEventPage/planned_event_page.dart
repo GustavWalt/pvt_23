@@ -66,8 +66,13 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 25)),
-                  Text("Café söder",
-                      style: TextStyle(color: Colors.white, fontSize: 25))
+                  Flexible(
+                    child: Text(
+                      "Café söder",
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                      textAlign: TextAlign.right,
+                    ),
+                  )
                 ]),
           ),
           Padding(
@@ -75,23 +80,18 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Movies:",
+                  const Text("Movie:",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 25)),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text("Harry Potter",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 25)),
-                        Text("The raiders",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 25)),
-                      ]),
+                  Flexible(
+                    child: Text(
+                      "Inception",
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                      textAlign: TextAlign.right,
+                    ),
+                  )
                 ]),
           ),
           Padding(
