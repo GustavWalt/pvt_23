@@ -22,13 +22,26 @@ class ChatListPage extends StatelessWidget {
           centerTitle: true,
         ),
         body: ListView(
-          children: const [
+          children: <Widget> [
             SizedBox(height: 30),
             ChatCard("Action-fantasterna"),
             ChatCard("Romantik-Gruppen"),
             ChatCard("Thriller-freaks"),
+            SizedBox(height: 140),
+            Center(
+              child: Container(
+                height: 140.0,
+                width: 170.0,
+                decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/group_picture.png'),
+                  fit: BoxFit.fill,
+                ),
+                ),
+              ),
+            ),
           ],
-        )
+        ),
     );
   }
 }

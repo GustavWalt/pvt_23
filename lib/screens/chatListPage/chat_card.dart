@@ -16,7 +16,7 @@ class ChatCard extends StatelessWidget {
           ElevatedButton(
             onPressed:() {},
             style: ElevatedButton.styleFrom(
-              minimumSize: const Size(200, 60),
+              minimumSize: const Size(200, 50),
               backgroundColor: const Color.fromARGB(255, 147, 48, 48),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100)),
