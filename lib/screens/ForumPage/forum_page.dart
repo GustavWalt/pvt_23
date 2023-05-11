@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pvt_23/screens/ForumPage/forum_post.dart';
 import '../../widgets/navigation_bar_widget.dart';
@@ -10,12 +12,13 @@ class ForumPage extends StatefulWidget {
 }
 
 class _ForumPageState extends State<ForumPage> {
+  final TextEditingController _postController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: const FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
           tooltip: 'Create new post', // used by assistive technologies
-          onPressed: null,
+          onPressed: () => _dialogBuilder(context),
           child: Icon(Icons.add),
           backgroundColor: Color.fromRGBO(180, 38, 38, 100),
         ),
@@ -42,5 +45,67 @@ class _ForumPageState extends State<ForumPage> {
             ],
           ),
         ));
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Create post'),
+          content: TextField(
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            controller: _postController,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Color.fromARGB(255, 255, 255, 255),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              hintText: 'Content',
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Enable'),
+              onPressed: () async {
+                final db = FirebaseFirestore.instance;
+                final FirebaseAuth auth = FirebaseAuth.instance;
+                final User? currentUser = auth.currentUser;
+                final uid = currentUser!.uid;
+
+                final post = <String, dynamic>{
+                  "likes": 0,
+                  "msg": _postController.text,
+                  "uid": uid
+                };
+
+                DocumentReference roomRef =
+                    db.collection("rooms").doc("I7fhBrk2C0wHI2I1CNRL");
+
+                roomRef.update({
+                  "posts": FieldValue.arrayUnion([post]),
+                });
+
+                Navigator.of(context).pop();
+                _postController.clear();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
