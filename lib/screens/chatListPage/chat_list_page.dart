@@ -17,24 +17,24 @@ class ChatListPage extends StatelessWidget {
               child: Icon(Icons.account_circle_rounded),
             )
           ],
-          title: const Text('Chatter'),
+          title: const Text('Chat List'),
           backgroundColor: Colors.black,
           centerTitle: true,
         ),
         body: ListView(
           children: <Widget> [
             SizedBox(height: 30),
-            ChatCard("Action-fantasterna"),
+            ChatCard("Action-fantasterna"), 
             ChatCard("Romantik-Gruppen"),
             ChatCard("Thriller-freaks"),
-            SizedBox(height: 140),
+            SizedBox(height: 120),
             Center(
               child: Container(
-                height: 140.0,
-                width: 170.0,
+                height: 170.0,
+                width: 210.0,
                 decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/group_picture.png'),
+                  image: AssetImage('assets/images/undraw_Chat.png'),
                   fit: BoxFit.fill,
                 ),
                 ),
