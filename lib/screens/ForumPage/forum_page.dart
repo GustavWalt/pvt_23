@@ -13,6 +13,7 @@ class ForumPage extends StatefulWidget {
 
 class _ForumPageState extends State<ForumPage> {
   final TextEditingController _postController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +80,7 @@ class _ForumPageState extends State<ForumPage> {
               style: TextButton.styleFrom(
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
-              child: const Text('Enable'),
+              child: const Text('Post'),
               onPressed: () async {
                 final db = FirebaseFirestore.instance;
                 final FirebaseAuth auth = FirebaseAuth.instance;
@@ -89,11 +90,12 @@ class _ForumPageState extends State<ForumPage> {
                 final post = <String, dynamic>{
                   "likes": 0,
                   "msg": _postController.text,
-                  "uid": uid
+                  "uid": uid,
+                  'createdOn': DateTime.now().microsecondsSinceEpoch
                 };
 
                 DocumentReference roomRef =
-                    db.collection("rooms").doc("I7fhBrk2C0wHI2I1CNRL");
+                    db.collection("groups").doc("4V6nCMzVFvgjxxEeT84i");
 
                 roomRef.update({
                   "posts": FieldValue.arrayUnion([post]),
