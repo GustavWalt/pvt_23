@@ -32,7 +32,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return const ForumPage();
+          return const LoginPage();
         }),
     GoRoute(
         path: '/specific_movie_result_page',
@@ -59,7 +59,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/profile_page',
       builder: (BuildContext context, GoRouterState state) {
-        return const ProfilePage();
+        return const ForumPage();
       },
     ),
     GoRoute(
