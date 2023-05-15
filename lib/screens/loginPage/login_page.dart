@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 
 import '../../logic/auth_service.dart';
 
@@ -77,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                     password: _passwordController.text,
                   );
                   if (message!.contains('Success')) {
-                    context.go('/home_page');
+                    context.go('/test_page');
                   }
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

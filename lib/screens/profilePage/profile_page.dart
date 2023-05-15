@@ -27,15 +27,24 @@ class _ProfilePageState extends State<ProfilePage> {
     readJson();
     return Scaffold(
         bottomNavigationBar: const MenuWidget(),
+        backgroundColor: const Color.fromARGB(255, 35, 33, 26),
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Colors.black,
+          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
           title: const Text(
-            'Profile',
+            'Profil',
           ),
+          actions: const [
+            Padding(
+                padding: EdgeInsets.only(right: 20),
+                child: Icon(
+                  Icons.account_circle_rounded,
+                  color: Color.fromARGB(255, 147, 48, 48),
+                ))
+          ],
         ),
         body: Padding(
-            padding: const EdgeInsets.all(25),
+            padding: const EdgeInsets.all(0),
             child: Column(children: [
               _items.isNotEmpty
                   ? Expanded(
@@ -43,102 +52,181 @@ class _ProfilePageState extends State<ProfilePage> {
                         itemCount: _items.length,
                         itemBuilder: (context, index) {
                           return Column(children: [
-                            Row(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: CircleAvatar(
-                                    radius: 40,
-                                    backgroundColor: Colors.black,
-                                    child: CircleAvatar(
-                                      radius: 38,
-                                      backgroundImage:
-                                          AssetImage("assets/images/logo1.png"),
+                            Stack(children: <Widget>[
+                              Container(
+                                  height: 90,
+                                  width: double.infinity,
+                                  color:
+                                      const Color.fromARGB(255, 147, 48, 48)),
+                              const Positioned(
+                                  top: 30,
+                                  left: 0,
+                                  right: 0,
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: CircleAvatar(
+                                        radius: 60,
+                                        backgroundColor:
+                                            Color.fromARGB(255, 189, 194, 197),
+                                        child: CircleAvatar(
+                                          radius: 57,
+                                          backgroundImage: AssetImage(
+                                              "assets/images/profile1.png"),
+                                        ),
+                                      ))),
+                              Card(
+                                margin:
+                                    const EdgeInsets.fromLTRB(30, 130, 30, 8),
+                                color: Colors.transparent,
+                                elevation: 0,
+                                child: Column(children: <Widget>[
+                                  const ListTile(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(horizontal: 0),
+                                    title: Text('Username',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        )),
+                                  ),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 15.0),
+                                      filled: true,
+                                      fillColor: const Color.fromARGB(
+                                          255, 189, 194, 197),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      hintText: 'JaneDoe1',
                                     ),
                                   ),
+                                ]),
+                              ),
+                            ]),
+                            Card(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 8),
+                              color: Colors.transparent,
+                              elevation: 0,
+                              child: Column(children: <Widget>[
+                                const ListTile(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 0),
+                                  title: Text('E-mail',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      )),
                                 ),
-                                Text(
-                                  _items[index]["name"],
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                )
-                              ],
+                                TextField(
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
+                                    filled: true,
+                                    fillColor: const Color.fromARGB(
+                                        255, 189, 194, 197),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    hintText: 'janedoe@samplemail.com',
+                                  ),
+                                ),
+                              ]),
                             ),
                             Card(
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    ListTile(
-                                      title: const Text('Username',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      subtitle: Text(
-                                        _items[index]["username"],
-                                      ),
-                                    ),
-                                  ]),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 8),
+                              color: Colors.transparent,
+                              elevation: 0,
+                              child: Column(children: <Widget>[
+                                const ListTile(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 0),
+                                  title: Text('Phone number',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      )),
+                                ),
+                                TextField(
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
+                                    filled: true,
+                                    fillColor: const Color.fromARGB(
+                                        255, 189, 194, 197),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    hintText: '+46 70 123 45 67',
+                                  ),
+                                ),
+                              ]),
                             ),
                             Card(
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    ListTile(
-                                      title: const Text('Email address',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      subtitle: Text(
-                                        _items[index]["email"],
-                                      ),
-                                    ),
-                                  ]),
-                            ),
-                            Card(
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    ListTile(
-                                      title: const Text('Password',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      subtitle: Text(
-                                        _items[index]["password"],
-                                      ),
-                                    ),
-                                  ]),
-                            ),
-                            Card(
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    ListTile(
-                                      title: const Text('Description',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      subtitle: Text(
-                                        _items[index]["description"],
-                                      ),
-                                    ),
-                                  ]),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 8),
+                              color: Colors.transparent,
+                              elevation: 0,
+                              child: Column(children: <Widget>[
+                                const ListTile(
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 0),
+                                  title: Text('Password',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      )),
+                                ),
+                                TextField(
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
+                                    filled: true,
+                                    fillColor: const Color.fromARGB(
+                                        255, 189, 194, 197),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    hintText: '************',
+                                  ),
+                                ),
+                              ]),
                             ),
                             const Padding(
-                                padding: EdgeInsets.all(20),
-                                child: Text("Edit profile",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)))
+                                padding: EdgeInsets.all(18),
+                                child: Text("Update",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    )))
                           ]);
                         },
                       ),
                     )
                   : Container(),
               Container(
-                  height: 65,
-                  padding: const EdgeInsets.fromLTRB(55, 8, 55, 8),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromRadius(80),
-                        backgroundColor: Colors.black),
-                    child: const Text("Log out"),
+                        minimumSize: const Size.fromRadius(10),
+                        backgroundColor: const Color.fromARGB(255, 147, 48, 48),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        padding: const EdgeInsets.all(15),
+                        side: const BorderSide(color: Colors.black, width: 0)),
+                    child: RichText(
+                      text: const TextSpan(
+                        children: [
+                          WidgetSpan(
+                            child: Icon(Icons.logout, size: 16),
+                          ),
+                          TextSpan(
+                              text: " Log out",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
                     onPressed: () => context.go('/'),
                   )),
             ])));
