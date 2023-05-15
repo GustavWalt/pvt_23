@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,9 @@ import 'package:pvt_23/screens/ChatListPage/chat_list_page.dart';
 import 'package:pvt_23/screens/GroupPage/group_page.dart';
 import 'package:pvt_23/screens/ProfilePage/profile_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pvt_23/screens/plannedEventPage/planned_event_page.dart';
 import 'firebase_options.dart';
+import 'screens/createGroupPage/create_group_page.dart';
 
 /*
 Bra sen när vi vill redirect någon som inte är inloggad.
@@ -33,6 +36,16 @@ final GoRouter _router = GoRouter(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
           return const LoginPage();
+        }),
+    GoRoute(
+        path: '/planned_event_page',
+        builder: (BuildContext context, GoRouterState state) {
+          return const PlannedEventPage();
+        }),
+    GoRoute(
+        path: '/test_page',
+        builder: (BuildContext context, GoRouterState state) {
+          return FetchDataTestPage();
         }),
     GoRoute(
         path: '/specific_movie_result_page',
@@ -69,9 +82,21 @@ final GoRouter _router = GoRouter(
       },
     ),
     GoRoute(
+      path: '/create_group_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const CreateGroupPage();
+      },
+    ),
+    GoRoute(
       path: '/find_new_group_page',
       builder: (BuildContext context, GoRouterState state) {
         return const FindNewGroupPage();
+      },
+    ),
+    GoRoute(
+      path: '/find_group_result_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const FindGroupResultPage();
       },
     ),
   ],

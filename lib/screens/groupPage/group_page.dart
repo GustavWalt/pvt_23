@@ -57,7 +57,8 @@ class _GroupPageState extends State<GroupPage> {
                                 style: TextStyle(color: Colors.black),
                               ),
                               //Should not go to group page, should go to view for specific group connected to the id of the buttom pressed.
-                              onPressed: () => context.go('/group_page'),
+                              onPressed: () =>
+                                  context.go('/find_new_group_page'),
                             ));
                       },
                     ),
