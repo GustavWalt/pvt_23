@@ -134,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   await db.collection("users").doc(uid).set(user);
 
-                  context.go('/home_page');
+                  context.go('/create_group_page');
                 }
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
