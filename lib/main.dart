@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:pvt_23/providers/navigation_bar_provider.dart';
+import 'package:pvt_23/screens/ForumPage/forum_page.dart';
 import 'package:pvt_23/screens/SpecificMovieResultPage/specific_movie_result_page.dart';
 import 'package:pvt_23/screens/FindGroupResultPage/find_group_result_page.dart';
 import 'package:pvt_23/screens/FindNewGroupPage/find_new_group_page.dart';
@@ -71,7 +72,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/profile_page',
       builder: (BuildContext context, GoRouterState state) {
-        return const ProfilePage();
+        return const ForumPage();
       },
     ),
     GoRoute(
