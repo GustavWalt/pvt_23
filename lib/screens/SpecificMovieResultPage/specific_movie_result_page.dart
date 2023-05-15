@@ -8,18 +8,25 @@ class SpecificMovieResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: const Color.fromARGB(255, 35, 33, 26),
         appBar: AppBar(
-          leading: BackButton(
-            color: Colors.black,
-            onPressed: () => context.go("/login_page"),
-          ),
+          actions: const [
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Icon(Icons.account_circle_rounded),
+            )
+          ],
+          leading: const Icon(Icons.arrow_back_rounded),
+          title: const Text('Movie'),
+          backgroundColor: Colors.black,
+          centerTitle: true,
         ),
-        bottomNavigationBar: MenuWidget(),
+        bottomNavigationBar: const MenuWidget(),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(50, 100, 50, 50),
+              padding: const EdgeInsets.fromLTRB(50, 100, 50, 50),
               child: Row(
                 children: [
                   Container(
@@ -30,13 +37,15 @@ class SpecificMovieResultPage extends StatelessWidget {
                   )),
                   Container(
                       height: 75,
-                      padding: EdgeInsets.only(left: 25),
+                      padding: const EdgeInsets.only(left: 25),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Harry Potter", style: TextStyle(fontSize: 20)),
+                          const Text("Harry Potter",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white)),
                           Padding(
-                            padding: EdgeInsets.only(top: 10),
+                            padding: const EdgeInsets.only(top: 10),
                             child: Row(
                               children: [
                                 Image.asset(
@@ -44,11 +53,11 @@ class SpecificMovieResultPage extends StatelessWidget {
                                   height: 25,
                                   width: 25,
                                 ),
-                                Image.asset(
-                                  "assets/images/netflix.png",
-                                  height: 25,
-                                  width: 25,
-                                ),
+                                Image.asset("assets/images/netflix.png",
+                                    height: 25,
+                                    width: 25,
+                                    color:
+                                        const Color.fromARGB(255, 160, 23, 23)),
                                 Image.asset(
                                   "assets/images/hbo.png",
                                   height: 25,
@@ -63,21 +72,31 @@ class SpecificMovieResultPage extends StatelessWidget {
               ),
             ),
             Padding(
-                padding: EdgeInsets.fromLTRB(50, 0, 50, 50),
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 50),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: const [
                     Text("Description",
-                        style: TextStyle(
-                          fontSize: 35,
-                        )),
+                        style: TextStyle(fontSize: 35, color: Colors.white)),
                     Text(
                         "Harry Potter thinks he is an ordinary boy celebrating his 11th birthday, but he is far from right. A giant named Hagrid appears, and gives Harry the all important news. He is a wizard.But not everything is quiet at Hogwarts as Harry suspects someone is planning to steal the sorcerer's stone.Adaptation of the first of J.K.",
-                        style: TextStyle(
-                          fontSize: 15,
-                        )),
+                        style: TextStyle(fontSize: 15, color: Colors.white)),
                   ],
-                ))
+                )),
+            Container(
+              height: 65,
+              padding: const EdgeInsets.fromLTRB(55, 8, 55, 8),
+              child: Center(
+                  child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100)),
+                    minimumSize: const Size.fromRadius(80),
+                    backgroundColor: const Color.fromARGB(255, 143, 28, 28)),
+                child: const Text("Pick Movie"),
+                onPressed: () => context.go('/'),
+              )),
+            )
           ],
         ));
   }
