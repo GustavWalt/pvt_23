@@ -68,7 +68,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
         backgroundColor: Colors.black,
         centerTitle: true,
       ),
-      body: Column(
+      body: ListView(
         children: [
           Center(
             child: Column(
