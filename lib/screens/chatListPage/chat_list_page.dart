@@ -9,21 +9,39 @@ class ChatListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: const MenuWidget(),
+        backgroundColor: Color.fromARGB(255, 35, 33, 26),
+        appBar: AppBar(
+          actions: const [
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Icon(Icons.account_circle_rounded),
+            )
+          ],
+          title: const Text('Chat List'),
+          backgroundColor: Colors.black,
+          centerTitle: true,
+        ),
         body: ListView(
-          children: const [
+          children: <Widget> [
+            SizedBox(height: 30),
+            ChatCard("Action-fantasterna"), 
+            ChatCard("Romantik-Gruppen"),
+            ChatCard("Thriller-freaks"),
+            SizedBox(height: 120),
             Center(
-              child: Text(
-                "Chats",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              child: Container(
+                height: 170.0,
+                width: 210.0,
+                decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/undraw_Chat.png'),
+                  fit: BoxFit.fill,
+                ),
+                ),
               ),
             ),
-            ChatCard("Skogshuggarna"),
-            ChatCard("Friskyttarna"),
-            ChatCard("Grevens genier"),
-            ChatCard("Flyggande getterna"),
-            ChatCard("Multivitamin-klubben"),
-            ChatCard("Kaffeklubben"),
           ],
-        ));
+        ),
+    );
   }
 }
