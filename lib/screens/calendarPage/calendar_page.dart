@@ -19,7 +19,15 @@ class _CalendarPageState extends State<CalendarPage> {
     return Scaffold(
       bottomNavigationBar: const MenuWidget(),
       appBar: AppBar(
-        title: const Text('TableCalendar - Basics'),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Icon(Icons.account_circle_rounded),
+          )
+        ],
+        title: const Text('Calendar'),
+        backgroundColor: Colors.black,
+        centerTitle: true,
       ),
       body: TableCalendar(
         firstDay: DateTime.utc(2010, 10, 16),

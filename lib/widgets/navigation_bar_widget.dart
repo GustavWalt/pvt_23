@@ -14,30 +14,31 @@ class MenuWidget extends StatelessWidget {
       currentIndex: currentScreenIndex,
       items: [
         BottomNavigationBarItem(
-            label: 'Homepage',
+            label: 'Groups',
             icon: Icon(
-                (currentScreenIndex == 0) ? Icons.home : Icons.home_outlined),
+                (currentScreenIndex == 0) ? Icons.group : Icons.group_outlined),
             backgroundColor: Colors
                 .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
             ),
         BottomNavigationBarItem(
-            label: 'Profile',
+            label: 'Movies',
             icon: Icon(
                 (currentScreenIndex == 0) ? Icons.man : Icons.man_outlined),
             backgroundColor: Colors
                 .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
             ),
         BottomNavigationBarItem(
-            label: 'Chat',
+            label: 'Chats',
             icon: Icon(
                 (currentScreenIndex == 2) ? Icons.chat : Icons.chat_outlined),
             backgroundColor: Colors
                 .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
             ),
         BottomNavigationBarItem(
-            label: 'Groups',
-            icon: Icon(
-                (currentScreenIndex == 2) ? Icons.group : Icons.group_outlined),
+            label: 'Calendar',
+            icon: Icon((currentScreenIndex == 2)
+                ? Icons.calendar_today
+                : Icons.calendar_today_outlined),
             backgroundColor: Colors
                 .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
             ),
@@ -46,7 +47,7 @@ class MenuWidget extends StatelessWidget {
         navigationBarProvider.updateScreenIndex(value);
         switch (value) {
           case 0:
-            context.go('/home_page');
+            context.go('/group_page');
             break;
 
           case 1:
@@ -58,7 +59,7 @@ class MenuWidget extends StatelessWidget {
             break;
 
           case 3:
-            context.go('/group_page');
+            context.go('/calendar_page');
             break;
         }
       },
