@@ -67,8 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1012806088609',
     projectId: 'pvt-23',
     storageBucket: 'pvt-23.appspot.com',
-    iosClientId:
-        '1012806088609-r9feg4dro6pr29pl4h7fbsik6md6ajpn.apps.googleusercontent.com',
+    iosClientId: '1012806088609-r9feg4dro6pr29pl4h7fbsik6md6ajpn.apps.googleusercontent.com',
     iosBundleId: 'com.example.pvt23',
   );
 
@@ -78,8 +77,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1012806088609',
     projectId: 'pvt-23',
     storageBucket: 'pvt-23.appspot.com',
-    iosClientId:
-        '1012806088609-r9feg4dro6pr29pl4h7fbsik6md6ajpn.apps.googleusercontent.com',
+    iosClientId: '1012806088609-r9feg4dro6pr29pl4h7fbsik6md6ajpn.apps.googleusercontent.com',
     iosBundleId: 'com.example.pvt23',
   );
 }

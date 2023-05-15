@@ -9,6 +9,7 @@ import 'package:pvt_23/screens/chatListPage/chat_list_page.dart';
 import 'package:pvt_23/screens/groupPage/group_page.dart';
 import 'package:pvt_23/screens/profilePage/profile_page.dart';
 import 'package:pvt_23/screens/searchFunctionPage/search_function_page.dart';
+import 'package:pvt_23/screens/searchResultsPage/search_results_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -29,7 +30,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return const LoginPage();
+          return const SearchFunctionPage();
         }),
     GoRoute(
         path: '/login_page',
@@ -70,6 +71,12 @@ final GoRouter _router = GoRouter(
       path: '/search_function_page',
       builder: (BuildContext context, GoRouterState state) {
         return const SearchFunctionPage();
+      },
+    ),
+    GoRoute(
+      path: '/search_results_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const SearchResultsPage();
       },
     ),
   ],
