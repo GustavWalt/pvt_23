@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:pvt_23/providers/navigation_bar_provider.dart';
+import 'package:pvt_23/screens/homePage/home_page.dart';
+import 'package:pvt_23/screens/loginPage/login_page.dart';
+import 'package:pvt_23/screens/registerPage/register_page.dart';
+import 'package:pvt_23/screens/chatListPage/chat_list_page.dart';
+import 'package:pvt_23/screens/groupPage/group_page.dart';
+import 'package:pvt_23/screens/profilePage/profile_page.dart';
+import 'package:pvt_23/screens/searchFunctionPage/search_function_page.dart';
+import 'package:pvt_23/screens/searchResultsPage/search_results_page.dart';
 import 'package:pvt_23/screens/CalendarPage/calendar_page.dart';
 import 'package:pvt_23/screens/ForumPage/forum_page.dart';
 import 'package:pvt_23/screens/SpecificMovieResultPage/specific_movie_result_page.dart';
@@ -93,6 +101,15 @@ final GoRouter _router = GoRouter(
       },
     ),
     GoRoute(
+      path: '/search_function_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const SearchFunctionPage();
+      },
+    ),
+    GoRoute(
+      path: '/search_results_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const SearchResultsPage();
       path: '/create_group_page',
       builder: (BuildContext context, GoRouterState state) {
         return const CreateGroupPage();
