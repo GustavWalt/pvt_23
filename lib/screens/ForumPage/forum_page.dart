@@ -19,7 +19,7 @@ class _ForumPageState extends State<ForumPage> {
   final db = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  final Stream<QuerySnapshot> _usersStream =
+  final Stream<QuerySnapshot> _groupsStream =
       FirebaseFirestore.instance.collection('groups').snapshots();
 
   @override
@@ -32,7 +32,7 @@ class _ForumPageState extends State<ForumPage> {
     }
 
     return StreamBuilder<QuerySnapshot>(
-      stream: _usersStream,
+      stream: _groupsStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return Text('Something went wrong');
