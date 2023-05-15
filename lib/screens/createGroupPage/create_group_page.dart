@@ -259,15 +259,14 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                       "level": levelValue,
                       "name": _nameController.text,
                       "size": sizeValue,
-                      "admin": uid
+                      "admin": uid,
+                      "posts": [],
                     };
 
                     final userData = <String, dynamic>{"uid": uid};
 
                     DocumentReference docRef =
                         await db.collection("groups").add(groupData);
-
-                    print(docRef.toString());
 
                     await db
                         .collection("groups")
