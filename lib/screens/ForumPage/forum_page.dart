@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pvt_23/screens/ForumPage/forum_post.dart';
 import 'package:intl/intl.dart';
 import '../../widgets/navigation_bar_widget.dart';
@@ -56,7 +57,10 @@ class _ForumPageState extends State<ForumPage> {
                 child: Icon(Icons.account_circle_rounded),
               )
             ],
-            leading: const Icon(Icons.arrow_back_rounded),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () => context.go("/chat_list"),
+            ),
             title: const Text('Forum'),
             backgroundColor: Colors.black,
             centerTitle: true,
