@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -227,7 +228,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                     ),
-                    onPressed: () => context.go('/'),
+                    onPressed: () async {
+                      await FirebaseAuth.instance.signOut();
+                      context.go("/");
+                    },
                   )),
             ])));
   }

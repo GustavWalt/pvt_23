@@ -30,11 +30,15 @@ class _GroupPageState extends State<GroupPage> {
       backgroundColor: Color.fromARGB(255, 35, 33, 26),
       bottomNavigationBar: const MenuWidget(),
       appBar: AppBar(
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Icon(Icons.account_circle_rounded),
-          )
+              padding: EdgeInsets.only(right: 20),
+              child: GestureDetector(
+                onTap: () {
+                  context.go("/profile_page");
+                },
+                child: Icon(Icons.account_circle),
+              ))
         ],
         title: const Text('Groups'),
         backgroundColor: Colors.black,

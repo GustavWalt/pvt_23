@@ -44,13 +44,26 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
       bottomNavigationBar: const MenuWidget(),
       backgroundColor: Color.fromARGB(255, 35, 33, 26),
       appBar: AppBar(
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Icon(Icons.account_circle_rounded),
-          )
+              padding: EdgeInsets.only(right: 20),
+              child: GestureDetector(
+                onTap: () {
+                  context.go("/profile_page");
+                },
+                child: Icon(Icons.account_circle),
+              ))
         ],
-        leading: const Icon(Icons.arrow_back_rounded),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                context.go("/group_page");
+              },
+            );
+          },
+        ),
         title: const Text('Create group'),
         backgroundColor: Colors.black,
         centerTitle: true,
@@ -261,12 +274,6 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                         .doc(docRef.id)
                         .collection("users")
                         .add(userData);
-
-                    final roomData = <String, dynamic>{
-                      "name": _nameController.text
-                    };
-
-                    await db.collection("rooms").doc(docRef.id).set(roomData);
                   }))
         ],
       ),

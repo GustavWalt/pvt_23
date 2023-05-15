@@ -51,15 +51,25 @@ class _ForumPageState extends State<ForumPage> {
             backgroundColor: Color.fromRGBO(180, 38, 38, 100),
           ),
           appBar: AppBar(
-            actions: const [
+            actions: [
               Padding(
-                padding: EdgeInsets.only(right: 20),
-                child: Icon(Icons.account_circle_rounded),
-              )
+                  padding: EdgeInsets.only(right: 20),
+                  child: GestureDetector(
+                    onTap: () {
+                      context.go("/profile_page");
+                    },
+                    child: Icon(Icons.account_circle),
+                  ))
             ],
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => context.go("/chat_list"),
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    context.go("/chat_list_page");
+                  },
+                );
+              },
             ),
             title: const Text('Forum'),
             backgroundColor: Colors.black,

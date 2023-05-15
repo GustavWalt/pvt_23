@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,8 +14,17 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      final User? user = auth.currentUser;
+      if (user != null) {
+        context.go('/group_page');
+      }
+    });
+
     return Scaffold(
       body: ListView(
         children: [
@@ -76,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                     password: _passwordController.text,
                   );
                   if (message!.contains('Success')) {
-                    context.go('/test_page');
+                    context.go('/group_page');
                   }
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../widgets/navigation_bar_widget.dart';
 
@@ -16,13 +17,26 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
         bottomNavigationBar: const MenuWidget(),
         backgroundColor: Color.fromARGB(255, 35, 33, 26),
         appBar: AppBar(
-          actions: const [
+          actions: [
             Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(Icons.account_circle_rounded),
-            )
+                padding: EdgeInsets.only(right: 20),
+                child: GestureDetector(
+                  onTap: () {
+                    context.go("/profile_page");
+                  },
+                  child: Icon(Icons.account_circle),
+                ))
           ],
-          leading: const Icon(Icons.arrow_back_rounded),
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  context.go("/find_new_group_page");
+                },
+              );
+            },
+          ),
           title: const Text('Groups'),
           backgroundColor: Colors.black,
           centerTitle: true,

@@ -1,41 +1,28 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:pvt_23/providers/navigation_bar_provider.dart';
-import 'package:pvt_23/screens/homePage/home_page.dart';
-import 'package:pvt_23/screens/loginPage/login_page.dart';
-import 'package:pvt_23/screens/registerPage/register_page.dart';
-import 'package:pvt_23/screens/chatListPage/chat_list_page.dart';
-import 'package:pvt_23/screens/groupPage/group_page.dart';
-import 'package:pvt_23/screens/profilePage/profile_page.dart';
-import 'package:pvt_23/screens/searchFunctionPage/search_function_page.dart';
-import 'package:pvt_23/screens/searchResultsPage/search_results_page.dart';
+import 'package:pvt_23/screens/CreateGroupPage/create_group_page.dart';
+import 'package:pvt_23/screens/LoginPage/login_page.dart';
+import 'package:pvt_23/screens/RegisterPage/register_page.dart';
+import 'package:pvt_23/screens/ChatListPage/chat_list_page.dart';
+import 'package:pvt_23/screens/GroupPage/group_page.dart';
+import 'package:pvt_23/screens/ProfilePage/profile_page.dart';
+import 'package:pvt_23/screens/SearchPage/search_page.dart';
+import 'package:pvt_23/screens/SearchResultsPage/search_results_page.dart';
 import 'package:pvt_23/screens/CalendarPage/calendar_page.dart';
 import 'package:pvt_23/screens/ForumPage/forum_page.dart';
 import 'package:pvt_23/screens/SpecificMovieResultPage/specific_movie_result_page.dart';
 import 'package:pvt_23/screens/FindGroupResultPage/find_group_result_page.dart';
 import 'package:pvt_23/screens/FindNewGroupPage/find_new_group_page.dart';
 import 'package:pvt_23/screens/FetchDataTestPage/fetch_data_test_page.dart';
-import 'package:pvt_23/screens/LoginPage/login_page.dart';
-import 'package:pvt_23/screens/RegisterPage/register_page.dart';
-import 'package:pvt_23/screens/ChatListPage/chat_list_page.dart';
-import 'package:pvt_23/screens/GroupPage/group_page.dart';
-import 'package:pvt_23/screens/ProfilePage/profile_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:pvt_23/screens/PlannedEventPage/planned_event_page.dart';
 import 'firebase_options.dart';
-import 'screens/CreateGroupPage/create_group_page.dart';
 
 /*
 Bra sen när vi vill redirect någon som inte är inloggad.
-redirect: (BuildContext context, GoRouterState state) {
-  if (AuthState.of(context).isSignedIn) {
-    return '/signin';
-  } else {
-    return null;
-  }   
-},
+
 */
 
 // Route config
@@ -44,7 +31,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return const ForumPage();
+          return const LoginPage();
         }),
     GoRoute(
         path: '/forum_page',
@@ -52,10 +39,21 @@ final GoRouter _router = GoRouter(
           return const ForumPage();
         }),
     GoRoute(
+        path: '/search_page',
+        builder: (BuildContext context, GoRouterState state) {
+          return const SearchPage();
+        }),
+    GoRoute(
         path: '/planned_event_page',
         builder: (BuildContext context, GoRouterState state) {
           return const PlannedEventPage();
         }),
+    GoRoute(
+      path: '/create_group_page',
+      builder: (BuildContext context, GoRouterState state) {
+        return const CreateGroupPage();
+      },
+    ),
     GoRoute(
         path: '/calendar_page',
         builder: (BuildContext context, GoRouterState state) {
@@ -101,18 +99,9 @@ final GoRouter _router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/search_function_page',
-      builder: (BuildContext context, GoRouterState state) {
-        return const SearchFunctionPage();
-      },
-    ),
-    GoRoute(
       path: '/search_results_page',
       builder: (BuildContext context, GoRouterState state) {
         return const SearchResultsPage();
-      path: '/create_group_page',
-      builder: (BuildContext context, GoRouterState state) {
-        return const CreateGroupPage();
       },
     ),
     GoRoute(

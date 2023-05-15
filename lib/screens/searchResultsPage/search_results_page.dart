@@ -16,10 +16,16 @@ const List<String> movieImages = <String>[
   '',
 ];
 
-const List<String> listDecades = <String> [
-    "Harry Potter", "Movie 2", "Movie 3", "Movie 4", "Movie 5",
-     "Movie 6",  "Movie 7", "Movie 8"
-  ];
+const List<String> listDecades = <String>[
+  "Harry Potter",
+  "Movie 2",
+  "Movie 3",
+  "Movie 4",
+  "Movie 5",
+  "Movie 6",
+  "Movie 7",
+  "Movie 8"
+];
 
 class SearchResultsPage extends StatefulWidget {
   const SearchResultsPage({Key? key}) : super(key: key);
@@ -41,7 +47,16 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             child: Icon(Icons.account_circle_rounded),
           )
         ],
-        leading: const Icon(Icons.arrow_back_rounded),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                context.go("/search_page");
+              },
+            );
+          },
+        ),
         centerTitle: true,
         backgroundColor: Colors.black,
         title: const Text(
@@ -49,35 +64,28 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
         ),
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(40, 40, 40, 40),
-      child: GridView.builder(
-        itemCount: movieImages.length,
-        itemBuilder: (context, index){
-          
-          GestureDetector(
-            onTap: (){
+          child: Padding(
+        padding: const EdgeInsets.fromLTRB(40, 40, 40, 40),
+        child: GridView.builder(
+          itemCount: movieImages.length,
+          itemBuilder: (context, index) {
+            GestureDetector(
+              onTap: () {},
+            );
 
-            },
-          );
-          
-          return Container(
-            decoration: BoxDecoration(
-            image: DecorationImage(image: NetworkImage(movieImages[index]), 
-            fit: BoxFit.cover)
-            )
-          );
-        }, 
-        
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 50,
-        mainAxisSpacing: 30,
-       ),
-       ),
-        )
-      ),
+            return Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(movieImages[index]),
+                        fit: BoxFit.cover)));
+          },
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 50,
+            mainAxisSpacing: 30,
+          ),
+        ),
+      )),
     );
   }
-
 }

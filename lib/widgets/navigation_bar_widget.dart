@@ -23,7 +23,7 @@ class MenuWidget extends StatelessWidget {
         BottomNavigationBarItem(
             label: 'Movies',
             icon: Icon(
-                (currentScreenIndex == 0) ? Icons.man : Icons.man_outlined),
+                (currentScreenIndex == 0) ? Icons.movie : Icons.movie_outlined),
             backgroundColor: Colors
                 .black // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
             ),
@@ -51,7 +51,7 @@ class MenuWidget extends StatelessWidget {
             break;
 
           case 1:
-            context.go('/profile_page');
+            context.go('/search_page');
             break;
 
           case 2:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -19,11 +20,15 @@ class _CalendarPageState extends State<CalendarPage> {
     return Scaffold(
       bottomNavigationBar: const MenuWidget(),
       appBar: AppBar(
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: Icon(Icons.account_circle_rounded),
-          )
+              padding: EdgeInsets.only(right: 20),
+              child: GestureDetector(
+                onTap: () {
+                  context.go("/profile_page");
+                },
+                child: Icon(Icons.account_circle),
+              ))
         ],
         title: const Text('Calendar'),
         backgroundColor: Colors.black,
