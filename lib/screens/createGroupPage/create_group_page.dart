@@ -279,6 +279,21 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                         .doc(auth.currentUser!.uid)
                         .collection("groups")
                         .add(groupData);
+
+                    if (groupData.isNotEmpty) {
+                      context.go('/group_page');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Success!"),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Try again!"),
+                        ),
+                      );
+                    }
                   }))
         ],
       ),
