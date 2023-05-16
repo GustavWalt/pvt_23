@@ -273,6 +273,12 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                         .doc(docRef.id)
                         .collection("users")
                         .add(userData);
+
+                    await db
+                        .collection("users")
+                        .doc(auth.currentUser!.uid)
+                        .collection("groups")
+                        .add(groupData);
                   }))
         ],
       ),
