@@ -253,44 +253,56 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                     final User? currentUser = auth.currentUser;
                     final uid = currentUser!.uid;
 
-                    final groupData = <String, dynamic>{
-                      "description": _descriptionController.text,
-                      "genre": genreValue,
-                      "level": levelValue,
-                      "name": _nameController.text,
-                      "size": sizeValue,
-                      "admin": uid,
-                      "posts": [],
-                    };
-
                     final userData = <String, dynamic>{"uid": uid};
 
-                    DocumentReference docRef =
-                        await db.collection("groups").add(groupData);
+                    if (_nameController.text == "" ||
+                        _descriptionController.text == "") {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Error"),
+                            content: const Text("Please fill in all fields"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("OK"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                      return;
+                    } else {
+                      final groupData = <String, dynamic>{
+                        "description": _descriptionController.text,
+                        "genre": genreValue,
+                        "level": levelValue,
+                        "name": _nameController.text,
+                        "size": sizeValue,
+                        "admin": uid,
+                        "posts": [],
+                      };
+                      DocumentReference docRef =
+                          await db.collection("groups").add(groupData);
 
-                    await db
-                        .collection("groups")
-                        .doc(docRef.id)
-                        .collection("users")
-                        .add(userData);
+                      await db
+                          .collection("groups")
+                          .doc(docRef.id)
+                          .collection("users")
+                          .add(userData);
 
-                    await db
-                        .collection("users")
-                        .doc(auth.currentUser!.uid)
-                        .collection("groups")
-                        .add(groupData);
-
-                    if (groupData.isNotEmpty) {
+                      await db
+                          .collection("users")
+                          .doc(auth.currentUser!.uid)
+                          .collection("groups")
+                          .add(groupData);
                       context.go('/group_page');
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text("Success!"),
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Try again!"),
                         ),
                       );
                     }

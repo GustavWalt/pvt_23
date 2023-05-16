@@ -18,6 +18,7 @@ import 'package:pvt_23/screens/FindNewGroupPage/find_new_group_page.dart';
 import 'package:pvt_23/screens/FetchDataTestPage/fetch_data_test_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:pvt_23/screens/PlannedEventPage/planned_event_page.dart';
+import 'package:pvt_23/screens/profilePage/profile_page_edit.dart';
 import 'firebase_options.dart';
 
 /*
@@ -92,6 +93,11 @@ final GoRouter _router = GoRouter(
         return const ProfilePage();
       },
     ),
+    GoRoute(
+        path: '/profile_page_edit',
+        builder: (BuildContext context, GoRouterState state) {
+          return const ProfilePageEdit();
+        }),
     GoRoute(
       path: '/chat_list_page',
       builder: (BuildContext context, GoRouterState state) {

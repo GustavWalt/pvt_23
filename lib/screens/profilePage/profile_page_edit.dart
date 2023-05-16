@@ -7,16 +7,20 @@ import 'package:go_router/go_router.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class ProfilePageEdit extends StatefulWidget {
+  const ProfilePageEdit({Key? key}) : super(key: key);
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _ProfilePageEditState createState() => _ProfilePageEditState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageEditState extends State<ProfilePageEdit> {
   final db = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
   //snapshot.data!.get("fullname"),
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               )),
                         ),
                         TextField(
+                          controller: _nameController,
                           decoration: InputDecoration(
                             contentPadding:
                                 const EdgeInsets.symmetric(horizontal: 15.0),
@@ -113,6 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             )),
                       ),
                       TextField(
+                        controller: _emailController,
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 15.0),
@@ -139,6 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             )),
                       ),
                       TextField(
+                        controller: _phoneController,
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 15.0),
@@ -179,20 +186,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ]),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(18),
-                    child: TextButton(
-                      child: const Text(
-                        "Update",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: () => context.go('/profile_page_edit'),
-                    ),
-                  ),
+                  const Padding(
+                      padding: EdgeInsets.all(18),
+                      child: Text("Update",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ))),
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                     child: ElevatedButton(
@@ -208,18 +209,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: RichText(
                         text: const TextSpan(
                           children: [
-                            WidgetSpan(
-                              child: Icon(Icons.logout, size: 16),
-                            ),
                             TextSpan(
-                                text: " Log out",
+                                text: "Update",
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ],
                         ),
                       ),
                       onPressed: () async {
-                        await FirebaseAuth.instance.signOut();
-                        context.go("/");
+                        await db.collection("users").doc(user!.uid).update({
+                          "fullname": _nameController.text,
+                          "email": _emailController.text,
+                          "phone": _phoneController.text,
+                        });
+                        context.go("/profile_page");
                       },
                     ),
                   ),
