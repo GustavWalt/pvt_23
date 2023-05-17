@@ -172,6 +172,7 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
                             )),
                       ),
                       TextField(
+                        controller: _passwordController,
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 15.0),
@@ -179,21 +180,14 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
                           fillColor: const Color.fromARGB(255, 189, 194, 197),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          //Get password from firebase
-
                           hintText: "********",
                         ),
                       ),
                     ]),
                   ),
                   const Padding(
-                      padding: EdgeInsets.all(18),
-                      child: Text("Update",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ))),
+                    padding: EdgeInsets.all(18),
+                  ),
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                     child: ElevatedButton(
@@ -216,6 +210,25 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
                         ),
                       ),
                       onPressed: () async {
+                        if (_nameController.text == "") {
+                          _nameController.text = snapshot.data!.get("fullname");
+                        }
+                        if (_emailController.text == "") {
+                          _emailController.text = snapshot.data!.get("email");
+                        }
+                        if (_phoneController.text == "") {
+                          _phoneController.text =
+                              snapshot.data!.get("phone").toString();
+                        }
+                        if (_passwordController.text != "") {
+                          await user?.updatePassword(_passwordController.text);
+
+                          /*final FirebaseAuth firebaseAuth =
+                              FirebaseAuth.instance;
+                          User? currentUser = firebaseAuth.currentUser;
+                          currentUser?.updatePassword("newpassword");*/
+                        }
+
                         await db.collection("users").doc(user!.uid).update({
                           "fullname": _nameController.text,
                           "email": _emailController.text,

@@ -86,6 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               )),
                         ),
                         TextField(
+                          enabled: false,
                           decoration: InputDecoration(
                             contentPadding:
                                 const EdgeInsets.symmetric(horizontal: 15.0),
@@ -113,6 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             )),
                       ),
                       TextField(
+                        enabled: false,
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 15.0),
@@ -139,6 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             )),
                       ),
                       TextField(
+                        enabled: false,
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 15.0),
@@ -165,6 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             )),
                       ),
                       TextField(
+                        enabled: false,
                         decoration: InputDecoration(
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 15.0),
@@ -172,8 +176,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           fillColor: const Color.fromARGB(255, 189, 194, 197),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          //Get password from firebase
-
                           hintText: "********",
                         ),
                       ),
