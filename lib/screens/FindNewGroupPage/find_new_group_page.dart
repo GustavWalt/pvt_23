@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pvt_23/logic/search_groups.dart';
 
 import '../../widgets/navigation_bar_widget.dart';
 
@@ -191,7 +193,15 @@ class _FindNewGroupPageState extends State<FindNewGroupPage> {
                   ),
                 ),
                 //Shuold not go to group page, this is placeholder. Should go to available groups.
-                onPressed: () => context.go('/find_group_result_page'),
+                onPressed: () {
+                  SearchGroup().setValues(genreValue, levelValue, sizeValue);
+                  Stream<QuerySnapshot<Map<String, dynamic>>> foundGroups =
+                      SearchGroup().findGroups();
+                  context.goNamed(
+                    "/find_group_result_page",
+                    extra: foundGroups,
+                  );
+                },
               ))
         ])));
   }
