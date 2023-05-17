@@ -121,7 +121,8 @@ final GoRouter _router = GoRouter(
       path: '/find_group_result_page',
       name: 'find_group_result_page',
       builder: (context, state) {
-        Object foundGroups = state.extra as Object;
+        Stream<QuerySnapshot<Map<String, dynamic>>> foundGroups =
+            state.extra as Stream<QuerySnapshot<Map<String, dynamic>>>;
         return FindGroupResultPage(foundGroups: foundGroups);
       },
     ),

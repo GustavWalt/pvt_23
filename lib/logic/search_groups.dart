@@ -11,9 +11,9 @@ class SearchGroup {
     final Stream<QuerySnapshot<Map<String, dynamic>>> matchingGroups =
         FirebaseFirestore.instance
             .collection('groups')
-            .where('genre', isEqualTo: genreValue)
-            .where('size', isEqualTo: sizeValue)
-            .where('level', isEqualTo: levelValue)
+            .where('genre', isEqualTo: genreValue.toString())
+            .where('size', isEqualTo: sizeValue.toString())
+            .where('level', isEqualTo: levelValue.toString())
             .snapshots();
 
     return matchingGroups;
