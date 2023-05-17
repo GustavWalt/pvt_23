@@ -20,6 +20,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:pvt_23/screens/PlannedEventPage/planned_event_page.dart';
 import 'package:pvt_23/screens/profilePage/profile_page_edit.dart';
 import 'firebase_options.dart';
+import 'logic/movie_class.dart';
 
 /*
 Bra sen när vi vill redirect någon som inte är inloggad.
@@ -66,10 +67,13 @@ final GoRouter _router = GoRouter(
           return FetchDataTestPage();
         }),
     GoRoute(
-        path: '/specific_movie_result_page',
-        builder: (BuildContext context, GoRouterState state) {
-          return const SpecificMovieResultPage();
-        }),
+      path: '/specific_movie_result_page',
+      name: 'specific_movie_result_page',
+      builder: (context, state) {
+        Movie movie = state.extra as Movie; // -> casting is important
+        return SpecificMovieResultPage(movie: movie);
+      },
+    ),
     GoRoute(
         path: '/login_page',
         builder: (BuildContext context, GoRouterState state) {

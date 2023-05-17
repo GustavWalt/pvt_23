@@ -5,34 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:http/http.dart' as http;
 
-const List<String> listGenres = <String>[
-  "Action",
-  "Adventure",
-  "Comedy",
-  "Romance"
-];
-
-const List<String> listSubGenres = <String>["1", "2", "3", "4", "5"];
-
-const List<String> listDecades = <String>[
-  "50s",
-  "60s",
-  "70s",
-  "80s",
-  "90s",
-  "00s",
-  "2010s",
-  "2020s"
-];
-
-const List<String> listStreamproviders = <String>[
-  "Cmore",
-  "HBO",
-  "Netflix",
-  "Hulu",
-  "Viaplay"
-];
+import '../../logic/movie_class.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -43,14 +18,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchBarController = TextEditingController();
-  Object? valueChoose;
-
-  String genreValue = listGenres.first;
-  String subGenreValue = listSubGenres.first;
-  String decadeValue = listDecades.first;
-  String streamProviderValue = listStreamproviders.first;
-
-  RangeValues values = const RangeValues(0, 10);
+  final TextEditingController _yearController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -68,19 +36,19 @@ class _SearchPageState extends State<SearchPage> {
                 child: Icon(Icons.account_circle),
               ))
         ],
-        title: const Text('Search movies'),
+        title: const Text('Search movie'),
         backgroundColor: Colors.black,
         centerTitle: true,
       ),
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(60, 40, 60, 0),
+            padding: EdgeInsets.fromLTRB(60, 20, 60, 0),
             child: TextField(
               controller: _searchBarController,
               decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.search),
-                  hintText: "Search for movie",
+                  hintText: "Movie name",
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
@@ -89,146 +57,21 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(60, 40, 60, 15),
-            child: Container(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: Colors.black, width: 2),
-              ),
-              child: DropdownButtonFormField(
-                hint: const Text("Genres"),
-                icon: const Icon(Icons.arrow_drop_down),
-                iconSize: 25,
-                isExpanded: true,
-                style: const TextStyle(color: Colors.black, fontSize: 17),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    genreValue = newValue!;
-                  });
-                },
-                items: listGenres.map((valueItem) {
-                  return DropdownMenuItem(
-                    value: valueItem,
-                    child: Text(valueItem),
-                  );
-                }).toList(),
-              ),
+            padding: EdgeInsets.fromLTRB(60, 20, 60, 20),
+            child: TextField(
+              controller: _yearController,
+              decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                  hintText: "Specify year (optional)",
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(6)),
+                      borderSide: BorderSide(color: Colors.black, width: 2))),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(60, 15, 60, 15),
-            child: Container(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: Colors.black, width: 2),
-              ),
-              child: DropdownButtonFormField(
-                hint: const Text("Sub-genre"),
-                icon: const Icon(Icons.arrow_drop_down),
-                iconSize: 25,
-                isExpanded: true,
-                style: const TextStyle(color: Colors.black, fontSize: 17),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    subGenreValue = newValue!;
-                  });
-                },
-                items: listSubGenres.map((valueItem) {
-                  return DropdownMenuItem(
-                    value: valueItem,
-                    child: Text(valueItem),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(60, 15, 60, 15),
-            child: Container(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: Colors.black, width: 2),
-              ),
-              child: DropdownButtonFormField(
-                hint: const Text("Decade"),
-                icon: const Icon(Icons.arrow_drop_down),
-                iconSize: 25,
-                isExpanded: true,
-                style: const TextStyle(color: Colors.black, fontSize: 17),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    decadeValue = newValue!;
-                  });
-                },
-                items: listDecades.map((valueItem) {
-                  return DropdownMenuItem(
-                    value: valueItem,
-                    child: Text(valueItem),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(60, 15, 60, 40),
-            child: Container(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: Colors.black, width: 2),
-              ),
-              child: DropdownButtonFormField(
-                hint: const Text("Streaming provider"),
-                icon: const Icon(Icons.arrow_drop_down),
-                iconSize: 25,
-                isExpanded: true,
-                style: const TextStyle(color: Colors.black, fontSize: 17),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    streamProviderValue = newValue!;
-                  });
-                },
-                items: listStreamproviders.map((String valueItem) {
-                  return DropdownMenuItem<String>(
-                    value: valueItem,
-                    child: Text(valueItem),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
-            child: Text(
-              "Rating: 0-10",
-              style: TextStyle(color: Colors.white, fontSize: 15),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(50, 10, 50, 40),
-            child: RangeSlider(
-              values: values,
-              min: 0,
-              max: 10,
-              divisions: 10,
-              activeColor: const Color.fromARGB(255, 147, 48, 48),
-              inactiveColor: Colors.grey,
-              labels: RangeLabels(
-                values.start.round().toString(),
-                values.end.round().toString(),
-              ),
-              onChanged: (values) => setState(() => this.values = values),
-            ),
-          ),
-          Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 100),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromRadius(10),
@@ -244,15 +87,47 @@ class _SearchPageState extends State<SearchPage> {
                         child: Icon(Icons.add, size: 16),
                       ),
                       TextSpan(
-                          text: "Show results",
+                          text: "Search for movie",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
-                onPressed: () => context.go('/search_results_page'),
-              ))
+                onPressed: () {
+                  fetchMovie().then(
+                    (value) => {
+                      context.goNamed("specific_movie_result_page",
+                          extra: value)
+                    },
+                  );
+                },
+              )),
+          Container(
+            height: 180.0,
+            width: 200.0,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/group_page_picture.png'),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  Future<Movie> fetchMovie() async {
+    final response = await http.get(Uri.parse(
+        'http://www.omdbapi.com/?t=${_searchBarController.text}&y=${_yearController.text}&plot=full&apikey=92943f28'));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return Movie.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
   }
 }
