@@ -1,16 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:provider/provider.dart';
 import '../../widgets/navigation_bar_widget.dart';
+import '../FindNewGroupPage/find_new_group_page.dart';
 
-class FindGroupResultPage extends StatefulWidget {
-  const FindGroupResultPage({super.key});
+class FindGroupResultPage extends StatelessWidget {
+  Stream<QuerySnapshot<Map<String, dynamic>>>? foundGroups;
+  FindGroupResultPage({super.key, this.foundGroups});
 
-  @override
-  State<FindGroupResultPage> createState() => _FindGroupResultPageState();
-}
-
-class _FindGroupResultPageState extends State<FindGroupResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +40,8 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
           backgroundColor: Colors.black,
           centerTitle: true,
         ),
-        body: Center(
+        body: Text("hej"));
+    /*body: Center(
             child: Column(children: [
           Padding(
             padding: EdgeInsets.all(20),
@@ -80,7 +80,9 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
                         child: const Text('Join',
                             style:
                                 TextStyle(fontSize: 16, color: Colors.white)),
-                        onPressed: () {/*to join group*/},
+                        onPressed: () {
+                          //Do something
+                        },
                       ),
                     ],
                   ),
@@ -88,6 +90,6 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
               ),
             ),
           )
-        ])));
+        ]))*/
   }
 }
