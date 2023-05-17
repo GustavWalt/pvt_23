@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -191,7 +192,21 @@ class _FindNewGroupPageState extends State<FindNewGroupPage> {
                   ),
                 ),
                 //Shuold not go to group page, this is placeholder. Should go to available groups.
-                onPressed: () => context.go('/find_group_result_page'),
+                onPressed: () {
+                  final CollectionReference groups =
+                      FirebaseFirestore.instance.collection('groups');
+                  final Stream<QuerySnapshot<Map<String, dynamic>>>
+                      foundGroups = FirebaseFirestore.instance
+                          .collection('groups')
+                          .where('genre', isEqualTo: genreValue.toString())
+                          .where('size', isEqualTo: sizeValue.toString())
+                          .where('level', isEqualTo: levelValue.toString())
+                          .snapshots();
+                  context.goNamed(
+                    "find_group_result_page",
+                    extra: foundGroups,
+                  );
+                },
               ))
         ])));
   }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -122,8 +123,11 @@ final GoRouter _router = GoRouter(
     ),
     GoRoute(
       path: '/find_group_result_page',
-      builder: (BuildContext context, GoRouterState state) {
-        return const FindGroupResultPage();
+      name: 'find_group_result_page',
+      builder: (context, state) {
+        Stream<QuerySnapshot<Map<String, dynamic>>> foundGroups =
+            state.extra as Stream<QuerySnapshot<Map<String, dynamic>>>;
+        return FindGroupResultPage(foundGroups: foundGroups);
       },
     ),
   ],
