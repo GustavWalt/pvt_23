@@ -17,8 +17,6 @@ const List<String> size = <String>[
   "8",
   "9",
   "10",
-  "11",
-  "12",
 ];
 
 class CreateGroupPage extends StatefulWidget {
@@ -284,6 +282,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                         "size": sizeValue,
                         "admin": uid,
                         "posts": [],
+                        "members": 1,
                       };
                       DocumentReference docRef =
                           await db.collection("groups").add(groupData);

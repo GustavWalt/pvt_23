@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pvt_23/logic/search_groups.dart';
 
 import '../../widgets/navigation_bar_widget.dart';
 
