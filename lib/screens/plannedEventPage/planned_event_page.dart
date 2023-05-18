@@ -79,8 +79,8 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
             padding: const EdgeInsets.fromLTRB(50, 40, 50, 0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text("Movie:",
+                children: const [
+                  Text("Movie:",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -109,7 +109,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                 ]),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 120, 20, 0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromRadius(10),
@@ -136,7 +136,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromRadius(10),
