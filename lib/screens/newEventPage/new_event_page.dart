@@ -248,6 +248,7 @@ class _NewEventPageState extends State<NewEventPage> {
                         labelText: 'Start Date',
                         labelStyle: TextStyle(color: Colors.white),
                       ),
+                      //Theme change needed
                       onTap: () async {
                         final pickedDate = await showDatePicker(
                           context: context,
@@ -281,6 +282,7 @@ class _NewEventPageState extends State<NewEventPage> {
                         labelText: 'Start Time',
                         labelStyle: TextStyle(color: Colors.white),
                       ),
+                      //Theme change needed
                       onTap: () async {
                         final pickedTime = await showTimePicker(
                           context: context,
