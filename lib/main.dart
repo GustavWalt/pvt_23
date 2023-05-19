@@ -10,6 +10,7 @@ import 'package:pvt_23/screens/ChatListPage/chat_list_page.dart';
 import 'package:pvt_23/screens/GroupPage/group_page.dart';
 import 'package:pvt_23/screens/ProfilePage/profile_page.dart';
 import 'package:pvt_23/screens/SearchPage/search_page.dart';
+import 'package:pvt_23/screens/SearchPickPage/search_pick_page.dart';
 import 'package:pvt_23/screens/SearchResultsPage/search_results_page.dart';
 import 'package:pvt_23/screens/CalendarPage/calendar_page.dart';
 import 'package:pvt_23/screens/ForumPage/forum_page.dart';
@@ -19,6 +20,8 @@ import 'package:pvt_23/screens/FindNewGroupPage/find_new_group_page.dart';
 import 'package:pvt_23/screens/FetchDataTestPage/fetch_data_test_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:pvt_23/screens/PlannedEventPage/planned_event_page.dart';
+import 'package:pvt_23/screens/CreateEventPage/create_event_page.dart';
+import 'package:pvt_23/screens/SpecificMovieResultPickPage/specific_movie_result_pick_page.dart';
 import 'package:pvt_23/screens/profilePage/profile_page_edit.dart';
 import 'package:pvt_23/screens/selectedGroupPage/selected_group_page.dart';
 import 'firebase_options.dart';
@@ -48,6 +51,11 @@ final GoRouter _router = GoRouter(
           return const SearchPage();
         }),
     GoRoute(
+        path: '/search_pick_page',
+        builder: (BuildContext context, GoRouterState state) {
+          return const SearchPickPage();
+        }),
+    GoRoute(
         path: '/planned_event_page',
         builder: (BuildContext context, GoRouterState state) {
           return const PlannedEventPage();
@@ -56,6 +64,14 @@ final GoRouter _router = GoRouter(
       path: '/create_group_page',
       builder: (BuildContext context, GoRouterState state) {
         return const CreateGroupPage();
+      },
+    ),
+    GoRoute(
+      path: '/create_event_page',
+      name: 'create_event_page',
+      builder: (context, state) {
+        Movie? movie = state.extra as Movie?; // -> casting is important
+        return CreateEventPage(movie: movie);
       },
     ),
     GoRoute(
@@ -72,8 +88,16 @@ final GoRouter _router = GoRouter(
       path: '/specific_movie_result_page',
       name: 'specific_movie_result_page',
       builder: (context, state) {
-        Movie movie = state.extra as Movie; // -> casting is important
+        Movie? movie = state.extra as Movie?; // -> casting is important
         return SpecificMovieResultPage(movie: movie);
+      },
+    ),
+    GoRoute(
+      path: '/specific_movie_result_pick_page',
+      name: 'specific_movie_result_pick_page',
+      builder: (context, state) {
+        Movie? movie = state.extra as Movie?; // -> casting is important
+        return SpecificMovieResultPickPage(movie: movie);
       },
     ),
     GoRoute(
