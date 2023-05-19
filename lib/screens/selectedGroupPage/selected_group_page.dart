@@ -46,8 +46,6 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
             }
           });
 
-          print(currentGroupId);
-
           return Scaffold(
             bottomNavigationBar: const MenuWidget(),
             backgroundColor: const Color.fromARGB(255, 35, 33, 26),

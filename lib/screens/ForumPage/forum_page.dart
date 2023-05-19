@@ -2,12 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:pvt_23/screens/ForumPage/forum_post.dart';
 import 'package:intl/intl.dart';
+import '../../providers/group_id_provider.dart';
 import '../../widgets/navigation_bar_widget.dart';
 
 class ForumPage extends StatefulWidget {
-  const ForumPage({super.key});
+  Stream<QuerySnapshot<Map<String, dynamic>>>? selectedGroup;
+  ForumPage({super.key, this.selectedGroup});
 
   @override
   State<ForumPage> createState() => _ForumPageState();
@@ -24,6 +27,9 @@ class _ForumPageState extends State<ForumPage> {
 
   @override
   Widget build(BuildContext context) {
+    final groupIdProvider = Provider.of<GroupIdProvider>(context);
+    String currentGroupId = groupIdProvider.fetchCurrentGroupId;
+
     String _formatDateTime(int millisecondsSinceEpoch) {
       final dateTime =
           DateTime.fromMicrosecondsSinceEpoch(millisecondsSinceEpoch);
@@ -32,7 +38,7 @@ class _ForumPageState extends State<ForumPage> {
     }
 
     return StreamBuilder<QuerySnapshot>(
-      stream: _groupsStream,
+      stream: widget.selectedGroup,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return Text('Something went wrong');
@@ -42,11 +48,17 @@ class _ForumPageState extends State<ForumPage> {
           return Text("Loading");
         }
 
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (currentGroupId != snapshot.data!.docs[0].id) {
+            groupIdProvider.updateGroupId(snapshot.data!.docs[0].id);
+          }
+        });
+
         return Scaffold(
           bottomNavigationBar: const MenuWidget(),
           floatingActionButton: FloatingActionButton(
             tooltip: 'Create new post', // used by assistive technologies
-            onPressed: () => _dialogBuilder(context),
+            onPressed: () => _dialogBuilder(context, currentGroupId),
             child: Icon(Icons.add),
             backgroundColor: Color.fromRGBO(180, 38, 38, 100),
           ),
@@ -124,7 +136,7 @@ class _ForumPageState extends State<ForumPage> {
     );
   }
 
-  Future<void> _dialogBuilder(BuildContext context) {
+  Future<void> _dialogBuilder(BuildContext context, String currentGroupId) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -169,7 +181,7 @@ class _ForumPageState extends State<ForumPage> {
                 };
 
                 DocumentReference roomRef =
-                    db.collection("groups").doc("4V6nCMzVFvgjxxEeT84i");
+                    db.collection("groups").doc(currentGroupId);
 
                 roomRef.update({
                   "posts": FieldValue.arrayUnion([post]),
