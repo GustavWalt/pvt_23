@@ -30,7 +30,6 @@ class _GroupPageState extends State<GroupPage> {
       element.docs.forEach((element) {
         _items.add(element.data());
       });
-      print(_items);
     });
     return StreamBuilder<QuerySnapshot>(
       stream: _groupsStream,
@@ -98,14 +97,23 @@ class _GroupPageState extends State<GroupPage> {
                                         borderRadius:
                                             BorderRadius.circular(100)),
                                   ),
-
                                   child: Text(
                                     _items[index]["name"],
                                     style: TextStyle(color: Colors.white),
                                   ),
-                                  //Should not go to group page, should go to view for specific group connected to the id of the buttom pressed.
-                                  onPressed: () =>
-                                      context.go('/find_new_group_page'),
+                                  onPressed: () {
+                                    final Stream<QuerySnapshot> selectedGroup =
+                                        FirebaseFirestore.instance
+                                            .collection('groups')
+                                            .where("name",
+                                                isEqualTo: _items[index]
+                                                    ["name"])
+                                            .snapshots();
+                                    context.goNamed(
+                                      "selected_group_page",
+                                      extra: selectedGroup,
+                                    );
+                                  },
                                 ));
                           },
                         ),

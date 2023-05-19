@@ -23,6 +23,7 @@ import 'package:pvt_23/screens/PlannedEventPage/planned_event_page.dart';
 import 'package:pvt_23/screens/CreateEventPage/create_event_page.dart';
 import 'package:pvt_23/screens/SpecificMovieResultPickPage/specific_movie_result_pick_page.dart';
 import 'package:pvt_23/screens/profilePage/profile_page_edit.dart';
+import 'package:pvt_23/screens/selectedGroupPage/selected_group_page.dart';
 import 'firebase_options.dart';
 import 'logic/movie_class.dart';
 
@@ -152,6 +153,15 @@ final GoRouter _router = GoRouter(
         Stream<QuerySnapshot<Map<String, dynamic>>> foundGroups =
             state.extra as Stream<QuerySnapshot<Map<String, dynamic>>>;
         return FindGroupResultPage(foundGroups: foundGroups);
+      },
+    ),
+    GoRoute(
+      path: '/selected_group_page',
+      name: 'selected_group_page',
+      builder: (context, state) {
+        Stream<QuerySnapshot<Map<String, dynamic>>> selectedGroup =
+            state.extra as Stream<QuerySnapshot<Map<String, dynamic>>>;
+        return SelectedGroupPage(selectedGroup: selectedGroup);
       },
     ),
   ],
