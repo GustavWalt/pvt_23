@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../logic/movie_class.dart';
 import '../../widgets/navigation_bar_widget.dart';
@@ -12,6 +14,7 @@ class CreateEventPage extends StatefulWidget {
 }
 
 class _CreateEventPageState extends State<CreateEventPage> {
+  final db = FirebaseFirestore.instance;
   late DateTime _startDate;
   late TimeOfDay _startTime;
   late String _location = '';
@@ -55,7 +58,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   height: 90,
                   width: double.infinity,
                   color: const Color.fromARGB(255, 147, 48, 48)),
-              const Positioned(
+              Positioned(
                   top: 30,
                   left: 0,
                   right: 0,
@@ -66,8 +69,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         backgroundColor: Color.fromARGB(255, 189, 194, 197),
                         child: CircleAvatar(
                           radius: 57,
-                          backgroundImage:
-                              AssetImage("assets/images/harry_potter.jpg"),
+                          backgroundImage: widget.movie == null
+                              ? AssetImage("assets/images/no-image.png")
+                              : NetworkImage(widget.movie!.poster)
+                                  as ImageProvider,
                         ),
                       ))),
               const Card(
@@ -143,7 +148,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
               child: Text(
                 widget.movie == null
                     ? "No movie selected"
-                    : widget.movie!.title,
+                    : '${widget.movie!.title} - ${widget.movie!.year}',
                 style: const TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
@@ -242,7 +247,34 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     ],
                   ),
                 ),
-                onPressed: () => context.go("/"),
+                onPressed: () async {
+                  final FirebaseAuth auth = FirebaseAuth.instance;
+
+                  // Hämta UID
+                  final User? currentUser = auth.currentUser;
+                  final uid = currentUser!.uid;
+
+                  // Skicka till databas
+                  final event = <String, dynamic>{
+                    "eventName": _eventNameController.text,
+                    "location": _locationController.text,
+                    "movieName": widget.movie!.title,
+                    "startDate": _startDate.toString(),
+                    "startTime": _startTime.toString()
+                  };
+
+                  // Hårdkodat gruppID för tillfället
+                  await db
+                      .collection("groups")
+                      .doc("DywNqjjRG6YV8HHjNbRI")
+                      .update({
+                    'event.eventName': _eventNameController.text,
+                    'event.location': _locationController.text,
+                    'event.movieName': widget.movie!.title,
+                    'event.startDate': _startDate.toString(),
+                    'event.startTime': _startTime.toString(),
+                  });
+                },
               ),
             ),
           ],
