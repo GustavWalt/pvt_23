@@ -89,32 +89,32 @@ class _GroupPageState extends State<GroupPage> {
                                 padding:
                                     const EdgeInsets.fromLTRB(55, 8, 55, 8),
                                 child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    minimumSize: const Size.fromHeight(50),
-                                    backgroundColor:
-                                        Color.fromARGB(255, 147, 48, 48),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(100)),
-                                  ),
-                                  child: Text(
-                                    _items[index]["name"],
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  onPressed: () {
-                                    final Stream<QuerySnapshot> selectedGroup =
-                                        FirebaseFirestore.instance
-                                            .collection('groups')
-                                            .where("name",
-                                                isEqualTo: _items[index]
-                                                    ["name"])
-                                            .snapshots();
-                                    context.goNamed(
-                                      "selected_group_page",
-                                      extra: selectedGroup,
-                                    );
-                                  },
-                                ));
+                                    style: ElevatedButton.styleFrom(
+                                      minimumSize: const Size.fromHeight(50),
+                                      backgroundColor:
+                                          Color.fromARGB(255, 147, 48, 48),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(100)),
+                                    ),
+                                    child: Text(
+                                      _items[index]["name"],
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    onPressed: () {
+                                      final Stream<QuerySnapshot>
+                                          selectedGroup = FirebaseFirestore
+                                              .instance
+                                              .collection('groups')
+                                              .where("name",
+                                                  isEqualTo: _items[index]
+                                                      ["name"])
+                                              .snapshots();
+                                      context.goNamed(
+                                        "selected_group_page",
+                                        extra: selectedGroup,
+                                      );
+                                    }));
                           },
                         ),
                       )

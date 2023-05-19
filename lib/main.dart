@@ -42,10 +42,14 @@ final GoRouter _router = GoRouter(
           return const LoginPage();
         }),
     GoRoute(
-        path: '/forum_page',
-        builder: (BuildContext context, GoRouterState state) {
-          return const ForumPage();
-        }),
+      path: '/forum_page',
+      name: 'forum_page',
+      builder: (context, state) {
+        Stream<QuerySnapshot<Map<String, dynamic>>> selectedGroup =
+            state.extra as Stream<QuerySnapshot<Map<String, dynamic>>>;
+        return ForumPage(selectedGroup: selectedGroup);
+      },
+    ),
     GoRoute(
         path: '/search_page',
         builder: (BuildContext context, GoRouterState state) {
