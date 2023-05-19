@@ -63,7 +63,6 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
               String docId = document.id;
-
               return Padding(
                 padding: EdgeInsets.all(20),
                 child: Card(
