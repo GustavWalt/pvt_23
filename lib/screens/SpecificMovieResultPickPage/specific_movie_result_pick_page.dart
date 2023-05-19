@@ -5,9 +5,9 @@ import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 import '../../logic/movie_class.dart';
 import '../SearchPage/search_page.dart';
 
-class SpecificMovieResultPage extends StatelessWidget {
+class SpecificMovieResultPickPage extends StatelessWidget {
   Movie? movie;
-  SpecificMovieResultPage({super.key, this.movie});
+  SpecificMovieResultPickPage({super.key, this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +95,22 @@ class SpecificMovieResultPage extends StatelessWidget {
                         style: TextStyle(fontSize: 15, color: Colors.white)),
                   ],
                 )),
+            Container(
+              height: 65,
+              padding: const EdgeInsets.fromLTRB(55, 8, 55, 8),
+              child: Center(
+                  child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100)),
+                    minimumSize: const Size.fromRadius(80),
+                    backgroundColor: const Color.fromARGB(255, 143, 28, 28)),
+                child: const Text("Pick Movie"),
+                onPressed: () {
+                  context.goNamed("create_event_page", extra: movie);
+                },
+              )),
+            )
           ],
         ));
   }
