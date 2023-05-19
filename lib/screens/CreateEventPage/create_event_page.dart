@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../logic/movie_class.dart';
+import '../../providers/group_id_provider.dart';
 import '../../widgets/navigation_bar_widget.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,6 +35,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
 
   @override
   Widget build(BuildContext context) {
+    final groupIdProvider = Provider.of<GroupIdProvider>(context);
+    String currentGroupId = groupIdProvider.fetchCurrentGroupId;
     return Scaffold(
       bottomNavigationBar: const MenuWidget(),
       backgroundColor: Color.fromARGB(255, 35, 33, 26),
@@ -250,23 +254,19 @@ class _CreateEventPageState extends State<CreateEventPage> {
                 onPressed: () async {
                   final FirebaseAuth auth = FirebaseAuth.instance;
 
-                  // Hämta UID
-                  final User? currentUser = auth.currentUser;
-                  final uid = currentUser!.uid;
+                  await db.collection("groups").doc(currentGroupId).update({
+                    'event.eventName': _eventNameController.text,
+                    'event.location': _locationController.text,
+                    'event.movieName': widget.movie!.title,
+                    'event.startDate': _startDate.toString(),
+                    'event.startTime': _startTime.toString(),
+                  });
 
-                  // Skicka till databas
-                  final event = <String, dynamic>{
-                    "eventName": _eventNameController.text,
-                    "location": _locationController.text,
-                    "movieName": widget.movie!.title,
-                    "startDate": _startDate.toString(),
-                    "startTime": _startTime.toString()
-                  };
-
-                  // Hårdkodat gruppID för tillfället
                   await db
+                      .collection("users")
+                      .doc(auth.currentUser!.uid)
                       .collection("groups")
-                      .doc("DywNqjjRG6YV8HHjNbRI")
+                      .doc(currentGroupId)
                       .update({
                     'event.eventName': _eventNameController.text,
                     'event.location': _locationController.text,

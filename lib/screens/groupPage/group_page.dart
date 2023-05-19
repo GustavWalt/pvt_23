@@ -132,7 +132,7 @@ class _GroupPageState extends State<GroupPage> {
                           shape: const CircleBorder(),
                         ),
                         child: const Icon(Icons.add, color: Colors.white),
-                        onPressed: () => context.goNamed('create_event_page'),
+                        onPressed: () => context.go('/create_group_page'),
                         // Add create group button functionality here
                       ),
                       Expanded(

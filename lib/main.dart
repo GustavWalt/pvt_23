@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:pvt_23/providers/group_id_provider.dart';
 import 'package:pvt_23/providers/navigation_bar_provider.dart';
 import 'package:pvt_23/screens/CreateGroupPage/create_group_page.dart';
 import 'package:pvt_23/screens/LoginPage/login_page.dart';
@@ -182,7 +183,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => NavigationBarProvider())
+        ChangeNotifierProvider(create: (context) => NavigationBarProvider()),
+        ChangeNotifierProvider(create: (context) => GroupIdProvider())
       ],
       child: MaterialApp.router(
         routerConfig: _router,

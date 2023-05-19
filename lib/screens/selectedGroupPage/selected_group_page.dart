@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:pvt_23/providers/group_id_provider.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -20,6 +22,9 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final groupIdProvider = Provider.of<GroupIdProvider>(context);
+    String currentGroupId = groupIdProvider.fetchCurrentGroupId;
+
     return StreamBuilder<QuerySnapshot>(
         stream: widget.selectedGroup,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -34,6 +39,14 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
           snapshot.data!.docs.forEach((element) {
             _groupInfo.add(element.data());
           });
+
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (currentGroupId != snapshot.data!.docs[0].id) {
+              groupIdProvider.updateGroupId(snapshot.data!.docs[0].id);
+            }
+          });
+
+          print(currentGroupId);
 
           return Scaffold(
             bottomNavigationBar: const MenuWidget(),
@@ -75,7 +88,7 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                               child: CircleAvatar(
                                 radius: 57,
                                 backgroundImage:
-                                    AssetImage("assets/images/wes.png"),
+                                    AssetImage("assets/images/no-image.png"),
                               ),
                             ))),
                     Container(
@@ -286,7 +299,9 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                             shape: const CircleBorder(),
                           ),
                           child: const Icon(Icons.add, color: Colors.white),
-                          onPressed: () => context.go('/new_event_page'),
+                          onPressed: () {
+                            context.goNamed('create_event_page');
+                          },
                           // Add create group button functionality here
                         ),
                         Expanded(

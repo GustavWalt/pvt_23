@@ -14,14 +14,27 @@ class SpecificMovieResultPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 35, 33, 26),
         appBar: AppBar(
-          actions: const [
+          actions: [
             Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(Icons.account_circle_rounded),
-            )
+                padding: EdgeInsets.only(right: 20),
+                child: GestureDetector(
+                  onTap: () {
+                    context.go("/profile_page");
+                  },
+                  child: Icon(Icons.account_circle),
+                ))
           ],
-          leading: const Icon(Icons.arrow_back_rounded),
-          title: const Text('Movie'),
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  context.go("/search_page");
+                },
+              );
+            },
+          ),
+          title: const Text('Movie Result'),
           backgroundColor: Colors.black,
           centerTitle: true,
         ),

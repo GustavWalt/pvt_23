@@ -297,7 +297,8 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                           .collection("users")
                           .doc(auth.currentUser!.uid)
                           .collection("groups")
-                          .add(groupData);
+                          .doc(docRef.id)
+                          .set(groupData);
                       context.go('/group_page');
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
