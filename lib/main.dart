@@ -61,10 +61,13 @@ final GoRouter _router = GoRouter(
           return const SearchPickPage();
         }),
     GoRoute(
-        path: '/planned_event_page',
-        builder: (BuildContext context, GoRouterState state) {
-          return const PlannedEventPage();
-        }),
+      path: '/planned_event_page',
+      name: 'planned_event_page',
+      builder: (context, state) {
+        Map? eventInfo = state.extra as Map?; // -> casting is important
+        return PlannedEventPage(eventInfo: eventInfo);
+      },
+    ),
     GoRoute(
       path: '/create_group_page',
       builder: (BuildContext context, GoRouterState state) {
