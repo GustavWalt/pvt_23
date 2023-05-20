@@ -1,44 +1,87 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/group_id_provider.dart';
 import '../../widgets/navigation_bar_widget.dart';
 
 class PlannedEventPage extends StatefulWidget {
-  const PlannedEventPage({super.key});
+  Map? eventInfo;
+  PlannedEventPage({super.key, this.eventInfo});
 
   @override
   State<PlannedEventPage> createState() => _PlannedEventPageState();
 }
 
 class _PlannedEventPageState extends State<PlannedEventPage> {
+  String eventName = "";
+  String eventDate1 = "";
+  String eventDate = "";
+  String eventTime = "";
+  String eventTime1 = "";
+  String eventPlace = "";
+  String eventMovie = "";
+
   @override
   Widget build(BuildContext context) {
+    Map? event = widget.eventInfo;
+    if (event != null) {
+      eventName = event['eventName'];
+      eventDate1 = event['startDate'];
+      eventTime1 = event['startTime'];
+      eventPlace = event['location'];
+      eventMovie = event['movieName'];
+      eventTime = eventTime1.substring(10, 15);
+      eventDate = eventDate1.substring(0, 10);
+    } else {
+      eventName = "No upcoming events yet!";
+      eventDate = "N/A";
+      eventTime = "N/A";
+      eventPlace = "N/A";
+      eventMovie = "N/A";
+    }
+
     return Scaffold(
         bottomNavigationBar: const MenuWidget(),
         backgroundColor: Color.fromARGB(255, 35, 33, 26),
         appBar: AppBar(
-          actions: const [
+          actions: [
             Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(Icons.account_circle_rounded),
-            )
+                padding: EdgeInsets.only(right: 20),
+                child: GestureDetector(
+                  onTap: () {
+                    context.go("/profile_page");
+                  },
+                  child: Icon(Icons.account_circle),
+                ))
           ],
-          leading: const Icon(Icons.arrow_back_rounded),
-          title: const Text('Planned event'),
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  //FUNGERAR INTE ATT GÅ TILLBAKA!!!
+                },
+              );
+            },
+          ),
+          title: Text(eventName),
           backgroundColor: Colors.black,
           centerTitle: true,
         ),
-        body: Column(children: [
+        body: ListView(children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(50, 50, 50, 0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("Time:",
+                children: [
+                  const Text("Time:",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 25)),
-                  Text("15:30",
+                  Text(eventTime,
                       style: TextStyle(color: Colors.white, fontSize: 25))
                 ]),
           ),
@@ -46,13 +89,13 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
             padding: const EdgeInsets.fromLTRB(50, 40, 50, 0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("Date:",
+                children: [
+                  const Text("Date:",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 25)),
-                  Text("5/5-2023",
+                  Text(eventDate,
                       style: TextStyle(color: Colors.white, fontSize: 25))
                 ]),
           ),
@@ -60,15 +103,15 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
             padding: const EdgeInsets.fromLTRB(50, 40, 50, 0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("Place:",
+                children: [
+                  const Text("Place:",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 25)),
                   Flexible(
                     child: Text(
-                      "Café söder",
+                      eventPlace,
                       style: TextStyle(color: Colors.white, fontSize: 25),
                       textAlign: TextAlign.right,
                     ),
@@ -79,22 +122,28 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
             padding: const EdgeInsets.fromLTRB(50, 40, 50, 0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("Movie:",
+                children: [
+                  const Text("Movie:",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 25)),
                   Flexible(
                     child: Text(
-                      "Inception",
+                      eventMovie,
                       style: TextStyle(color: Colors.white, fontSize: 25),
                       textAlign: TextAlign.right,
                     ),
                   )
                 ]),
           ),
-          Padding(
+          //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
+          //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
+          //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
+          //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
+          //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
+
+          /*Padding(
             padding: const EdgeInsets.fromLTRB(50, 40, 50, 0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,7 +156,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                   Text("6/10",
                       style: TextStyle(color: Colors.white, fontSize: 25))
                 ]),
-          ),
+          ),*/
           Container(
             padding: const EdgeInsets.fromLTRB(20, 120, 20, 0),
             child: ElevatedButton(

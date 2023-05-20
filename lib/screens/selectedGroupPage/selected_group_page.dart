@@ -19,6 +19,7 @@ class SelectedGroupPage extends StatefulWidget {
 class _SelectedGroupPageState extends State<SelectedGroupPage> {
   List _groupInfo = [];
   FirebaseFirestore db = FirebaseFirestore.instance;
+  Map _eventInfo = {};
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,7 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
           snapshot.data!.docs.forEach((element) {
             _groupInfo.add(element.data());
           });
+          _eventInfo.addAll(_groupInfo[0]["event"]);
 
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (currentGroupId != snapshot.data!.docs[0].id) {
@@ -321,7 +323,10 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                                 ],
                               ),
                             ),
-                            onPressed: () => context.go('/planned_event_page'),
+                            onPressed: () {
+                              context.goNamed("planned_event_page",
+                                  extra: _eventInfo);
+                            },
                           ),
                         ),
                       ],

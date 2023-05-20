@@ -5,7 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
+
+import '../../providers/group_id_provider.dart';
 
 class GroupPage extends StatefulWidget {
   const GroupPage({Key? key}) : super(key: key);
@@ -21,6 +24,8 @@ class _GroupPageState extends State<GroupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final groupIdProvider = Provider.of<GroupIdProvider>(context);
+    String currentGroupId = groupIdProvider.fetchCurrentGroupId;
     final Stream<QuerySnapshot> _groupsStream = FirebaseFirestore.instance
         .collection('users')
         .doc(auth.currentUser!.uid)
@@ -110,6 +115,7 @@ class _GroupPageState extends State<GroupPage> {
                                                   isEqualTo: _items[index]
                                                       ["name"])
                                               .snapshots();
+
                                       context.goNamed(
                                         "selected_group_page",
                                         extra: selectedGroup,
