@@ -16,9 +16,6 @@ class PlannedEventPage extends StatefulWidget {
 }
 
 class _PlannedEventPageState extends State<PlannedEventPage> {
-  ///////////////////////////////////////////////////////////////
-
-  ///////////////////////////////////////////////////////////////
   String eventName = "";
   String eventDate1 = "";
   String eventDate = "";
