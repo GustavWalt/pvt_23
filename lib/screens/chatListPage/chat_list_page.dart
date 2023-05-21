@@ -56,7 +56,7 @@ class _ChatListPageState extends State<ChatListPage> {
                     child: Icon(Icons.account_circle),
                   ))
             ],
-            title: const Text('Forums'),
+            title: const Text('Chats'),
             backgroundColor: Colors.black,
             centerTitle: true,
           ),
@@ -110,7 +110,7 @@ class _ChatListPageState extends State<ChatListPage> {
                                                     ["name"])
                                             .snapshots();
                                     context.goNamed(
-                                      "forum_page",
+                                      "chat_page",
                                       extra: selectedGroup,
                                     );
                                   },

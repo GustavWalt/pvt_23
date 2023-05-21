@@ -3,20 +3,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:pvt_23/screens/ForumPage/forum_post.dart';
+import 'package:pvt_23/screens/ChatPage/forum_post.dart';
 import 'package:intl/intl.dart';
 import '../../providers/group_id_provider.dart';
 import '../../widgets/navigation_bar_widget.dart';
 
-class ForumPage extends StatefulWidget {
+class ChatPage extends StatefulWidget {
   Stream<QuerySnapshot<Map<String, dynamic>>>? selectedGroup;
-  ForumPage({super.key, this.selectedGroup});
+  ChatPage({super.key, this.selectedGroup});
 
   @override
-  State<ForumPage> createState() => _ForumPageState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ForumPageState extends State<ForumPage> {
+class _ChatPageState extends State<ChatPage> {
   final TextEditingController _postController = TextEditingController();
 
   final db = FirebaseFirestore.instance;
@@ -55,6 +55,7 @@ class _ForumPageState extends State<ForumPage> {
         });
 
         return Scaffold(
+          backgroundColor: Color.fromARGB(255, 35, 33, 26),
           bottomNavigationBar: const MenuWidget(),
           floatingActionButton: FloatingActionButton(
             tooltip: 'Create new post', // used by assistive technologies
@@ -83,7 +84,7 @@ class _ForumPageState extends State<ForumPage> {
                 );
               },
             ),
-            title: const Text('Forum'),
+            title: const Text('Chat'),
             backgroundColor: Colors.black,
             centerTitle: true,
           ),
@@ -95,7 +96,7 @@ class _ForumPageState extends State<ForumPage> {
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: posts.reversed.map((post) {
+                children: posts.map((post) {
                   final User? currentUser = auth.currentUser;
                   if (post.containsKey("likes")) {
                     return FutureBuilder<DocumentSnapshot>(
@@ -105,22 +106,48 @@ class _ForumPageState extends State<ForumPage> {
                           .get(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
-                          return Text('Error fetching full name');
+                          return Text(
+                            'Error fetching full name',
+                            style: TextStyle(color: Colors.white),
+                          );
                         }
 
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Text('Fetching full name...');
+                          return Text('Fetching full name...',
+                              style: TextStyle(color: Colors.white));
                         }
 
                         String? fullName = (snapshot.data!.data()
                             as Map<String, dynamic>)['fullname'];
-                        return ListTile(
-                          leading: Icon(Icons.account_circle_rounded),
-                          title: Text(fullName ?? ''),
-                          subtitle: Text("${post['msg']}"),
-                          trailing:
-                              Text("${_formatDateTime(post['createdOn'])}"),
+
+                        return Align(
+                          alignment: post['uid'] == currentUser!.uid
+                              ? Alignment.centerRight
+                              : Alignment.centerLeft,
+                          child: FractionallySizedBox(
+                            widthFactor: 0.5,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: post['uid'] == currentUser.uid
+                                    ? Colors.blue
+                                    : Colors.red,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              margin: EdgeInsets.all(10),
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: ListTile(
+                                  title: Text(fullName ?? '',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      )),
+                                  subtitle: Text("${post['msg']}",
+                                      style: TextStyle(color: Colors.white)),
+                                ),
+                              ),
+                            ),
+                          ),
                         );
                       },
                     );
