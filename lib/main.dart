@@ -25,6 +25,7 @@ import 'package:pvt_23/screens/CreateEventPage/create_event_page.dart';
 import 'package:pvt_23/screens/SpecificMovieResultPickPage/specific_movie_result_pick_page.dart';
 import 'package:pvt_23/screens/profilePage/profile_page_edit.dart';
 import 'package:pvt_23/screens/selectedGroupPage/selected_group_page.dart';
+
 import 'firebase_options.dart';
 import 'logic/movie_class.dart';
 

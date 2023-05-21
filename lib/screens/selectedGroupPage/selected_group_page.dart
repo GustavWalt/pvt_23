@@ -40,7 +40,9 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
           snapshot.data!.docs.forEach((element) {
             _groupInfo.add(element.data());
           });
-          _eventInfo.addAll(_groupInfo[0]["event"]);
+          if (_groupInfo[0]["event"] != null) {
+            _eventInfo.addAll(_groupInfo[0]["event"]);
+          }
 
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (currentGroupId != snapshot.data!.docs[0].id) {

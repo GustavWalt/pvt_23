@@ -274,6 +274,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     'event.startDate': _startDate.toString(),
                     'event.startTime': _startTime.toString(),
                   });
+                  context.go("/group_page");
                 },
               ),
             ),
