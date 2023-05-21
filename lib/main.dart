@@ -14,7 +14,7 @@ import 'package:pvt_23/screens/SearchPage/search_page.dart';
 import 'package:pvt_23/screens/SearchPickPage/search_pick_page.dart';
 import 'package:pvt_23/screens/SearchResultsPage/search_results_page.dart';
 import 'package:pvt_23/screens/CalendarPage/calendar_page.dart';
-import 'package:pvt_23/screens/ForumPage/forum_page.dart';
+import 'package:pvt_23/screens/ChatPage/chat_page.dart';
 import 'package:pvt_23/screens/SpecificMovieResultPage/specific_movie_result_page.dart';
 import 'package:pvt_23/screens/FindGroupResultPage/find_group_result_page.dart';
 import 'package:pvt_23/screens/FindNewGroupPage/find_new_group_page.dart';
@@ -43,12 +43,12 @@ final GoRouter _router = GoRouter(
           return const LoginPage();
         }),
     GoRoute(
-      path: '/forum_page',
-      name: 'forum_page',
+      path: '/chat_page',
+      name: 'chat_page',
       builder: (context, state) {
         Stream<QuerySnapshot<Map<String, dynamic>>> selectedGroup =
             state.extra as Stream<QuerySnapshot<Map<String, dynamic>>>;
-        return ForumPage(selectedGroup: selectedGroup);
+        return ChatPage(selectedGroup: selectedGroup);
       },
     ),
     GoRoute(

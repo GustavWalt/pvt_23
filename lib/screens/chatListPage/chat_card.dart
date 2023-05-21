@@ -15,7 +15,7 @@ class ChatCard extends StatelessWidget {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              context.go("/forum_page");
+              context.go("/chat_page");
             },
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(200, 50),
