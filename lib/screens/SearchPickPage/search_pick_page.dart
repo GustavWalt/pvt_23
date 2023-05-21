@@ -40,7 +40,7 @@ class _SearchPickPageState extends State<SearchPickPage> {
         backgroundColor: Colors.black,
         centerTitle: true,
       ),
-      body: Column(
+      body: ListView(
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(60, 20, 60, 0),
@@ -107,7 +107,6 @@ class _SearchPickPageState extends State<SearchPickPage> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/group_page_picture.png'),
-                fit: BoxFit.fill,
               ),
             ),
           ),

@@ -1,10 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
-import '../../providers/group_id_provider.dart';
+import 'package:go_router/go_router.dart';
+
 import '../../widgets/navigation_bar_widget.dart';
+
+import 'package:social_share/social_share.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PlannedEventPage extends StatefulWidget {
   Map? eventInfo;
@@ -15,6 +16,9 @@ class PlannedEventPage extends StatefulWidget {
 }
 
 class _PlannedEventPageState extends State<PlannedEventPage> {
+  ///////////////////////////////////////////////////////////////
+
+  ///////////////////////////////////////////////////////////////
   String eventName = "";
   String eventDate1 = "";
   String eventDate = "";
@@ -26,7 +30,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
   @override
   Widget build(BuildContext context) {
     Map? event = widget.eventInfo;
-    if (event != null) {
+    if (event!['eventName'] != null) {
       eventName = event['eventName'];
       eventDate1 = event['startDate'];
       eventTime1 = event['startTime'];
@@ -137,6 +141,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                   )
                 ]),
           ),
+
           //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
           //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
           //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
@@ -158,7 +163,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                 ]),
           ),*/
           Container(
-            padding: const EdgeInsets.fromLTRB(20, 120, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromRadius(10),
@@ -208,6 +213,35 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
               ),
               onPressed: () {
                 /**Backend code needed*/
+              },
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromRadius(10),
+                  backgroundColor: Color.fromARGB(255, 39, 164, 222),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+                  side: const BorderSide(color: Colors.black, width: 3)),
+              child: RichText(
+                text: const TextSpan(
+                  children: [
+                    WidgetSpan(
+                      child: Icon(FontAwesomeIcons.twitter, size: 16),
+                    ),
+                    TextSpan(
+                        text: "Share to twitter",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+              onPressed: () {
+                SocialShare.shareTwitter(
+                    "Using the app Clique I join a film club event called ${eventName} at ${eventTime} on ${eventDate} at ${eventPlace} to watch ${eventMovie}! Join me!",
+                    hashtags: ["Clique", "FilmClub", "${eventMovie}"]);
               },
             ),
           ),
