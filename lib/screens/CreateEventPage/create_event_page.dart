@@ -258,7 +258,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     'event.eventName': _eventNameController.text,
                     'event.location': _locationController.text,
                     'event.movieName': widget.movie!.title,
-                    'event.startDate': _startDate.toString(),
+                    'event.startDate': _startDate.microsecondsSinceEpoch,
                     'event.startTime': _startTime.toString(),
                   });
 
@@ -271,7 +271,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     'event.eventName': _eventNameController.text,
                     'event.location': _locationController.text,
                     'event.movieName': widget.movie!.title,
-                    'event.startDate': _startDate.toString(),
+                    'event.startDate': _startDate.microsecondsSinceEpoch,
                     'event.startTime': _startTime.toString(),
                   });
                   context.go("/group_page");

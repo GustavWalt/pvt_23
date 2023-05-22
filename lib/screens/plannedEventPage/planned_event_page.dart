@@ -28,8 +28,9 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
   Widget build(BuildContext context) {
     Map? event = widget.eventInfo;
     if (event!['eventName'] != null) {
+      var dt = DateTime.fromMicrosecondsSinceEpoch(event['startDate']);
       eventName = event['eventName'];
-      eventDate1 = event['startDate'];
+      eventDate1 = dt.toString();
       eventTime1 = event['startTime'];
       eventPlace = event['location'];
       eventMovie = event['movieName'];
