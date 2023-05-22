@@ -1,9 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'dart:convert';
 
-import '../../widgets/navigation_bar_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:pvt_23/providers/group_id_provider.dart';
+import 'package:pvt_23/widgets/navigation_bar_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 const List<String> genres = <String>['Horror', 'Comedy', 'Sci-fi'];
 const List<String> level = <String>["1", "2", "3"];
@@ -19,28 +23,35 @@ const List<String> size = <String>[
   "10",
 ];
 
-class CreateGroupPage extends StatefulWidget {
-  const CreateGroupPage({super.key});
+class SelectedGroupPageEdit extends StatefulWidget {
+  List? groupInfo;
 
+  SelectedGroupPageEdit({super.key, this.groupInfo});
   @override
-  State<CreateGroupPage> createState() => _CreateGroupPageState();
+  _SelectedGroupPageEditState createState() => _SelectedGroupPageEditState();
 }
 
-class _CreateGroupPageState extends State<CreateGroupPage> {
-  final db = FirebaseFirestore.instance;
-
-  String sizeValue = size.first;
-  String genreValue = genres.first;
-  String levelValue = level.first;
-
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
+class _SelectedGroupPageEditState extends State<SelectedGroupPageEdit> {
+  List _groupInfo = [];
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  TextEditingController _descriptionController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  String levelValue = "";
+  String genreValue = "";
+  String sizeValue = "";
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? currentUser = auth.currentUser;
+    final uid = currentUser!.uid;
+    final groupIdProvider = Provider.of<GroupIdProvider>(context);
+    String currentGroupId = groupIdProvider.fetchCurrentGroupId;
+    List? groupInfo = widget.groupInfo;
+
     return Scaffold(
       bottomNavigationBar: const MenuWidget(),
-      backgroundColor: Color.fromARGB(255, 35, 33, 26),
+      backgroundColor: const Color.fromARGB(255, 35, 33, 26),
       appBar: AppBar(
         actions: [
           Padding(
@@ -52,17 +63,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                 child: Icon(Icons.account_circle),
               ))
         ],
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                context.go("/group_page");
-              },
-            );
-          },
-        ),
-        title: const Text('Create group'),
+        title: Text(groupInfo![0]["name"]),
         backgroundColor: Colors.black,
         centerTitle: true,
       ),
@@ -213,88 +214,97 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
             ),
           ),
           Container(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromRadius(10),
-                      backgroundColor: const Color.fromARGB(255, 147, 48, 48),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30)),
-                      padding: const EdgeInsets.all(20),
-                      side: const BorderSide(color: Colors.black, width: 3)),
-                  child: RichText(
-                    text: const TextSpan(
-                      children: [
-                        WidgetSpan(
-                          child: Icon(Icons.add, size: 16),
-                        ),
-                        TextSpan(
-                            text: "Create group",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                  ),
-                  onPressed: () async {
-                    final FirebaseAuth auth = FirebaseAuth.instance;
-                    final User? currentUser = auth.currentUser;
-                    final uid = currentUser!.uid;
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromRadius(10),
+                  backgroundColor: const Color.fromARGB(255, 147, 48, 48),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  padding: const EdgeInsets.all(20),
+                  side: const BorderSide(color: Colors.black, width: 3)),
+              child: RichText(
+                text: const TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "Update",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+              onPressed: () async {
+                if (_nameController.text == "") {
+                  _nameController.text = groupInfo[0]["name"];
+                }
+                if (_descriptionController.text == "") {
+                  _descriptionController.text = groupInfo[0]["description"];
+                }
+                if (sizeValue == "") {
+                  sizeValue = groupInfo[0]["size"].toString();
+                }
+                if (genreValue != "") {
+                  genreValue = groupInfo[0]["genre"];
+                }
+                if (levelValue == "") {
+                  levelValue = groupInfo[0]["level"];
+                }
 
-                    final userData = <String, dynamic>{"uid": uid};
+                await db.collection("groups").doc(currentGroupId).update({
+                  "name": _nameController.text,
+                  "description": _descriptionController.text,
+                  "size": sizeValue,
+                  "genre": genreValue,
+                  "level": levelValue,
+                });
+                await db
+                    .collection("users")
+                    .doc(auth.currentUser!.uid)
+                    .collection("groups")
+                    .doc(currentGroupId)
+                    .update({
+                  "name": _nameController.text,
+                  "description": _descriptionController.text,
+                  "size": sizeValue,
+                  "genre": genreValue,
+                  "level": levelValue,
+                });
 
-                    if (_nameController.text == "" ||
-                        _descriptionController.text == "") {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text("Error"),
-                            content: const Text("Please fill in all fields"),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text("OK"),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                      return;
-                    } else {
-                      final groupData = <String, dynamic>{
-                        "description": _descriptionController.text,
-                        "genre": genreValue,
-                        "level": levelValue,
-                        "name": _nameController.text,
-                        "size": sizeValue,
-                        "admin": uid,
-                        "posts": [],
-                        "members": 1,
-                      };
-                      DocumentReference docRef =
-                          await db.collection("groups").add(groupData);
+                context.go("/group_page");
+              },
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromRadius(10),
+                  backgroundColor: const Color.fromARGB(255, 147, 48, 48),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  padding: const EdgeInsets.all(20),
+                  side: const BorderSide(color: Colors.black, width: 3)),
+              child: RichText(
+                text: const TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "Delete group",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+              onPressed: () async {
+                await db.collection("groups").doc(currentGroupId).delete();
+                await db
+                    .collection("users")
+                    .doc(auth.currentUser!.uid)
+                    .collection("groups")
+                    .doc(currentGroupId)
+                    .delete();
 
-                      await db
-                          .collection("groups")
-                          .doc(docRef.id)
-                          .collection("users")
-                          .add(userData);
-
-                      await db
-                          .collection("users")
-                          .doc(auth.currentUser!.uid)
-                          .collection("groups")
-                          .doc(docRef.id)
-                          .set(groupData);
-                      context.go('/group_page');
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Success!"),
-                        ),
-                      );
-                    }
-                  }))
+                context.go("/group_page");
+              },
+            ),
+          ),
         ],
       ),
     );

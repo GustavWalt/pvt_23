@@ -288,6 +288,42 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                       ),
                     ]),
                   ),
+                  Padding(
+                    padding: EdgeInsets.all(18),
+                    child: TextButton(
+                        child: const Text(
+                          "Edit group",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () {
+                          if (_groupInfo[0]["admin"] ==
+                              FirebaseAuth.instance.currentUser!.uid) {
+                            context.goNamed('selected_group_page_edit',
+                                extra: _groupInfo);
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text("Error"),
+                                    content: const Text(
+                                        "You are not the admin of this group"),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text("OK"))
+                                    ],
+                                  );
+                                });
+                          }
+                        }),
+                  ),
                   Container(
                     height: 65,
                     padding: const EdgeInsets.fromLTRB(55, 8, 55, 8),
@@ -319,7 +355,7 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                                     child: Icon(Icons.calendar_month, size: 16),
                                   ),
                                   TextSpan(
-                                      text: "Upcoming events",
+                                      text: "Upcoming event",
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white)),
                                 ],

@@ -115,6 +115,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   email: _emailController.text,
                   password: _passwordController.text,
                 );
+
+                //PHONE OCH NAME NULL CHECK!!!!!
                 if (message!.contains('Success')) {
                   // Logga in användaren för nuvarande session
                   loginUser();

@@ -31,6 +31,7 @@ class _GroupPageState extends State<GroupPage> {
         .doc(auth.currentUser!.uid)
         .collection('groups')
         .snapshots();
+    _items.clear();
     _groupsStream.forEach((element) {
       element.docs.forEach((element) {
         _items.add(element.data());
