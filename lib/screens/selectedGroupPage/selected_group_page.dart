@@ -334,6 +334,88 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                       ],
                     ),
                   ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(55, 10, 55, 10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          minimumSize: const Size.fromRadius(25),
+                          backgroundColor: Color.fromARGB(255, 147, 48, 48)),
+                      child: RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                                text: "Leave group",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                      onPressed: () async {
+                        final FirebaseAuth auth = FirebaseAuth.instance;
+                        final User? currentUser = auth.currentUser;
+                        final uid = currentUser!.uid;
+
+                        var _userInGroup = db
+                            .collection('groups')
+                            .doc(currentGroupId)
+                            .collection('users');
+
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext dialogContext) {
+                            return AlertDialog(
+                              title: const Text("Confirmation"),
+                              content: const Text(
+                                  "Are you sure you want to leave the group?"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(dialogContext).pop();
+                                  },
+                                  child: const Text("Cancel"),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    Navigator.of(dialogContext).pop();
+
+                                    var snapshotUser = await _userInGroup.get();
+                                    for (var doc in snapshotUser.docs) {
+                                      if (doc['uid'] == uid) {
+                                        doc.reference.delete();
+                                        await db
+                                            .collection("groups")
+                                            .doc(currentGroupId)
+                                            .update({
+                                          "members":
+                                              _groupInfo[0]['members'] - 1,
+                                        });
+                                      }
+                                    }
+
+                                    var groupName = _groupInfo[0]['name'];
+
+                                    var groupInUser = db
+                                        .collection("users")
+                                        .doc(auth.currentUser!.uid)
+                                        .collection("groups");
+
+                                    var snapshotGroup = await groupInUser.get();
+                                    for (var doc in snapshotGroup.docs) {
+                                      if (doc['name'] == groupName) {
+                                        doc.reference.delete();
+                                      }
+                                    }
+                                    context.go('/group_page');
+                                  },
+                                  child: const Text("OK"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  )
                 ],
               ),
             ),
