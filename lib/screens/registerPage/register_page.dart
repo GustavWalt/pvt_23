@@ -111,6 +111,30 @@ class _RegisterPageState extends State<RegisterPage> {
               child: const Text('Register'),
               //Ska inte gå till Sign_in här, bara för test.
               onPressed: () async {
+                if (_nameController.text == "" ||
+                    _phoneController.text == "" ||
+                    _emailController.text == "" ||
+                    _passwordController.text == "") {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Error"),
+                        content: const Text("Please fill in all fields"),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text("OK"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  return;
+                }
+
                 final message = await AuthService().registration(
                   email: _emailController.text,
                   password: _passwordController.text,

@@ -5,8 +5,22 @@ import 'package:go_router/go_router.dart';
 import '../../widgets/navigation_bar_widget.dart';
 
 //We need to add genres - either manually or through imdb's API.
-const List<String> genres = <String>['Horror', 'Comedy', 'Sci-fi'];
-const List<String> level = <String>["1", "2", "3"];
+const List<String> genres = <String>[
+  'Action',
+  'Adventure',
+  'Comedy',
+  'Drama',
+  'Fantasy',
+  'Horror',
+  'Musicals',
+  'Mystery',
+  'Romance',
+  'Science fiction',
+  'Sports',
+  'Thriller',
+  'Western',
+];
+const List<String> level = <String>["Beginner", "Intermediate", "Expert"];
 const List<String> size = <String>[
   "2",
   "3",
@@ -17,8 +31,6 @@ const List<String> size = <String>[
   "8",
   "9",
   "10",
-  "11",
-  "12",
 ];
 
 class FindNewGroupPage extends StatefulWidget {

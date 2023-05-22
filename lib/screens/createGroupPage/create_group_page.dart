@@ -5,8 +5,22 @@ import 'package:go_router/go_router.dart';
 
 import '../../widgets/navigation_bar_widget.dart';
 
-const List<String> genres = <String>['Horror', 'Comedy', 'Sci-fi'];
-const List<String> level = <String>["1", "2", "3"];
+const List<String> genres = <String>[
+  'Action',
+  'Adventure',
+  'Comedy',
+  'Drama',
+  'Fantasy',
+  'Horror',
+  'Musicals',
+  'Mystery',
+  'Romance',
+  'Science fiction',
+  'Sports',
+  'Thriller',
+  'Western',
+];
+const List<String> level = <String>["Beginner", "Intermediate", "Expert"];
 const List<String> size = <String>[
   "2",
   "3",
@@ -75,30 +89,18 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                   width: 600,
                   color: Color.fromARGB(255, 147, 48, 48),
                   child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: CircleAvatar(
                           radius: 50,
                           backgroundColor: Color.fromARGB(255, 44, 44, 44),
                           child: CircleAvatar(
                             radius: 48,
                             backgroundImage:
-                                AssetImage("assets/images/logo1.png"),
+                                AssetImage("assets/images/no-image.png"),
                           ),
                         ),
-                      ),
-                      TextButton(
-                        child: const Text(
-                          "Choose name",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white),
-                        ),
-                        onPressed: () {
-                          /*Dunno yet*/
-                        },
                       ),
                     ],
                   ),
