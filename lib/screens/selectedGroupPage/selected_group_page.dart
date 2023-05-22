@@ -18,6 +18,7 @@ class SelectedGroupPage extends StatefulWidget {
 
 class _SelectedGroupPageState extends State<SelectedGroupPage> {
   List _groupInfo = [];
+
   FirebaseFirestore db = FirebaseFirestore.instance;
   Map _eventInfo = {};
 
@@ -25,6 +26,9 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
   Widget build(BuildContext context) {
     final groupIdProvider = Provider.of<GroupIdProvider>(context);
     String currentGroupId = groupIdProvider.fetchCurrentGroupId;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? currentUser = auth.currentUser;
+    final uid = currentUser!.uid;
 
     return StreamBuilder<QuerySnapshot>(
         stream: widget.selectedGroup,
@@ -303,7 +307,29 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                           ),
                           child: const Icon(Icons.add, color: Colors.white),
                           onPressed: () {
-                            context.goNamed('create_event_page');
+                            if (uid == _groupInfo[0]['admin']) {
+                              context.goNamed('create_event_page');
+                              return;
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text("Error"),
+                                    content: const Text(
+                                        "You are not the admin of this group!"),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("OK"),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
                           },
                           // Add create group button functionality here
                         ),
@@ -352,10 +378,6 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                         ),
                       ),
                       onPressed: () async {
-                        final FirebaseAuth auth = FirebaseAuth.instance;
-                        final User? currentUser = auth.currentUser;
-                        final uid = currentUser!.uid;
-
                         var _userInGroup = db
                             .collection('groups')
                             .doc(currentGroupId)
