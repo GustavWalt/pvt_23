@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../logic/event_service.dart';
+import '../../widgets/navigation_bar_widget.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -43,24 +45,6 @@ class _CalendarPageState extends State<CalendarPage> {
     super.dispose();
   }
 
-  var _events = [
-    Event(
-      eventName: 'Event 1',
-      location: 'Location 1',
-      movieName: 'Movie 1',
-      startDate: DateTime.now(),
-      startTime: TimeOfDay.now(),
-    ),
-    Event(
-      eventName: 'Event 2',
-      location: 'Location 2',
-      movieName: 'Movie 2',
-      startDate:
-          DateTime.utc(int.parse('2023'), int.parse('10'), int.parse('16')),
-      startTime: TimeOfDay.now(),
-    ),
-  ];
-
   List<Event> _getEventsForDay(DateTime day) {
     return allEvents
         .where((event) =>
@@ -100,7 +84,6 @@ class _CalendarPageState extends State<CalendarPage> {
       _rangeSelectionMode = RangeSelectionMode.toggledOn;
     });
 
-    // `start` or `end` could be null
     if (start != null && end != null) {
       _selectedEvents.value = _getEventsForRange(start, end);
     } else if (start != null) {
@@ -113,8 +96,21 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const MenuWidget(),
       appBar: AppBar(
-        title: Text('TableCalendar - Events'),
+        actions: [
+          Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: GestureDetector(
+                onTap: () {
+                  context.go("/profile_page");
+                },
+                child: Icon(Icons.account_circle),
+              ))
+        ],
+        title: const Text('Calendar'),
+        backgroundColor: Colors.black,
+        centerTitle: true,
       ),
       body: Column(
         children: [
