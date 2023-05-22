@@ -102,7 +102,8 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold)),
-                          subtitle: Text("${_groupInfo[0]['members']}/10",
+                          subtitle: Text(
+                              "${_groupInfo[0]['members'].toString() + "/" + _groupInfo[0]['size'].toString()}",
                               style: TextStyle(
                                 color: Colors.white,
                               )),
