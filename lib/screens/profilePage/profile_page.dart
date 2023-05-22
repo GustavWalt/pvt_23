@@ -185,7 +185,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: EdgeInsets.all(18),
                     child: TextButton(
                       child: const Text(
-                        "Edti profile",
+                        "Edit profile",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
