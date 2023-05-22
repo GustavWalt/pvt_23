@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/CalendarPage/calendar_page.dart';
+import '../screens/calendarPage/calendar_page.dart';
 
 class EventService {
   static Future<List<Event>> getAllEventsForUser(String userId) async {

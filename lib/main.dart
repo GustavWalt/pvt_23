@@ -13,7 +13,7 @@ import 'package:pvt_23/screens/ProfilePage/profile_page.dart';
 import 'package:pvt_23/screens/SearchPage/search_page.dart';
 import 'package:pvt_23/screens/SearchPickPage/search_pick_page.dart';
 import 'package:pvt_23/screens/SearchResultsPage/search_results_page.dart';
-import 'package:pvt_23/screens/CalendarPage/calendar_page.dart';
+import 'package:pvt_23/screens/calendarPage/calendar_page.dart';
 import 'package:pvt_23/screens/ChatPage/chat_page.dart';
 import 'package:pvt_23/screens/SpecificMovieResultPage/specific_movie_result_page.dart';
 import 'package:pvt_23/screens/FindGroupResultPage/find_group_result_page.dart';
