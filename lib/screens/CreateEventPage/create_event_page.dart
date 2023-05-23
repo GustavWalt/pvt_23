@@ -48,7 +48,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
           )
         ],
         leading: const Icon(Icons.arrow_back_rounded),
-        title: const Text('Create new event'),
+        title: const Text('New event'),
         backgroundColor: Colors.black,
         centerTitle: true,
       ),

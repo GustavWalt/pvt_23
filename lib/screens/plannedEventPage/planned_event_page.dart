@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/group_id_provider.dart';
 import '../../widgets/navigation_bar_widget.dart';
 
 import 'package:social_share/social_share.dart';
@@ -26,6 +30,13 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
 
   @override
   Widget build(BuildContext context) {
+    final groupIdProvider = Provider.of<GroupIdProvider>(context);
+    String currentGroupId = groupIdProvider.fetchCurrentGroupId;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? currentUser = auth.currentUser;
+    final uid = currentUser!.uid;
+    final db = FirebaseFirestore.instance;
+
     Map? event = widget.eventInfo;
     if (event!['eventName'] != null) {
       var dt = DateTime.fromMicrosecondsSinceEpoch(event['startDate']);
@@ -160,60 +171,48 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                       style: TextStyle(color: Colors.white, fontSize: 25))
                 ]),
           ),*/
-          Container(
-            padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromRadius(10),
-                  backgroundColor: Color.fromARGB(255, 12, 139, 56),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
-                  side: const BorderSide(color: Colors.black, width: 3)),
-              child: RichText(
-                text: const TextSpan(
-                  children: [
-                    WidgetSpan(
-                      child: Icon(Icons.check, size: 16),
-                    ),
-                    TextSpan(
-                        text: "Accept",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ],
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+            child: TextButton(
+                child: const Text(
+                  "Edit event",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              onPressed: () {
-                /**Backend code needed*/
-              },
-            ),
+                onPressed: () async {
+                  Future<DocumentSnapshot<Map<String, dynamic>>> doc =
+                      db.collection("groups").doc(currentGroupId).get();
+                  doc.then((value) => {
+                        if (uid == value.data()!['admin'])
+                          {context.goNamed('create_event_page')}
+                        else
+                          {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Error"),
+                                  content: const Text(
+                                      "You are not the admin of this group!"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("OK"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            )
+                          }
+                      });
+                }),
           ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromRadius(10),
-                  backgroundColor: const Color.fromARGB(255, 147, 48, 48),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
-                  side: const BorderSide(color: Colors.black, width: 3)),
-              child: RichText(
-                text: const TextSpan(
-                  children: [
-                    WidgetSpan(
-                      child: Icon(Icons.close, size: 16),
-                    ),
-                    TextSpan(
-                        text: "Decline",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ],
-                ),
-              ),
-              onPressed: () {
-                /**Backend code needed*/
-              },
-            ),
-          ),
+
           Container(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
             child: ElevatedButton(
