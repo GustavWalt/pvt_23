@@ -275,6 +275,11 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     'event.startTime': _startTime.toString(),
                   });
                   context.go("/group_page");
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Success!"),
+                    ),
+                  );
                 },
               ),
             ),
