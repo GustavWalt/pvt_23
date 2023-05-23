@@ -346,7 +346,7 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                                     child: Icon(Icons.calendar_month, size: 16),
                                   ),
                                   TextSpan(
-                                      text: "Upcoming events",
+                                      text: "Upcoming event",
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white)),
                                 ],
