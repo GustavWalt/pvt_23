@@ -21,17 +21,6 @@ const List<String> genres = <String>[
   'Western',
 ];
 const List<String> level = <String>["Beginner", "Intermediate", "Expert"];
-const List<String> size = <String>[
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-];
 
 class FindNewGroupPage extends StatefulWidget {
   const FindNewGroupPage({super.key});
@@ -43,7 +32,6 @@ class FindNewGroupPage extends StatefulWidget {
 class _FindNewGroupPageState extends State<FindNewGroupPage> {
   String genreValue = genres.first;
   String levelValue = level.first;
-  String sizeValue = size.first;
 
   @override
   Widget build(BuildContext context) {
@@ -94,35 +82,7 @@ class _FindNewGroupPageState extends State<FindNewGroupPage> {
             padding: EdgeInsets.all(5),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(100, 7, 100, 7),
-            child: DropdownButtonFormField(
-              decoration: const InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  filled: true,
-                  hintStyle: TextStyle(color: Colors.black),
-                  hintText: "Size",
-                  fillColor: Color.fromARGB(255, 209, 217, 223)),
-              onChanged: (String? value) {
-                setState(() {
-                  sizeValue = value!;
-                });
-              },
-              items: size.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                );
-              }).toList(),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(100, 7, 100, 7),
+            padding: const EdgeInsets.fromLTRB(100, 40, 100, 7),
             child: DropdownButtonFormField(
               decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
@@ -211,7 +171,6 @@ class _FindNewGroupPageState extends State<FindNewGroupPage> {
                       foundGroups = FirebaseFirestore.instance
                           .collection('groups')
                           .where('genre', isEqualTo: genreValue.toString())
-                          .where('size', isEqualTo: sizeValue.toString())
                           .where('level', isEqualTo: levelValue.toString())
                           .snapshots();
                   context.goNamed(
