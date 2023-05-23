@@ -294,6 +294,38 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                     ]),
                   ),
                   Container(
+                    padding: const EdgeInsets.fromLTRB(150, 10, 150, 10),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: const Size.fromRadius(25),
+                            backgroundColor: Color.fromARGB(255, 64, 122, 83)),
+                        child: RichText(
+                          text: const TextSpan(
+                            children: [
+                              WidgetSpan(
+                                child: Icon(Icons.chat, size: 16),
+                              ),
+                              TextSpan(
+                                  text: "Chat",
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white)),
+                            ],
+                          ),
+                        ),
+                        onPressed: () async {
+                          final Stream<QuerySnapshot> selectedGroup =
+                              FirebaseFirestore.instance
+                                  .collection('groups')
+                                  .where("name",
+                                      isEqualTo: _groupInfo[0]["name"])
+                                  .snapshots();
+                          context.goNamed(
+                            "chat_page",
+                            extra: selectedGroup,
+                          );
+                        }),
+                  ),
+                  Container(
                     height: 65,
                     padding: const EdgeInsets.fromLTRB(55, 8, 55, 8),
                     child: Row(
