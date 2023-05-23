@@ -29,6 +29,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     final groupIdProvider = Provider.of<GroupIdProvider>(context);
     String currentGroupId = groupIdProvider.fetchCurrentGroupId;
+    List groupName = [];
 
     String _formatDateTime(int millisecondsSinceEpoch) {
       final dateTime =
@@ -47,6 +48,10 @@ class _ChatPageState extends State<ChatPage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Text("Loading");
         }
+
+        snapshot.data!.docs.forEach((element) {
+          groupName.add(element.data());
+        });
 
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (currentGroupId != snapshot.data!.docs[0].id) {
@@ -84,7 +89,7 @@ class _ChatPageState extends State<ChatPage> {
                 );
               },
             ),
-            title: const Text('Chat'),
+            title: Text(groupName[0]['name']),
             backgroundColor: Colors.black,
             centerTitle: true,
           ),
