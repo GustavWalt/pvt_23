@@ -16,9 +16,9 @@ class ProfilePageEdit extends StatefulWidget {
 class _ProfilePageEditState extends State<ProfilePageEdit> {
   final db = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
-  //snapshot.data!.get("fullname"),
+
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
@@ -95,7 +95,7 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
                             contentPadding:
                                 const EdgeInsets.symmetric(horizontal: 15.0),
                             filled: true,
-                            fillColor: const Color.fromARGB(255, 189, 194, 197),
+                            fillColor: Color.fromARGB(255, 255, 255, 255),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             hintText: snapshot.data!.get("fullname"),
@@ -123,7 +123,7 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 15.0),
                           filled: true,
-                          fillColor: const Color.fromARGB(255, 189, 194, 197),
+                          fillColor: Color.fromARGB(255, 255, 255, 255),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
                           hintText: snapshot.data!.get("email"),
@@ -150,37 +150,10 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
                           contentPadding:
                               const EdgeInsets.symmetric(horizontal: 15.0),
                           filled: true,
-                          fillColor: const Color.fromARGB(255, 189, 194, 197),
+                          fillColor: Color.fromARGB(255, 255, 255, 255),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
                           hintText: snapshot.data!.get("phone").toString(),
-                        ),
-                      ),
-                    ]),
-                  ),
-                  Card(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-                    color: Colors.transparent,
-                    elevation: 0,
-                    child: Column(children: <Widget>[
-                      const ListTile(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        title: Text('Password',
-                            style: TextStyle(
-                              color: Colors.white,
-                            )),
-                      ),
-                      TextField(
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 15.0),
-                          filled: true,
-                          fillColor: const Color.fromARGB(255, 189, 194, 197),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          hintText: "********",
                         ),
                       ),
                     ]),
@@ -219,14 +192,6 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
                         if (_phoneController.text == "") {
                           _phoneController.text =
                               snapshot.data!.get("phone").toString();
-                        }
-                        if (_passwordController.text != "") {
-                          await user?.updatePassword(_passwordController.text);
-
-                          /*final FirebaseAuth firebaseAuth =
-                              FirebaseAuth.instance;
-                          User? currentUser = firebaseAuth.currentUser;
-                          currentUser?.updatePassword("newpassword");*/
                         }
 
                         await db.collection("users").doc(user!.uid).update({

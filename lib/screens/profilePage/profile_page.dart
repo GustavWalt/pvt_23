@@ -154,33 +154,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ]),
                   ),
-                  Card(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-                    color: Colors.transparent,
-                    elevation: 0,
-                    child: Column(children: <Widget>[
-                      const ListTile(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        title: Text('Password',
-                            style: TextStyle(
-                              color: Colors.white,
-                            )),
-                      ),
-                      TextField(
-                        enabled: false,
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 15.0),
-                          filled: true,
-                          fillColor: const Color.fromARGB(255, 189, 194, 197),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          hintText: "********",
-                        ),
-                      ),
-                    ]),
-                  ),
                   Padding(
                     padding: EdgeInsets.all(18),
                     child: TextButton(
