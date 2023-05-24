@@ -116,10 +116,6 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
                               var members = data['members'];
                               var sizeOfGroup = int.parse(data['size']);
 
-                              if (members <= sizeOfGroup) {
-                                print("hej");
-                              }
-
                               final userData = <String, dynamic>{"uid": uid};
 
                               CollectionReference _collectionRef = db
@@ -184,16 +180,11 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
                                 return;
                               } else {
                                 await db
-                                    .collection("groups")
-                                    .doc(docId)
-                                    .collection("users")
-                                    .add(userData);
-
-                                await db
                                     .collection("users")
                                     .doc(auth.currentUser!.uid)
-                                    .collection("groups")
-                                    .add(data);
+                                    .update({
+                                  'groups.id': FieldValue.arrayUnion([docId]),
+                                });
 
                                 await db
                                     .collection("groups")

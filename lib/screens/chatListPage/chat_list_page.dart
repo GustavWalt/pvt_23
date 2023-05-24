@@ -18,22 +18,34 @@ class _ChatListPageState extends State<ChatListPage> {
   final db = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
   List _items = [];
+  List groups = [];
+  Map<String, dynamic> groups2 = {};
+
+  getUser() async {
+    var db = FirebaseFirestore.instance
+        .collection("users")
+        .doc(auth.currentUser!.uid);
+
+    await db.get().then((value) => groups2 = value["groups"]);
+    groups2.forEach((key, value) {
+      _items = value;
+    });
+  }
+
+  getGroups() async {
+    await getUser();
+    for (var i = 0; i < _items.length; i++) {
+      await db.collection("groups").doc(_items[i]).get().then((value) => {
+            groups.add(value["name"]),
+          });
+    }
+  }
 
   @override
-  Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _groupsStream = FirebaseFirestore.instance
-        .collection('users')
-        .doc(auth.currentUser!.uid)
-        .collection('groups')
-        .snapshots();
-    _groupsStream.forEach((element) {
-      element.docs.forEach((element) {
-        _items.add(element.data());
-      });
-    });
-    return StreamBuilder<QuerySnapshot>(
-      stream: _groupsStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+  Widget build(context) {
+    return FutureBuilder<dynamic>(
+      future: getGroups(),
+      builder: (context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasError) {
           return Text('Something went wrong');
         }
@@ -98,7 +110,7 @@ class _ChatListPageState extends State<ChatListPage> {
                                             BorderRadius.circular(100)),
                                   ),
                                   child: Text(
-                                    _items[index]["name"],
+                                    groups[index],
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   onPressed: () {
@@ -106,8 +118,7 @@ class _ChatListPageState extends State<ChatListPage> {
                                         FirebaseFirestore.instance
                                             .collection('groups')
                                             .where("name",
-                                                isEqualTo: _items[index]
-                                                    ["name"])
+                                                isEqualTo: groups[index])
                                             .snapshots();
                                     context.goNamed(
                                       "chat_page",

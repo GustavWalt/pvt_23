@@ -447,9 +447,15 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                                       }
                                     }
 
-                                    var groupName = _groupInfo[0]['name'];
+                                    await db
+                                        .collection("users")
+                                        .doc(auth.currentUser!.uid)
+                                        .update({
+                                      'groups.id': FieldValue.arrayRemove(
+                                          [currentGroupId]),
+                                    });
 
-                                    var groupInUser = db
+                                    /*var groupInUser = db
                                         .collection("users")
                                         .doc(auth.currentUser!.uid)
                                         .collection("groups");
@@ -459,7 +465,7 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                                       if (doc['name'] == groupName) {
                                         doc.reference.delete();
                                       }
-                                    }
+                                    }*/
                                     context.go('/group_page');
                                   },
                                   child: const Text("OK"),
