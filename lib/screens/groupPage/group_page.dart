@@ -187,62 +187,6 @@ class _GroupPageState extends State<GroupPage> {
               ),
             ),
           );
-
-          /*final Stream<QuerySnapshot> _groupsStream = FirebaseFirestore.instance
-        .collection('users')
-        .doc(auth.currentUser!.uid)
-        .collection('groups')
-        .snapshots();
-    _groupsStream.forEach((element) {
-      element.docs.forEach((element) {
-        _items.add(element.data());
-      });
-    });*/
-
-          /*_groupsStream2.forEach((element) async {
-      for (var i = 0; i < element.docs.length; i++) {
-        var eleID = element.docs[i].id;
-        var dunno = await element.docs[i].reference.collection('users').get();
-        dunno.docs.forEach((element) {
-          if (element.id == auth.currentUser!.uid) {
-            _items.add(eleID);
-          }
         });
-      }
-    });*/
-
-          /*return StreamBuilder<QuerySnapshot>(
-      stream: _groupsStream2,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
-        }*/
-
-          /*Future<String> getGroups() async {
-          snapshot.data!.docs.forEach((element) {
-            var eleID = element.id;
-            element.reference.collection('users').get().then((value) => {
-                  value.docs.forEach((element) {
-                    if (element.id == auth.currentUser!.uid) {
-                      groups.add(eleID);
-                    }
-                  })
-                });
-          });
-          return "Success";
-        }
-
-        void getIDs() async {
-          await getGroups();
-          print(groups);
-        }*/
-
-          //},
-          //);
-        });
-  } //HÄR ska du tänka att buidler är
+  }
 }
