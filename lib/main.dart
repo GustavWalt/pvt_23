@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:pvt_23/screens/PlannedEventPage/planned_event_page.dart';
 import 'package:pvt_23/screens/CreateEventPage/create_event_page.dart';
 import 'package:pvt_23/screens/SpecificMovieResultPickPage/specific_movie_result_pick_page.dart';
+
 import 'package:pvt_23/screens/profilePage/profile_page_edit.dart';
 import 'package:pvt_23/screens/selectedGroupPage/selected_group_page.dart';
 

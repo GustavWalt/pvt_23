@@ -262,18 +262,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     'event.startTime': _startTime.toString(),
                   });
 
-                  await db
-                      .collection("users")
-                      .doc(auth.currentUser!.uid)
-                      .collection("groups")
-                      .doc(currentGroupId)
-                      .update({
-                    'event.eventName': _eventNameController.text,
-                    'event.location': _locationController.text,
-                    'event.movieName': widget.movie!.title,
-                    'event.startDate': _startDate.microsecondsSinceEpoch,
-                    'event.startTime': _startTime.toString(),
-                  });
                   context.go("/group_page");
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

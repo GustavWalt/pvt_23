@@ -290,17 +290,11 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                           await db.collection("groups").add(groupData);
 
                       await db
-                          .collection("groups")
-                          .doc(docRef.id)
-                          .collection("users")
-                          .add(userData);
-
-                      await db
                           .collection("users")
                           .doc(auth.currentUser!.uid)
-                          .collection("groups")
-                          .doc(docRef.id)
-                          .set(groupData);
+                          .update({
+                        'groups.id': FieldValue.arrayUnion([docRef.id]),
+                      });
                       context.go('/group_page');
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

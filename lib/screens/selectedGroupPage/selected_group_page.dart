@@ -410,10 +410,8 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                         ),
                       ),
                       onPressed: () async {
-                        var _userInGroup = db
-                            .collection('groups')
-                            .doc(currentGroupId)
-                            .collection('users');
+                        var _userInGroup =
+                            db.collection('groups').doc(currentGroupId);
 
                         showDialog(
                           context: context,
@@ -433,23 +431,22 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                                   onPressed: () async {
                                     Navigator.of(dialogContext).pop();
 
-                                    var snapshotUser = await _userInGroup.get();
-                                    for (var doc in snapshotUser.docs) {
-                                      if (doc['uid'] == uid) {
-                                        doc.reference.delete();
-                                        await db
-                                            .collection("groups")
-                                            .doc(currentGroupId)
-                                            .update({
-                                          "members":
-                                              _groupInfo[0]['members'] - 1,
-                                        });
-                                      }
-                                    }
+                                    await db
+                                        .collection("groups")
+                                        .doc(currentGroupId)
+                                        .update({
+                                      "members": _groupInfo[0]['members'] - 1,
+                                    });
 
-                                    var groupName = _groupInfo[0]['name'];
+                                    await db
+                                        .collection("users")
+                                        .doc(auth.currentUser!.uid)
+                                        .update({
+                                      'groups.id': FieldValue.arrayRemove(
+                                          [currentGroupId]),
+                                    });
 
-                                    var groupInUser = db
+                                    /*var groupInUser = db
                                         .collection("users")
                                         .doc(auth.currentUser!.uid)
                                         .collection("groups");
@@ -459,7 +456,7 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                                       if (doc['name'] == groupName) {
                                         doc.reference.delete();
                                       }
-                                    }
+                                    }*/
                                     context.go('/group_page');
                                   },
                                   child: const Text("OK"),

@@ -153,7 +153,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     "fullname": _nameController.text,
                     "phone": int.parse(_phoneController.text),
                     "email": _emailController.text,
-                    "uid": uid
+                    "uid": uid,
+                    "groups": {},
                   };
 
                   await db.collection("users").doc(uid).set(user);

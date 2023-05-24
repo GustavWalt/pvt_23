@@ -113,34 +113,27 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
                               final User? currentUser = auth.currentUser;
                               final uid = currentUser!.uid;
 
-                              var members = data['members'];
-                              var sizeOfGroup = int.parse(data['size']);
-
-                              if (members <= sizeOfGroup) {
-                                print("hej");
-                              }
-
-                              final userData = <String, dynamic>{"uid": uid};
-
-                              CollectionReference _collectionRef = db
-                                  .collection('groups')
-                                  .doc(docId)
-                                  .collection('users');
-
-                              QuerySnapshot querySnapshot =
-                                  await _collectionRef.get();
-
-                              final List allData = querySnapshot.docs
-                                  .map((doc) => doc.data())
-                                  .toList();
-
+                              List _items = [];
+                              Map<String, dynamic> groups2 = {};
                               bool userIsInGroup = false;
 
-                              for (var i = 0; i < allData.length; i++) {
-                                if (allData[i]!['uid'] == uid) {
+                              var db2 = FirebaseFirestore.instance
+                                  .collection("users")
+                                  .doc(auth.currentUser!.uid);
+
+                              await db2
+                                  .get()
+                                  .then((value) => groups2 = value["groups"]);
+                              groups2.forEach((key, value) {
+                                _items = value;
+                              });
+
+                              for (var i = 0; i < _items.length; i++) {
+                                if (_items[i] == docId) {
                                   userIsInGroup = true;
                                 }
                               }
+
                               if (userIsInGroup) {
                                 showDialog(
                                   context: context,
@@ -184,16 +177,11 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
                                 return;
                               } else {
                                 await db
-                                    .collection("groups")
-                                    .doc(docId)
-                                    .collection("users")
-                                    .add(userData);
-
-                                await db
                                     .collection("users")
                                     .doc(auth.currentUser!.uid)
-                                    .collection("groups")
-                                    .add(data);
+                                    .update({
+                                  'groups.id': FieldValue.arrayUnion([docId]),
+                                });
 
                                 await db
                                     .collection("groups")
