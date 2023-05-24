@@ -59,7 +59,7 @@ class MenuWidget extends StatelessWidget {
             break;
 
           case 3:
-            context.go('/calendar_page_test');
+            context.go('/calendar_page');
             break;
         }
       },

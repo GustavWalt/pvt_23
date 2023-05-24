@@ -88,11 +88,6 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/calendar_page',
         builder: (BuildContext context, GoRouterState state) {
-          return const CalendarPageTest();
-        }),
-    GoRoute(
-        path: '/calendar_page_test',
-        builder: (BuildContext context, GoRouterState state) {
           return const CalendarPage();
         }),
     GoRoute(

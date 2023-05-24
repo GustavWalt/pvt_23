@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,35 +23,6 @@ class _CalendarPageTestState extends State<CalendarPageTest> {
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
   List<Event> allEvents = [];
-
-  final db = FirebaseFirestore.instance;
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
-  List _items = [];
-  List groups = [];
-  Map<String, dynamic> groups2 = {};
-
-  getUser() async {
-    var db = FirebaseFirestore.instance
-        .collection("users")
-        .doc(auth.currentUser!.uid);
-
-    await db.get().then((value) => groups2 = value["groups"]);
-    groups2.forEach((key, value) {
-      _items = value;
-    });
-  }
-
-  getEvent() async {
-    await getUser();
-    for (var i = 0; i < _items.length; i++) {
-      await db
-          .collection("groups")
-          .doc(_items[i])
-          .get()
-          .then((value) => {groups.add(value["event"]), print(groups)});
-    }
-  }
 
   @override
   void initState() {
@@ -124,130 +94,113 @@ class _CalendarPageTestState extends State<CalendarPageTest> {
   }
 
   @override
-  Widget build(context) {
-    return FutureBuilder<dynamic>(
-        future: getEvent(),
-        builder: (context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Something went wrong');
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
-          }
-          return Scaffold(
-            bottomNavigationBar: const MenuWidget(),
-            appBar: AppBar(
-              actions: [
-                Padding(
-                    padding: EdgeInsets.only(right: 20),
-                    child: GestureDetector(
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: const MenuWidget(),
+      appBar: AppBar(
+        actions: [
+          Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: GestureDetector(
+                onTap: () {
+                  context.go("/profile_page");
+                },
+                child: Icon(Icons.account_circle),
+              ))
+        ],
+        title: const Text('Calendar'),
+        backgroundColor: Colors.black,
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          TableCalendar<Event>(
+            firstDay: DateTime.utc(2010, 10, 16),
+            lastDay: DateTime.utc(2030, 3, 14),
+            focusedDay: _focusedDay,
+            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+            rangeStartDay: _rangeStart,
+            rangeEndDay: _rangeEnd,
+            calendarFormat: _calendarFormat,
+            rangeSelectionMode: _rangeSelectionMode,
+            eventLoader: _getEventsForDay,
+            startingDayOfWeek: StartingDayOfWeek.monday,
+            calendarStyle: CalendarStyle(
+              // Use `CalendarStyle` to customize the UI
+              outsideDaysVisible: false,
+            ),
+            onDaySelected: _onDaySelected,
+            onRangeSelected: _onRangeSelected,
+            onFormatChanged: (format) {
+              if (_calendarFormat != format) {
+                setState(() {
+                  _calendarFormat = format;
+                });
+              }
+            },
+            onPageChanged: (focusedDay) {
+              _focusedDay = focusedDay;
+            },
+          ),
+          const SizedBox(height: 8.0),
+          Expanded(
+            child: ValueListenableBuilder<List<Event>>(
+              valueListenable: _selectedEvents,
+              builder: (context, value, _) {
+                return ListView.builder(
+                  itemCount: value.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
                       onTap: () {
-                        context.go("/profile_page");
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Event Details'),
+                              content: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Event Name: ${value[index].eventName}'),
+                                  Text('Location: ${value[index].location}'),
+                                  Text('Movie Name: ${value[index].movieName}'),
+                                  Text('Start Date: ${value[index].startDate}'),
+                                  Text('Start Time: ${value[index].startTime}'),
+                                ],
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Close'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
-                      child: Icon(Icons.account_circle),
-                    ))
-              ],
-              title: const Text('Calendar'),
-              backgroundColor: Colors.black,
-              centerTitle: true,
-            ),
-            body: Column(
-              children: [
-                TableCalendar<Event>(
-                  firstDay: DateTime.utc(2010, 10, 16),
-                  lastDay: DateTime.utc(2030, 3, 14),
-                  focusedDay: _focusedDay,
-                  selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                  rangeStartDay: _rangeStart,
-                  rangeEndDay: _rangeEnd,
-                  calendarFormat: _calendarFormat,
-                  rangeSelectionMode: _rangeSelectionMode,
-                  eventLoader: _getEventsForDay,
-                  startingDayOfWeek: StartingDayOfWeek.monday,
-                  calendarStyle: CalendarStyle(
-                    // Use `CalendarStyle` to customize the UI
-                    outsideDaysVisible: false,
-                  ),
-                  onDaySelected: _onDaySelected,
-                  onRangeSelected: _onRangeSelected,
-                  onFormatChanged: (format) {
-                    if (_calendarFormat != format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    }
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 4.0,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: ListTile(
+                          title: Text('${value[index].eventName}'),
+                        ),
+                      ),
+                    );
                   },
-                  onPageChanged: (focusedDay) {
-                    _focusedDay = focusedDay;
-                  },
-                ),
-                const SizedBox(height: 8.0),
-                Expanded(
-                  child: ValueListenableBuilder<List<Event>>(
-                    valueListenable: _selectedEvents,
-                    builder: (context, value, _) {
-                      return ListView.builder(
-                        itemCount: value.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text('Event Details'),
-                                    content: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                            'Event Name: ${value[index].eventName}'),
-                                        Text(
-                                            'Location: ${value[index].location}'),
-                                        Text(
-                                            'Movie Name: ${value[index].movieName}'),
-                                        Text(
-                                            'Start Date: ${value[index].startDate}'),
-                                        Text(
-                                            'Start Time: ${value[index].startTime}'),
-                                      ],
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text('Close'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                                vertical: 4.0,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: ListTile(
-                                title: Text('${value[index].eventName}'),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
+                );
+              },
             ),
-          );
-        });
+          ),
+        ],
+      ),
+    );
   }
 
   List<DateTime> daysInRange(DateTime start, DateTime end) {

@@ -6,44 +6,51 @@ import '../screens/calendarPage/calendar_page.dart';
 class EventService {
   static Future<List<Event>> getAllEventsForUser(String userId) async {
     List<Event> allEvents = [];
+    Map<String, dynamic> groupIds = {};
+    List<Map<String, dynamic>> groups = [];
+    List _items = [];
 
-    QuerySnapshot userSnapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('groups')
-        .get();
+    var db = FirebaseFirestore.instance.collection("users").doc(userId);
 
-    for (QueryDocumentSnapshot groupDoc in userSnapshot.docs) {
-      QuerySnapshot eventsSnapshot =
-          await groupDoc.reference.collection('events').get();
+    await db.get().then((value) => groupIds = value["groups"]);
+    groupIds.forEach((key, value) {
+      _items = value;
+    });
 
-      Map<String, dynamic>? groupData =
-          groupDoc.data() as Map<String, dynamic>?;
+    for (String groupId in _items) {
+      DocumentSnapshot<Map<String, dynamic>> groupSnapshot =
+          await FirebaseFirestore.instance
+              .collection("groups")
+              .doc(groupId)
+              .get();
 
-      if (groupData != null && groupData.containsKey('event')) {
-        Map<String, dynamic>? eventData =
-            groupData['event'] as Map<String, dynamic>?;
+      Map<String, dynamic> groupData = groupSnapshot.data()!;
+      groups.add(groupData);
+    }
+    for (var i = 0; i < groups.length; i++) {
+      groups[i].forEach((key, value) {
+        if (key == 'event') {
+          if (value != null) {
+            String timeValue =
+                value['startTime'].replaceAll(RegExp(r'[^\d:]'), '');
+            List<String> parts = timeValue.split(':');
+            int hour = int.parse(parts[0]);
+            int minute = int.parse(parts[1]);
+            TimeOfDay timeOfDay = TimeOfDay(hour: hour, minute: minute);
 
-        if (eventData != null) {
-          String timeValue =
-              eventData['startTime'].replaceAll(RegExp(r'[^\d:]'), '');
-          List<String> parts = timeValue.split(':');
-          int hour = int.parse(parts[0]);
-          int minute = int.parse(parts[1]);
-          TimeOfDay timeOfDay = TimeOfDay(hour: hour, minute: minute);
+            Event event = Event(
+              eventName: value['eventName'],
+              location: value['location'],
+              movieName: value['movieName'],
+              startDate:
+                  DateTime.fromMicrosecondsSinceEpoch(value['startDate']),
+              startTime: timeOfDay,
+            );
 
-          Event event = Event(
-            eventName: eventData['eventName'],
-            location: eventData['location'],
-            movieName: eventData['movieName'],
-            startDate:
-                DateTime.fromMicrosecondsSinceEpoch(eventData['startDate']),
-            startTime: timeOfDay,
-          );
-
-          allEvents.add(event);
+            allEvents.add(event);
+          }
         }
-      }
+      });
     }
 
     return allEvents;
