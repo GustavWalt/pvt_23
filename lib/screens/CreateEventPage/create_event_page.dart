@@ -85,6 +85,31 @@ class _CreateEventPageState extends State<CreateEventPage> {
               )
             ]),
             Container(
+              margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromRadius(10),
+                    backgroundColor: const Color.fromARGB(255, 147, 48, 48),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    padding: const EdgeInsets.all(15),
+                    side: const BorderSide(color: Colors.black, width: 0)),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      WidgetSpan(
+                        child: Icon(Icons.movie, size: 16),
+                      ),
+                      TextSpan(
+                          text: " Pick Movie",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+                onPressed: () => context.go("/search_pick_page"),
+              ),
+            ),
+            Container(
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
               child: TextFormField(
                 controller: _eventNameController,
@@ -120,31 +145,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   labelStyle: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 style: const TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromRadius(10),
-                    backgroundColor: const Color.fromARGB(255, 147, 48, 48),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    padding: const EdgeInsets.all(15),
-                    side: const BorderSide(color: Colors.black, width: 0)),
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      WidgetSpan(
-                        child: Icon(Icons.movie, size: 16),
-                      ),
-                      TextSpan(
-                          text: " Pick Movie",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-                onPressed: () => context.go("/search_pick_page"),
               ),
             ),
             Container(
@@ -253,21 +253,42 @@ class _CreateEventPageState extends State<CreateEventPage> {
                 ),
                 onPressed: () async {
                   final FirebaseAuth auth = FirebaseAuth.instance;
+                  if (_eventNameController.text == "" ||
+                      _locationController.text == "" ||
+                      widget.movie == null) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Error"),
+                          content: const Text("Please fill in all fields"),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("OK"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    await db.collection("groups").doc(currentGroupId).update({
+                      'event.eventName': _eventNameController.text,
+                      'event.location': _locationController.text,
+                      'event.movieName': widget.movie!.title,
+                      'event.startDate': _startDate.microsecondsSinceEpoch,
+                      'event.startTime': _startTime.toString(),
+                    });
 
-                  await db.collection("groups").doc(currentGroupId).update({
-                    'event.eventName': _eventNameController.text,
-                    'event.location': _locationController.text,
-                    'event.movieName': widget.movie!.title,
-                    'event.startDate': _startDate.microsecondsSinceEpoch,
-                    'event.startTime': _startTime.toString(),
-                  });
-
-                  context.go("/group_page");
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Success!"),
-                    ),
-                  );
+                    context.go("/group_page");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Success!"),
+                      ),
+                    );
+                  }
                 },
               ),
             ),

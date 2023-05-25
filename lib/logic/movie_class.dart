@@ -19,14 +19,27 @@ class Movie {
       required this.poster});
 
   factory Movie.fromJson(Map<String, dynamic> json) {
-    return Movie(
-        title: json['Title'],
-        year: json['Year'],
-        released: json['Released'],
-        genre: json['Genre'],
-        plot: json['Plot'],
-        imdbRating: json['imdbRating'],
-        imdbVotes: json['imdbVotes'],
-        poster: json['Poster']);
+    if (json['Title'] == null) {
+      return Movie(
+        title: "",
+        year: "",
+        released: "",
+        genre: "",
+        plot: "",
+        imdbRating: "",
+        imdbVotes: "",
+        poster: "",
+      );
+    } else {
+      return Movie(
+          title: json['Title'],
+          year: json['Year'],
+          released: json['Released'],
+          genre: json['Genre'],
+          plot: json['Plot'],
+          imdbRating: json['imdbRating'],
+          imdbVotes: json['imdbVotes'],
+          poster: json['Poster']);
+    }
   }
 }

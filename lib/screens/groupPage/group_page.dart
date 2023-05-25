@@ -23,15 +23,15 @@ class _GroupPageState extends State<GroupPage> {
 
   List _items = [];
   List groups = [];
-  Map<String, dynamic> groups2 = {};
+  Map<String, dynamic> groupIDs = {};
 
   getUser() async {
     var db = FirebaseFirestore.instance
         .collection("users")
         .doc(auth.currentUser!.uid);
 
-    await db.get().then((value) => groups2 = value["groups"]);
-    groups2.forEach((key, value) {
+    await db.get().then((value) => groupIDs = value["groups"]);
+    groupIDs.forEach((key, value) {
       _items = value;
     });
   }
