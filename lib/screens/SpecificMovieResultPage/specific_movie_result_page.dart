@@ -39,8 +39,7 @@ class SpecificMovieResultPage extends StatelessWidget {
           centerTitle: true,
         ),
         bottomNavigationBar: const MenuWidget(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(50, 50, 50, 50),

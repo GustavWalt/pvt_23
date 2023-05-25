@@ -40,7 +40,7 @@ class _SearchPageState extends State<SearchPage> {
         backgroundColor: Colors.black,
         centerTitle: true,
       ),
-      body: Column(
+      body: ListView(
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(60, 20, 60, 0),
@@ -95,8 +95,30 @@ class _SearchPageState extends State<SearchPage> {
                 onPressed: () {
                   fetchMovie().then(
                     (value) => {
-                      context.goNamed("specific_movie_result_page",
-                          extra: value)
+                      if (value.title.isNotEmpty)
+                        {
+                          context.goNamed("specific_movie_result_page",
+                              extra: value)
+                        }
+                      else
+                        {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Error"),
+                                  content: const Text(
+                                      "No movie with that name was found"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("OK"))
+                                  ],
+                                );
+                              })
+                        }
                     },
                   );
                 },
@@ -107,7 +129,6 @@ class _SearchPageState extends State<SearchPage> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/group_page_picture.png'),
-                fit: BoxFit.fill,
               ),
             ),
           ),
