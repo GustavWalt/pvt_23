@@ -138,16 +138,38 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                             ),
                             child: const Icon(Icons.edit),
                             onPressed: () async {
-                              final Stream<QuerySnapshot> selectedGroup =
-                                  FirebaseFirestore.instance
-                                      .collection('groups')
-                                      .where("name",
-                                          isEqualTo: _groupInfo[0]["name"])
-                                      .snapshots();
-                              context.goNamed(
-                                "create_group_page_edit",
-                                extra: selectedGroup,
-                              );
+                              if (uid == _groupInfo[0]['admin']) {
+                                final Stream<QuerySnapshot> selectedGroup =
+                                    FirebaseFirestore.instance
+                                        .collection('groups')
+                                        .where("name",
+                                            isEqualTo: _groupInfo[0]["name"])
+                                        .snapshots();
+                                context.goNamed(
+                                  "create_group_page_edit",
+                                  extra: selectedGroup,
+                                );
+                                return;
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text("Error"),
+                                      content: const Text(
+                                          "You are not the admin of this group!"),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text("OK"),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
                             }),
                       ),
                     ]),
