@@ -84,8 +84,52 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
           centerTitle: true,
         ),
         body: ListView(children: [
+          Container(
+            padding: const EdgeInsets.fromLTRB(330, 20, 0, 0),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromRadius(25),
+                  backgroundColor: Color.fromARGB(255, 64, 122, 83),
+                  shape: const CircleBorder(
+                    side: const BorderSide(color: Colors.black, width: 2),
+                  ),
+                ),
+                child: const Icon(Icons.edit),
+                onPressed: () async {
+                  String adminId = "";
+                  await db.collection("groups").doc(currentGroupId).get().then(
+                        (value) => adminId = value["admin"],
+                      );
+
+                  if (uid == adminId) {
+                    context.go(
+                      "/create_event_page",
+                    );
+                    return;
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Error"),
+                          content: const Text(
+                              "You are not the admin of this group!"),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("OK"),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                }),
+          ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(50, 50, 50, 0),
+            padding: const EdgeInsets.fromLTRB(50, 30, 50, 0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -171,50 +215,9 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                       style: TextStyle(color: Colors.white, fontSize: 25))
                 ]),
           ),*/
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-            child: TextButton(
-                child: const Text(
-                  "Edit event",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                onPressed: () async {
-                  Future<DocumentSnapshot<Map<String, dynamic>>> doc =
-                      db.collection("groups").doc(currentGroupId).get();
-                  doc.then((value) => {
-                        if (uid == value.data()!['admin'])
-                          {context.goNamed('create_event_page')}
-                        else
-                          {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text("Error"),
-                                  content: const Text(
-                                      "You are not the admin of this group!"),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const Text("OK"),
-                                    ),
-                                  ],
-                                );
-                              },
-                            )
-                          }
-                      });
-                }),
-          ),
 
           Container(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromRadius(10),
