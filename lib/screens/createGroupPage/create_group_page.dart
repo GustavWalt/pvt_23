@@ -43,9 +43,9 @@ class CreateGroupPage extends StatefulWidget {
 class _CreateGroupPageState extends State<CreateGroupPage> {
   final db = FirebaseFirestore.instance;
 
-  String sizeValue = size.first;
-  String genreValue = genres.first;
-  String levelValue = level.first;
+  String sizeValue = "";
+  String genreValue = "";
+  String levelValue = "";
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -256,7 +256,10 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                     final userData = <String, dynamic>{"uid": uid};
 
                     if (_nameController.text == "" ||
-                        _descriptionController.text == "") {
+                        _descriptionController.text == "" ||
+                        sizeValue == "" ||
+                        genreValue == "" ||
+                        levelValue == "") {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {

@@ -99,6 +99,58 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                                     AssetImage("assets/images/no-image.png"),
                               ),
                             ))),
+                    Row(children: [
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(275, 20, 0, 0),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size.fromRadius(25),
+                              backgroundColor: Color.fromARGB(255, 64, 122, 83),
+                              shape: const CircleBorder(
+                                side: const BorderSide(
+                                    color: Colors.black, width: 2),
+                              ),
+                            ),
+                            child: const Icon(Icons.chat),
+                            onPressed: () async {
+                              final Stream<QuerySnapshot> selectedGroup =
+                                  FirebaseFirestore.instance
+                                      .collection('groups')
+                                      .where("name",
+                                          isEqualTo: _groupInfo[0]["name"])
+                                      .snapshots();
+                              context.goNamed(
+                                "chat_page",
+                                extra: selectedGroup,
+                              );
+                            }),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size.fromRadius(25),
+                              backgroundColor: Color.fromARGB(255, 64, 122, 83),
+                              shape: const CircleBorder(
+                                side: const BorderSide(
+                                    color: Colors.black, width: 2),
+                              ),
+                            ),
+                            child: const Icon(Icons.edit),
+                            onPressed: () async {
+                              final Stream<QuerySnapshot> selectedGroup =
+                                  FirebaseFirestore.instance
+                                      .collection('groups')
+                                      .where("name",
+                                          isEqualTo: _groupInfo[0]["name"])
+                                      .snapshots();
+                              context.goNamed(
+                                "create_group_page_edit",
+                                extra: selectedGroup,
+                              );
+                            }),
+                      ),
+                    ]),
                     Container(
                       margin: EdgeInsets.fromLTRB(15, 150, 30, 0),
                       color: Colors.transparent,
@@ -116,130 +168,6 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                         ),
                       ]),
                     ),
-
-                    //FRAMEWORK FOR IF WE WANT TO INCLUDE LIST OF MEMBERS
-                    //FRAMEWORK FOR IF WE WANT TO INCLUDE LIST OF MEMBERS
-                    //FRAMEWORK FOR IF WE WANT TO INCLUDE LIST OF MEMBERS
-                    //FRAMEWORK FOR IF WE WANT TO INCLUDE LIST OF MEMBERS
-                    //FRAMEWORK FOR IF WE WANT TO INCLUDE LIST OF MEMBERS
-
-                    /*Container(
-                      margin: const EdgeInsets.fromLTRB(30, 200, 30, 10),
-                      color: Colors.transparent,
-                      child: Row(
-                        children: const <Widget>[
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  AssetImage("assets/images/profile1.png"),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                        margin: const EdgeInsets.fromLTRB(30, 200, 30, 10),
-                        color: Colors.transparent,
-                        child: Row(children: const <Widget>[
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  AssetImage("assets/images/profile1.png"),
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  AssetImage("assets/images/profile1.png"),
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  AssetImage("assets/images/profile1.png"),
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  AssetImage("assets/images/profile1bw.png"),
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  AssetImage("assets/images/profile1bw.png"),
-                            ),
-                          ),
-                        ])),*/
-                    /*Container(
-                        margin: const EdgeInsets.fromLTRB(30, 270, 30, 10),
-                        color: Colors.transparent,
-                        child: Row(children: const <Widget>[
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  AssetImage("assets/images/profile1bw.png"),
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  AssetImage("assets/images/profile1bw.png"),
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  AssetImage("assets/images/profile1bw.png"),
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  AssetImage("assets/images/profile1bw.png"),
-                            ),
-                          ),
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  AssetImage("assets/images/profile1bw.png"),
-                            ),
-                          ),
-                        ])),*/
                   ]),
                   Card(
                     margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -294,38 +222,6 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                             )),
                       ),
                     ]),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(150, 10, 150, 10),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            minimumSize: const Size.fromRadius(25),
-                            backgroundColor: Color.fromARGB(255, 64, 122, 83)),
-                        child: RichText(
-                          text: const TextSpan(
-                            children: [
-                              WidgetSpan(
-                                child: Icon(Icons.chat, size: 16),
-                              ),
-                              TextSpan(
-                                  text: "Chat",
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white)),
-                            ],
-                          ),
-                        ),
-                        onPressed: () async {
-                          final Stream<QuerySnapshot> selectedGroup =
-                              FirebaseFirestore.instance
-                                  .collection('groups')
-                                  .where("name",
-                                      isEqualTo: _groupInfo[0]["name"])
-                                  .snapshots();
-                          context.goNamed(
-                            "chat_page",
-                            extra: selectedGroup,
-                          );
-                        }),
                   ),
                   Container(
                     height: 65,
