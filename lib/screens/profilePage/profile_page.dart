@@ -73,6 +73,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                     AssetImage("assets/images/profile1.png"),
                               ),
                             ))),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(330, 20, 0, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size.fromRadius(25),
+                          backgroundColor: Color.fromARGB(255, 64, 122, 83),
+                          shape: const CircleBorder(
+                            side:
+                                const BorderSide(color: Colors.black, width: 2),
+                          ),
+                        ),
+                        child: const Icon(Icons.edit),
+                        onPressed: () => context.go('/profile_page_edit'),
+                      ),
+                    ),
                     Card(
                       margin: const EdgeInsets.fromLTRB(30, 130, 30, 8),
                       color: Colors.transparent,
@@ -154,22 +169,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ]),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(18),
-                    child: TextButton(
-                      child: const Text(
-                        "Edit profile",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: () => context.go('/profile_page_edit'),
-                    ),
-                  ),
                   Container(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                    padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromRadius(10),
