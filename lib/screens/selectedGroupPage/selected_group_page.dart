@@ -49,7 +49,9 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
           }
 
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (currentGroupId != snapshot.data!.docs[0].id) {
+            if (snapshot.data!.docs.isEmpty) {
+              context.go("/group_page");
+            } else if (currentGroupId != snapshot.data!.docs[0].id) {
               groupIdProvider.updateGroupId(snapshot.data!.docs[0].id);
             }
           });
@@ -410,9 +412,6 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                         ),
                       ),
                       onPressed: () async {
-                        var _userInGroup =
-                            db.collection('groups').doc(currentGroupId);
-
                         showDialog(
                           context: context,
                           builder: (BuildContext dialogContext) {
@@ -431,33 +430,59 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                                   onPressed: () async {
                                     Navigator.of(dialogContext).pop();
 
-                                    await db
-                                        .collection("groups")
-                                        .doc(currentGroupId)
-                                        .update({
-                                      "members": _groupInfo[0]['members'] - 1,
-                                    });
+                                    if (uid == _groupInfo[0]['admin']) {
+                                      Map<String, dynamic> groupsInUser = {};
+                                      var users = await db
+                                          .collection("users")
+                                          .get()
+                                          .then((value) =>
+                                              value.docs.forEach((element) {
+                                                groupsInUser =
+                                                    element["groups"];
 
-                                    await db
-                                        .collection("users")
-                                        .doc(auth.currentUser!.uid)
-                                        .update({
-                                      'groups.id': FieldValue.arrayRemove(
-                                          [currentGroupId]),
-                                    });
+                                                groupsInUser.forEach(
+                                                    (key, value) async {
+                                                  for (var i = 0;
+                                                      i < value.length;
+                                                      i++) {
+                                                    if (value[i] ==
+                                                        currentGroupId) {
+                                                      await db
+                                                          .collection("users")
+                                                          .doc(element.id)
+                                                          .update({
+                                                        'groups.id': FieldValue
+                                                            .arrayRemove([
+                                                          currentGroupId
+                                                        ]),
+                                                      });
+                                                    }
+                                                  }
+                                                });
+                                              }));
 
-                                    /*var groupInUser = db
-                                        .collection("users")
-                                        .doc(auth.currentUser!.uid)
-                                        .collection("groups");
+                                      await db
+                                          .collection("groups")
+                                          .doc(currentGroupId)
+                                          .delete();
+                                    } else {
+                                      await db
+                                          .collection("groups")
+                                          .doc(currentGroupId)
+                                          .update({
+                                        "members": _groupInfo[0]['members'] - 1,
+                                      });
 
-                                    var snapshotGroup = await groupInUser.get();
-                                    for (var doc in snapshotGroup.docs) {
-                                      if (doc['name'] == groupName) {
-                                        doc.reference.delete();
-                                      }
-                                    }*/
-                                    context.go('/group_page');
+                                      await db
+                                          .collection("users")
+                                          .doc(auth.currentUser!.uid)
+                                          .update({
+                                        'groups.id': FieldValue.arrayRemove(
+                                            [currentGroupId]),
+                                      });
+
+                                      context.go('/group_page');
+                                    }
                                   },
                                   child: const Text("OK"),
                                 ),
