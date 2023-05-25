@@ -95,8 +95,30 @@ class _SearchPickPageState extends State<SearchPickPage> {
                 onPressed: () {
                   fetchMovie().then(
                     (value) => {
-                      context.goNamed("specific_movie_result_pick_page",
-                          extra: value)
+                      if (value.title.isNotEmpty)
+                        {
+                          context.goNamed("specific_movie_result_pick_page",
+                              extra: value)
+                        }
+                      else
+                        {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Error"),
+                                  content: const Text(
+                                      "No movie with that name was found"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("OK"))
+                                  ],
+                                );
+                              })
+                        }
                     },
                   );
                 },
