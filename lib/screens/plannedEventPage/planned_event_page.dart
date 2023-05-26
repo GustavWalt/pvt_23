@@ -210,7 +210,9 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                       style: TextStyle(color: Colors.white, fontSize: 25))
                 ]),
           ),*/
-
+          const Padding(
+            padding: EdgeInsets.all(30),
+          ),
           Container(
             padding: const EdgeInsets.fromLTRB(110, 30, 110, 0),
             child: ElevatedButton(
