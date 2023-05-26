@@ -246,6 +246,9 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                     ]),
                   ),
                   Container(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 120),
+                  ),
+                  Container(
                     height: 65,
                     padding: const EdgeInsets.fromLTRB(85, 8, 85, 8),
                     child: Row(

@@ -71,12 +71,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
           ],
           leading: Builder(
             builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  //FUNGERAR INTE ATT GÅ TILLBAKA!!!
-                },
-              );
+              return BackButton();
             },
           ),
           title: Text(eventName),
