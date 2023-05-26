@@ -330,7 +330,7 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                           backgroundColor: Color.fromARGB(255, 147, 48, 48),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30)),
-                          padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                          padding: const EdgeInsets.fromLTRB(20, 13, 20, 13),
                           side:
                               const BorderSide(color: Colors.black, width: 2)),
                       child: RichText(
@@ -339,7 +339,7 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                             TextSpan(
                                 text: "Leave group",
                                 style: TextStyle(
-                                    fontSize: 20, color: Colors.white)),
+                                    fontSize: 17, color: Colors.white)),
                           ],
                         ),
                       ),
