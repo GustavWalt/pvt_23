@@ -63,10 +63,12 @@ class _ChatPageState extends State<ChatPage> {
           backgroundColor: Color.fromARGB(255, 35, 33, 26),
           bottomNavigationBar: const MenuWidget(),
           floatingActionButton: FloatingActionButton(
-            tooltip: 'Create new post', // used by assistive technologies
+            tooltip: 'Create new post',
             onPressed: () => _dialogBuilder(context, currentGroupId),
             child: Icon(Icons.add),
-            backgroundColor: Color.fromRGBO(180, 38, 38, 100),
+            backgroundColor: Color.fromARGB(255, 147, 48, 48),
+            shape: const CircleBorder(
+                side: const BorderSide(color: Colors.black, width: 2)),
           ),
           appBar: AppBar(
             actions: [
