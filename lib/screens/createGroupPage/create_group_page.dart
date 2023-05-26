@@ -227,7 +227,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
             ),
           ),
           Container(
-              padding: const EdgeInsets.fromLTRB(130, 10, 130, 10),
+              padding: const EdgeInsets.fromLTRB(125, 10, 125, 10),
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromRadius(10),
@@ -244,7 +244,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                         ),
                         TextSpan(
                             text: "Create group",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                            style: TextStyle(fontSize: 17)),
                       ],
                     ),
                   ),

@@ -170,7 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ]),
                   ),
                   Container(
-                    padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
+                    padding: const EdgeInsets.fromLTRB(140, 30, 140, 20),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromRadius(10),
@@ -180,7 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               borderRadius: BorderRadius.circular(30)),
                           padding: const EdgeInsets.all(15),
                           side:
-                              const BorderSide(color: Colors.black, width: 0)),
+                              const BorderSide(color: Colors.black, width: 2)),
                       child: RichText(
                         text: const TextSpan(
                           children: [
@@ -189,7 +189,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             TextSpan(
                                 text: " Log out",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                                style: TextStyle(fontSize: 17)),
                           ],
                         ),
                       ),
