@@ -101,12 +101,6 @@ class _GroupPageState extends State<GroupPage> {
                           child: ListView.builder(
                             itemCount: _items.length,
                             itemBuilder: (context, index) {
-                              /* var groupINFO =
-                                db.collection("groups").doc(_items[index]);
-                            groupINFO
-                                .get()
-                                .then((value) => {print(value["name"])}*/
-
                               return Container(
                                   height: 80,
                                   padding:
@@ -117,6 +111,8 @@ class _GroupPageState extends State<GroupPage> {
                                         backgroundColor:
                                             Color.fromARGB(255, 147, 48, 48),
                                         shape: RoundedRectangleBorder(
+                                            side: const BorderSide(
+                                                color: Colors.black, width: 2),
                                             borderRadius:
                                                 BorderRadius.circular(100)),
                                       ),
@@ -144,7 +140,7 @@ class _GroupPageState extends State<GroupPage> {
                       : Container(),
                   Container(
                     height: 65,
-                    padding: const EdgeInsets.fromLTRB(55, 8, 55, 8),
+                    padding: const EdgeInsets.fromLTRB(102, 8, 102, 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -152,18 +148,53 @@ class _GroupPageState extends State<GroupPage> {
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size.fromRadius(30),
                             backgroundColor: Color.fromARGB(255, 147, 48, 48),
-                            shape: const CircleBorder(),
+                            shape: const CircleBorder(
+                                side: const BorderSide(
+                                    color: Colors.black, width: 2)),
                           ),
                           child: const Icon(Icons.add, color: Colors.white),
                           onPressed: () => context.go('/create_group_page'),
-                          // Add create group button functionality here
                         ),
-                        Expanded(
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                minimumSize: const Size.fromRadius(80),
+                                minimumSize: const Size.fromRadius(10),
                                 backgroundColor:
-                                    Color.fromARGB(255, 147, 48, 48)),
+                                    Color.fromARGB(255, 147, 48, 48),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30)),
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                side: const BorderSide(
+                                    color: Colors.black, width: 2)),
+                            child: RichText(
+                              text: const TextSpan(
+                                children: [
+                                  WidgetSpan(
+                                    child: Icon(Icons.search, size: 17),
+                                  ),
+                                  TextSpan(
+                                      text: "Find groups",
+                                      style: TextStyle(fontSize: 17)),
+                                ],
+                              ),
+                            ),
+                            onPressed: () => context.go('/find_new_group_page'),
+                          ),
+                        ),
+                        /*Container(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                minimumSize: const Size.fromRadius(10),
+                                backgroundColor:
+                                    Color.fromARGB(255, 147, 48, 48),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30)),
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                side: const BorderSide(
+                                    color: Colors.black, width: 2)),
                             child: RichText(
                               text: const TextSpan(
                                 children: [
@@ -179,7 +210,7 @@ class _GroupPageState extends State<GroupPage> {
                             ),
                             onPressed: () => context.go('/find_new_group_page'),
                           ),
-                        ),
+                        ),*/
                       ],
                     ),
                   ),
