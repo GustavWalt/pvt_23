@@ -339,7 +339,9 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                             TextSpan(
                                 text: "Leave group",
                                 style: TextStyle(
-                                    fontSize: 17, color: Colors.white)),
+                                  fontSize: 17,
+                                  color: Colors.white,
+                                )),
                           ],
                         ),
                       ),
