@@ -17,8 +17,6 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
   final db = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
@@ -39,12 +37,17 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
         title: const Text(
           'Profile',
         ),
-        actions: const [
+        actions: [
           Padding(
               padding: EdgeInsets.only(right: 20),
-              child: Icon(
-                Icons.account_circle_rounded,
-                color: Color.fromARGB(255, 147, 48, 48),
+              child: GestureDetector(
+                onTap: () {
+                  context.go("/profile_page");
+                },
+                child: Icon(
+                  Icons.account_circle,
+                  color: Color.fromARGB(255, 147, 48, 48),
+                ),
               ))
         ],
       ),
@@ -112,33 +115,6 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
                     child: Column(children: <Widget>[
                       const ListTile(
                         contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        title: Text('E-mail',
-                            style: TextStyle(
-                              color: Colors.white,
-                            )),
-                      ),
-                      TextField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 15.0),
-                          filled: true,
-                          fillColor: Color.fromARGB(255, 255, 255, 255),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          hintText: snapshot.data!.get("email"),
-                        ),
-                      ),
-                    ]),
-                  ),
-                  Card(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-                    color: Colors.transparent,
-                    elevation: 0,
-                    child: Column(children: <Widget>[
-                      const ListTile(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 0),
                         title: Text('Phone number',
                             style: TextStyle(
                               color: Colors.white,
@@ -185,9 +161,7 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
                         if (_nameController.text == "") {
                           _nameController.text = snapshot.data!.get("fullname");
                         }
-                        if (_emailController.text == "") {
-                          _emailController.text = snapshot.data!.get("email");
-                        }
+
                         if (_phoneController.text == "") {
                           _phoneController.text =
                               snapshot.data!.get("phone").toString();
@@ -195,7 +169,6 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
 
                         await db.collection("users").doc(user!.uid).update({
                           "fullname": _nameController.text,
-                          "email": _emailController.text,
                           "phone": _phoneController.text,
                         });
                         context.go("/profile_page");
