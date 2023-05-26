@@ -162,7 +162,7 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
                     padding: EdgeInsets.all(18),
                   ),
                   Container(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                    padding: const EdgeInsets.fromLTRB(140, 10, 140, 20),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromRadius(10),
@@ -172,13 +172,12 @@ class _ProfilePageEditState extends State<ProfilePageEdit> {
                               borderRadius: BorderRadius.circular(30)),
                           padding: const EdgeInsets.all(15),
                           side:
-                              const BorderSide(color: Colors.black, width: 0)),
+                              const BorderSide(color: Colors.black, width: 2)),
                       child: RichText(
                         text: const TextSpan(
                           children: [
                             TextSpan(
-                                text: "Update",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                                text: "Update", style: TextStyle(fontSize: 17)),
                           ],
                         ),
                       ),

@@ -85,15 +85,15 @@ class _CreateEventPageState extends State<CreateEventPage> {
               )
             ]),
             Container(
-              margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+              margin: const EdgeInsets.fromLTRB(130, 15, 130, 15),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromRadius(10),
-                    backgroundColor: const Color.fromARGB(255, 147, 48, 48),
+                    backgroundColor: Color.fromARGB(255, 147, 48, 48),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
-                    padding: const EdgeInsets.all(15),
-                    side: const BorderSide(color: Colors.black, width: 0)),
+                    padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    side: const BorderSide(color: Colors.black, width: 2)),
                 child: RichText(
                   text: TextSpan(
                     children: [
@@ -101,8 +101,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         child: Icon(Icons.movie, size: 16),
                       ),
                       TextSpan(
-                          text: " Pick Movie",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                          text: " Pick Movie", style: TextStyle(fontSize: 17)),
                     ],
                   ),
                 ),
@@ -230,7 +229,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(130, 0, 130, 20),
+              padding: const EdgeInsets.fromLTRB(120, 0, 120, 20),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromRadius(10),
@@ -238,7 +237,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
                     padding: const EdgeInsets.all(15),
-                    side: const BorderSide(color: Colors.black, width: 0)),
+                    side: const BorderSide(color: Colors.black, width: 2)),
                 child: RichText(
                   text: const TextSpan(
                     children: [
@@ -247,7 +246,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       ),
                       TextSpan(
                           text: " Publish Event",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                          style: TextStyle(fontSize: 17)),
                     ],
                   ),
                 ),

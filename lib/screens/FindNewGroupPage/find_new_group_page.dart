@@ -158,8 +158,7 @@ class _FindNewGroupPageState extends State<FindNewGroupPage> {
                         child: Icon(Icons.add, size: 16),
                       ),
                       TextSpan(
-                          text: "Find groups",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                          text: "Find groups", style: TextStyle(fontSize: 17)),
                     ],
                   ),
                 ),

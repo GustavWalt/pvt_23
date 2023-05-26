@@ -271,7 +271,7 @@ class _CreateGroupPageEditState extends State<CreateGroupPageEdit> {
                   ),
                 ),
                 Container(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(140, 10, 140, 10),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             minimumSize: const Size.fromRadius(10),
@@ -287,8 +287,7 @@ class _CreateGroupPageEditState extends State<CreateGroupPageEdit> {
                             children: [
                               TextSpan(
                                   text: "Update",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                                  style: TextStyle(fontSize: 17)),
                             ],
                           ),
                         ),

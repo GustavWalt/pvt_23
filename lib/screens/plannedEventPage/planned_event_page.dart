@@ -217,15 +217,15 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
           ),*/
 
           Container(
-            padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+            padding: const EdgeInsets.fromLTRB(110, 30, 110, 0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromRadius(10),
                   backgroundColor: Color.fromARGB(255, 39, 164, 222),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
-                  padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
-                  side: const BorderSide(color: Colors.black, width: 3)),
+                  padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                  side: const BorderSide(color: Colors.black, width: 2)),
               child: RichText(
                 text: const TextSpan(
                   children: [
@@ -234,7 +234,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                     ),
                     TextSpan(
                         text: "Share to twitter",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                        style: TextStyle(fontSize: 17)),
                   ],
                 ),
               ),

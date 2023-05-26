@@ -247,7 +247,7 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                   ),
                   Container(
                     height: 65,
-                    padding: const EdgeInsets.fromLTRB(55, 8, 55, 8),
+                    padding: const EdgeInsets.fromLTRB(85, 8, 85, 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -255,7 +255,10 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size.fromRadius(30),
                             backgroundColor: Color.fromARGB(255, 147, 48, 48),
-                            shape: const CircleBorder(),
+                            shape: const CircleBorder(
+                              side: const BorderSide(
+                                  color: Colors.black, width: 2),
+                            ),
                           ),
                           child: const Icon(Icons.add, color: Colors.white),
                           onPressed: () {
@@ -283,24 +286,30 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                               );
                             }
                           },
-                          // Add create group button functionality here
                         ),
-                        Expanded(
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                minimumSize: const Size.fromRadius(80),
+                                minimumSize: const Size.fromRadius(10),
                                 backgroundColor:
-                                    Color.fromARGB(255, 147, 48, 48)),
+                                    Color.fromARGB(255, 147, 48, 48),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30)),
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                side: const BorderSide(
+                                    color: Colors.black, width: 2)),
                             child: RichText(
                               text: const TextSpan(
                                 children: [
                                   WidgetSpan(
-                                    child: Icon(Icons.calendar_month, size: 16),
+                                    child: Icon(Icons.calendar_month, size: 17),
                                   ),
                                   TextSpan(
                                       text: "Upcoming event",
                                       style: TextStyle(
-                                          fontSize: 20, color: Colors.white)),
+                                          fontSize: 17, color: Colors.white)),
                                 ],
                               ),
                             ),
@@ -314,18 +323,25 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.fromLTRB(55, 10, 55, 10),
+                    padding: const EdgeInsets.fromLTRB(90, 0, 85, 10),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          minimumSize: const Size.fromRadius(25),
-                          backgroundColor: Color.fromARGB(255, 147, 48, 48)),
+                          minimumSize: const Size.fromRadius(10),
+                          backgroundColor: Color.fromARGB(255, 147, 48, 48),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          padding: const EdgeInsets.fromLTRB(20, 13, 20, 13),
+                          side:
+                              const BorderSide(color: Colors.black, width: 2)),
                       child: RichText(
                         text: const TextSpan(
                           children: [
                             TextSpan(
                                 text: "Leave group",
                                 style: TextStyle(
-                                    fontSize: 20, color: Colors.white)),
+                                  fontSize: 17,
+                                  color: Colors.white,
+                                )),
                           ],
                         ),
                       ),

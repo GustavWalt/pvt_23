@@ -71,7 +71,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
           Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 100),
+              padding: const EdgeInsets.fromLTRB(110, 10, 110, 100),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromRadius(10),
@@ -88,7 +88,7 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                       TextSpan(
                           text: "Search for movie",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                          style: TextStyle(fontSize: 17)),
                     ],
                   ),
                 ),
