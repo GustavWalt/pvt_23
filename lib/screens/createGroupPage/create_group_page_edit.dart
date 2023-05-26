@@ -270,6 +270,9 @@ class _CreateGroupPageEditState extends State<CreateGroupPageEdit> {
                     }).toList(),
                   ),
                 ),
+                const Padding(
+                  padding: EdgeInsets.all(30),
+                ),
                 Container(
                     padding: const EdgeInsets.fromLTRB(140, 10, 140, 10),
                     child: ElevatedButton(

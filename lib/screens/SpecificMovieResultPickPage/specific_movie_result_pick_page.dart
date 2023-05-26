@@ -20,7 +20,11 @@ class SpecificMovieResultPickPage extends StatelessWidget {
               child: Icon(Icons.account_circle_rounded),
             )
           ],
-          leading: const Icon(Icons.arrow_back_rounded),
+          leading: BackButton(
+            onPressed: () {
+              context.go("/search_pick_page");
+            },
+          ),
           title: const Text('Movie'),
           backgroundColor: Colors.black,
           centerTitle: true,
@@ -105,7 +109,7 @@ class SpecificMovieResultPickPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
                     padding: const EdgeInsets.all(20),
-                    side: const BorderSide(color: Colors.black, width: 3)),
+                    side: const BorderSide(color: Colors.black, width: 2)),
                 child: const Text("Pick Movie",
                     style: TextStyle(
                       fontSize: 17,

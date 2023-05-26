@@ -183,37 +183,12 @@ class _GroupPageState extends State<GroupPage> {
                             onPressed: () => context.go('/find_new_group_page'),
                           ),
                         ),
-                        /*Container(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                minimumSize: const Size.fromRadius(10),
-                                backgroundColor:
-                                    Color.fromARGB(255, 147, 48, 48),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30)),
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                side: const BorderSide(
-                                    color: Colors.black, width: 2)),
-                            child: RichText(
-                              text: const TextSpan(
-                                children: [
-                                  WidgetSpan(
-                                    child: Icon(Icons.search, size: 16),
-                                  ),
-                                  TextSpan(
-                                      text: "Find groups",
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white)),
-                                ],
-                              ),
-                            ),
-                            onPressed: () => context.go('/find_new_group_page'),
-                          ),
-                        ),*/
                       ],
                     ),
                   ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                  )
                 ],
               ),
             ),

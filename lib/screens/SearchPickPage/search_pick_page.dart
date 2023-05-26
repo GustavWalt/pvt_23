@@ -36,6 +36,11 @@ class _SearchPickPageState extends State<SearchPickPage> {
                 child: Icon(Icons.account_circle),
               ))
         ],
+        leading: BackButton(
+          onPressed: () {
+            context.go("/create_event_page");
+          },
+        ),
         title: const Text('Search movie'),
         backgroundColor: Colors.black,
         centerTitle: true,
@@ -79,7 +84,7 @@ class _SearchPickPageState extends State<SearchPickPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),
                     padding: const EdgeInsets.all(20),
-                    side: const BorderSide(color: Colors.black, width: 3)),
+                    side: const BorderSide(color: Colors.black, width: 2)),
                 child: RichText(
                   text: const TextSpan(
                     children: [

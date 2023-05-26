@@ -69,14 +69,9 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                   child: Icon(Icons.account_circle),
                 ))
           ],
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  //FUNGERAR INTE ATT GÅ TILLBAKA!!!
-                },
-              );
+          leading: BackButton(
+            onPressed: () {
+              context.go("/group_page");
             },
           ),
           title: Text(eventName),
