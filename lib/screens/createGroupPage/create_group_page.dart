@@ -227,7 +227,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
             ),
           ),
           Container(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              padding: const EdgeInsets.fromLTRB(130, 10, 130, 10),
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromRadius(10),
