@@ -47,7 +47,11 @@ class _CreateEventPageState extends State<CreateEventPage> {
             child: Icon(Icons.account_circle_rounded),
           )
         ],
-        leading: const Icon(Icons.arrow_back_rounded),
+        leading: BackButton(
+          onPressed: () {
+            context.go("/group_page");
+          },
+        ),
         title: const Text('New event'),
         backgroundColor: Colors.black,
         centerTitle: true,

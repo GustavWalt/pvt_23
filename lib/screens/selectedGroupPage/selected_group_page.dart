@@ -9,6 +9,8 @@ import 'package:pvt_23/providers/group_id_provider.dart';
 import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../providers/navigation_bar_provider.dart';
+
 class SelectedGroupPage extends StatefulWidget {
   Stream<QuerySnapshot<Map<String, dynamic>>>? selectedGroup;
   SelectedGroupPage({super.key, this.selectedGroup});
@@ -24,6 +26,7 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final navigationBarProvider = Provider.of<NavigationBarProvider>(context);
     final groupIdProvider = Provider.of<GroupIdProvider>(context);
     String currentGroupId = groupIdProvider.fetchCurrentGroupId;
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -70,6 +73,11 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                       child: Icon(Icons.account_circle),
                     ))
               ],
+              leading: BackButton(
+                onPressed: () {
+                  context.go("/group_page");
+                },
+              ),
               title: Text(_groupInfo[0]["name"]),
               backgroundColor: Colors.black,
               centerTitle: true,
