@@ -274,6 +274,34 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                           child: const Icon(Icons.add, color: Colors.white),
                           onPressed: () {
                             if (uid == _groupInfo[0]['admin']) {
+                              if (_groupInfo[0]['event'] != null) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text("Error"),
+                                      content: const Text(
+                                          "You have already created an event. Are you sure you want to replace it by making a new one?"),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text("Cancel"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            context
+                                                .goNamed('create_event_page');
+                                          },
+                                          child: const Text("OK"),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                return;
+                              }
                               context.goNamed('create_event_page');
                               return;
                             } else {
