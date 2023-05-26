@@ -96,15 +96,20 @@ class SpecificMovieResultPickPage extends StatelessWidget {
                 )),
             Container(
               height: 65,
-              padding: const EdgeInsets.fromLTRB(55, 8, 55, 8),
+              padding: const EdgeInsets.fromLTRB(115, 0, 115, 0),
               child: Center(
                   child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromRadius(10),
+                    backgroundColor: const Color.fromARGB(255, 147, 48, 48),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100)),
-                    minimumSize: const Size.fromRadius(80),
-                    backgroundColor: const Color.fromARGB(255, 143, 28, 28)),
-                child: const Text("Pick Movie"),
+                        borderRadius: BorderRadius.circular(30)),
+                    padding: const EdgeInsets.all(20),
+                    side: const BorderSide(color: Colors.black, width: 3)),
+                child: const Text("Pick Movie",
+                    style: TextStyle(
+                      fontSize: 17,
+                    )),
                 onPressed: () {
                   context.goNamed("create_event_page", extra: movie);
                 },
