@@ -6,6 +6,7 @@ import '../../widgets/navigation_bar_widget.dart';
 
 //We need to add genres - either manually or through imdb's API.
 const List<String> genres = <String>[
+  "Genre:",
   'Action',
   'Adventure',
   'Comedy',
@@ -20,7 +21,12 @@ const List<String> genres = <String>[
   'Thriller',
   'Western',
 ];
-const List<String> level = <String>["Beginner", "Intermediate", "Expert"];
+const List<String> level = <String>[
+  "Discussion level:",
+  "Beginner",
+  "Intermediate",
+  "Expert"
+];
 
 class FindNewGroupPage extends StatefulWidget {
   const FindNewGroupPage({super.key});
@@ -30,8 +36,8 @@ class FindNewGroupPage extends StatefulWidget {
 }
 
 class _FindNewGroupPageState extends State<FindNewGroupPage> {
-  String genreValue = "";
-  String levelValue = "";
+  String genreValue = genres.first;
+  String levelValue = level.first;
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +170,7 @@ class _FindNewGroupPageState extends State<FindNewGroupPage> {
                 ),
                 //Shuold not go to group page, this is placeholder. Should go to available groups.
                 onPressed: () {
-                  if (genreValue == "" && levelValue == "") {
+                  if (genreValue == genres.first && levelValue == level.first) {
                     final Stream<QuerySnapshot<Map<String, dynamic>>>
                         foundGroups = FirebaseFirestore.instance
                             .collection('groups')
@@ -175,7 +181,8 @@ class _FindNewGroupPageState extends State<FindNewGroupPage> {
                     );
 
                     return;
-                  } else if (genreValue == "" && levelValue != "") {
+                  } else if (genreValue == genres.first &&
+                      levelValue != level.first) {
                     final Stream<QuerySnapshot<Map<String, dynamic>>>
                         foundGroups = FirebaseFirestore.instance
                             .collection('groups')
@@ -186,7 +193,8 @@ class _FindNewGroupPageState extends State<FindNewGroupPage> {
                       extra: foundGroups,
                     );
                     return;
-                  } else if (genreValue != "" && levelValue == "") {
+                  } else if (genreValue != genres.first &&
+                      levelValue == level.first) {
                     final Stream<QuerySnapshot<Map<String, dynamic>>>
                         foundGroups = FirebaseFirestore.instance
                             .collection('groups')

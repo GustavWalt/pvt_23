@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../widgets/navigation_bar_widget.dart';
 
 const List<String> genres = <String>[
+  "Genre:",
   'Action',
   'Adventure',
   'Comedy',
@@ -20,8 +21,14 @@ const List<String> genres = <String>[
   'Thriller',
   'Western',
 ];
-const List<String> level = <String>["Beginner", "Intermediate", "Expert"];
+const List<String> level = <String>[
+  "Discussion level:",
+  "Beginner",
+  "Intermediate",
+  "Expert"
+];
 const List<String> size = <String>[
+  "Size:",
   "2",
   "3",
   "4",
@@ -43,9 +50,9 @@ class CreateGroupPage extends StatefulWidget {
 class _CreateGroupPageState extends State<CreateGroupPage> {
   final db = FirebaseFirestore.instance;
 
-  String sizeValue = "";
-  String genreValue = "";
-  String levelValue = "";
+  String sizeValue = size.first;
+  String genreValue = genres.first;
+  String levelValue = level.first;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -260,9 +267,9 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
 
                     if (_nameController.text == "" ||
                         _descriptionController.text == "" ||
-                        sizeValue == "" ||
-                        genreValue == "" ||
-                        levelValue == "") {
+                        sizeValue == size.first ||
+                        genreValue == genres.first ||
+                        levelValue == level.first) {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
