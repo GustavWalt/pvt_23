@@ -8,6 +8,7 @@ import '../../providers/group_id_provider.dart';
 import '../../widgets/navigation_bar_widget.dart';
 
 const List<String> genres = <String>[
+  "Genre:",
   'Action',
   'Adventure',
   'Comedy',
@@ -22,8 +23,14 @@ const List<String> genres = <String>[
   'Thriller',
   'Western',
 ];
-const List<String> level = <String>["Beginner", "Intermediate", "Expert"];
+const List<String> level = <String>[
+  "Discussion level",
+  "Beginner",
+  "Intermediate",
+  "Expert"
+];
 const List<String> size = <String>[
+  "Size:",
   "2",
   "3",
   "4",
@@ -47,9 +54,9 @@ class _CreateGroupPageEditState extends State<CreateGroupPageEdit> {
   final db = FirebaseFirestore.instance;
   List _groupInfo = [];
 
-  String sizeValue = "";
-  String genreValue = "";
-  String levelValue = "";
+  String sizeValue = size.first;
+  String genreValue = genres.first;
+  String levelValue = level.first;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -306,7 +313,7 @@ class _CreateGroupPageEditState extends State<CreateGroupPageEdit> {
                           print(levelValue);
                           print(sizeValue);
 
-                          if (sizeValue != "" &&
+                          if (sizeValue != size.first &&
                               int.parse(sizeValue) < members) {
                             showDialog(
                               context: context,
@@ -336,13 +343,13 @@ class _CreateGroupPageEditState extends State<CreateGroupPageEdit> {
                               _descriptionController.text =
                                   _groupInfo[0]['description'];
                             }
-                            if (sizeValue == "") {
+                            if (sizeValue == size.first) {
                               sizeValue = _groupInfo[0]['size'];
                             }
-                            if (genreValue == "") {
+                            if (genreValue == genres.first) {
                               genreValue = _groupInfo[0]['genre'];
                             }
-                            if (levelValue == "") {
+                            if (levelValue == level.first) {
                               levelValue = _groupInfo[0]['level'];
                             }
                             await db
