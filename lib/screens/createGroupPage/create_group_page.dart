@@ -298,6 +298,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                         "admin": uid,
                         "posts": [],
                         "members": 1,
+                        "memberId": {uid},
                       };
                       DocumentReference docRef =
                           await db.collection("groups").add(groupData);
