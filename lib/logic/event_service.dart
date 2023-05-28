@@ -39,6 +39,7 @@ class EventService {
             TimeOfDay timeOfDay = TimeOfDay(hour: hour, minute: minute);
 
             Event event = Event(
+              eventDescription: value['eventDescription'],
               eventName: value['eventName'],
               location: value['location'],
               movieName: value['movieName'],

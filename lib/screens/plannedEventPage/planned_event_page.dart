@@ -27,6 +27,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
   String eventTime1 = "";
   String eventPlace = "";
   String eventMovie = "";
+  String eventDescription = "";
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +48,14 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
       eventMovie = event['movieName'];
       eventTime = eventTime1.substring(10, 15);
       eventDate = eventDate1.substring(0, 10);
+      eventDescription = event['eventDescription'];
     } else {
       eventName = "No upcoming events yet!";
       eventDate = "N/A";
       eventTime = "N/A";
       eventPlace = "N/A";
       eventMovie = "N/A";
+      eventDescription = "N/A";
     }
 
     return Scaffold(
@@ -188,6 +191,24 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                     ),
                   )
                 ]),
+          ),
+
+          Container(
+            padding: EdgeInsets.fromLTRB(50, 40, 0, 10),
+            child: const Text("Description:",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25)),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(50, 10, 50, 0),
+            child: Text(
+              eventDescription,
+              style: TextStyle(color: Colors.white, fontSize: 17),
+              textAlign: TextAlign.left,
+            ),
           ),
 
           //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
