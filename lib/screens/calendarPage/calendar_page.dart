@@ -152,6 +152,12 @@ class _CalendarPageState extends State<CalendarPage> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
+                        String startTimeShort =
+                            value[index].startTime.toString().substring(10, 15);
+
+                        String startDateShort =
+                            value[index].startDate.toString().substring(0, 10);
+
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -163,8 +169,10 @@ class _CalendarPageState extends State<CalendarPage> {
                                   Text('Event Name: ${value[index].eventName}'),
                                   Text('Location: ${value[index].location}'),
                                   Text('Movie Name: ${value[index].movieName}'),
-                                  Text('Start Date: ${value[index].startDate}'),
-                                  Text('Start Time: ${value[index].startTime}'),
+                                  Text('Date: ${startDateShort}'),
+                                  Text('Time: ${startTimeShort}'),
+                                  Text(
+                                      'Description: ${value[index].eventDescription}')
                                 ],
                               ),
                               actions: [
@@ -214,6 +222,7 @@ class _CalendarPageState extends State<CalendarPage> {
 
 class Event {
   final String eventName;
+  final String eventDescription;
   final String location;
   final String movieName;
   final DateTime startDate;
@@ -221,6 +230,7 @@ class Event {
 
   const Event({
     required this.eventName,
+    required this.eventDescription,
     required this.location,
     required this.movieName,
     required this.startDate,

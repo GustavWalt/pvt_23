@@ -57,7 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
               fillColor: Color.fromARGB(255, 189, 194, 197),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              hintText: 'Full name',
+              hintText: 'Username',
             ),
           ),
         ),
