@@ -209,28 +209,12 @@ class _SelectedGroupPageState extends State<SelectedGroupPage> {
                             margin: EdgeInsets.fromLTRB(15, 150, 30, 40),
                             color: Colors.transparent,
                           ),
-                          /*Container(
-                      margin: EdgeInsets.fromLTRB(15, 150, 30, 0),
-                      color: Colors.transparent,
-                      child: Column(children: <Widget>[
-                        ListTile(
-                          title: Text("Members:",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold)),
-                          subtitle: Text(
-                              "${_groupInfo[0]['members'].toString() + "/" + _groupInfo[0]['size'].toString()}",
-                              style: TextStyle(
-                                color: Colors.white,
-                              )),
-                        ),
-                      ]),
-                    ),*/
                         ]),
                         Container(
                           margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
                           color: Colors.transparent,
-                          child: Text("Members:",
+                          child: Text(
+                              "Members ${_groupInfo[0]["members"]}/${_groupInfo[0]["size"]}:",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
