@@ -258,7 +258,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
               ),
               onPressed: () {
                 SocialShare.shareTwitter(
-                    "Using the app Clique I join a film club event called ${eventName} at ${eventTime} on ${eventDate} at ${eventPlace} to watch ${eventMovie}! Join me!",
+                    "Using the app Clique I joined a film club event called ${eventName} at ${eventTime} on ${eventDate} at ${eventPlace} to watch ${eventMovie}! Join me!",
                     hashtags: ["Clique", "FilmClub", "${eventMovie}"]);
               },
             ),

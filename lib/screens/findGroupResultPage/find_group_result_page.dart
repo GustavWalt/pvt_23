@@ -229,6 +229,7 @@ class _FindGroupResultPageState extends State<FindGroupResultPage> {
                                       .doc(docId)
                                       .update({
                                     "members": FieldValue.increment(1),
+                                    "memberId": FieldValue.arrayUnion([uid])
                                   });
                                   context.go('/group_page');
                                 }
