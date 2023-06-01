@@ -25,12 +25,15 @@ import 'package:pvt_23/screens/PlannedEventPage/planned_event_page.dart';
 import 'package:pvt_23/screens/CreateEventPage/create_event_page.dart';
 import 'package:pvt_23/screens/SpecificMovieResultPickPage/specific_movie_result_pick_page.dart';
 import 'package:pvt_23/screens/createGroupPage/create_group_page_edit.dart';
+import 'package:pvt_23/screens/mapsPage/maps_page.dart';
 
 import 'package:pvt_23/screens/profilePage/profile_page_edit.dart';
 import 'package:pvt_23/screens/selectedGroupPage/selected_group_page.dart';
 
 import 'firebase_options.dart';
 import 'logic/movie_class.dart';
+import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
+import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 
 /*
 Bra sen när vi vill redirect någon som inte är inloggad.
@@ -79,6 +82,14 @@ final GoRouter _router = GoRouter(
       },
     ),
     GoRoute(
+      path: '/maps_page',
+      name: 'maps_page',
+      builder: (context, state) {
+        Movie? movie = state.extra as Movie?; // -> casting is important
+        return MapsPage(movie: movie);
+      },
+    ),
+    GoRoute(
       path: '/create_group_page_edit',
       name: 'create_group_page_edit',
       builder: (context, state) {
@@ -91,8 +102,9 @@ final GoRouter _router = GoRouter(
       path: '/create_event_page',
       name: 'create_event_page',
       builder: (context, state) {
-        Movie? movie = state.extra as Movie?; // -> casting is important
-        return CreateEventPage(movie: movie);
+        Movie? movie = state.extra as Movie?;
+        return CreateEventPage(
+            movie: movie, location: state.queryParams['location']);
       },
     ),
     GoRoute(
@@ -189,6 +201,11 @@ final GoRouter _router = GoRouter(
 );
 
 void main() async {
+  final GoogleMapsFlutterPlatform mapsImplementation =
+      GoogleMapsFlutterPlatform.instance;
+  if (mapsImplementation is GoogleMapsFlutterAndroid) {
+    mapsImplementation.useAndroidViewSurface = true;
+  }
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(

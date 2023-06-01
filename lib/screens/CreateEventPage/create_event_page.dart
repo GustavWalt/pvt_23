@@ -9,7 +9,8 @@ import 'package:go_router/go_router.dart';
 
 class CreateEventPage extends StatefulWidget {
   Movie? movie;
-  CreateEventPage({super.key, this.movie});
+  String? location;
+  CreateEventPage({super.key, this.movie, this.location});
 
   @override
   State<CreateEventPage> createState() => _CreateEventPageState();
@@ -19,14 +20,12 @@ class _CreateEventPageState extends State<CreateEventPage> {
   final db = FirebaseFirestore.instance;
   late DateTime _startDate;
   late TimeOfDay _startTime;
-  late String _location = '';
   final _formKey = GlobalKey<FormState>();
   late bool _isPublishing = false;
 
   final TextEditingController _eventNameController = TextEditingController();
   final TextEditingController _eventDescriptionController =
       TextEditingController();
-  final TextEditingController _locationController = TextEditingController();
 
   @override
   void initState() {
@@ -37,6 +36,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.location);
     final groupIdProvider = Provider.of<GroupIdProvider>(context);
     String currentGroupId = groupIdProvider.fetchCurrentGroupId;
     return Scaffold(
@@ -101,7 +101,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                     side: const BorderSide(color: Colors.black, width: 2)),
                 child: RichText(
-                  text: TextSpan(
+                  text: const TextSpan(
                     children: [
                       WidgetSpan(
                         child: Icon(Icons.movie, size: 16),
@@ -112,6 +112,26 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   ),
                 ),
                 onPressed: () => context.go("/search_pick_page"),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+              child: TextFormField(
+                initialValue: widget.location ?? "",
+                onTap: () => context.goNamed("maps_page", extra: widget.movie),
+                cursorColor: const Color.fromARGB(255, 147, 48, 48),
+                decoration: const InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(255, 147, 48, 48)),
+                  ),
+                  labelText: 'Location',
+                  labelStyle: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                style: const TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
             Container(
@@ -147,25 +167,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         BorderSide(color: Color.fromARGB(255, 147, 48, 48)),
                   ),
                   labelText: "Description",
-                  labelStyle: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                style: const TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-              child: TextFormField(
-                controller: _locationController,
-                cursorColor: const Color.fromARGB(255, 147, 48, 48),
-                decoration: const InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color.fromARGB(255, 147, 48, 48)),
-                  ),
-                  labelText: 'Location',
                   labelStyle: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 style: const TextStyle(color: Colors.white, fontSize: 24),
@@ -279,7 +280,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   final FirebaseAuth auth = FirebaseAuth.instance;
                   if (_eventNameController.text == "" ||
                       _eventDescriptionController.text == "" ||
-                      _locationController.text == "" ||
                       widget.movie == null) {
                     showDialog(
                       context: context,
@@ -303,7 +303,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       'event.eventName': _eventNameController.text,
                       'event.eventDescription':
                           _eventDescriptionController.text,
-                      'event.location': _locationController.text,
+                      'event.location': widget.location,
                       'event.movieName': widget.movie!.title,
                       'event.startDate': _startDate.microsecondsSinceEpoch,
                       'event.startTime': _startTime.toString(),
