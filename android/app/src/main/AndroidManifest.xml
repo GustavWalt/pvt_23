@@ -4,10 +4,14 @@ xmlns:tools="http://schemas.android.com/tools"
     <!-- Required to fetch data from the internet. -->
 <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
         android:label="pvt_23"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+            <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDICqYtHN5KxW8SUsjaxCqmurkJMtkNR_0"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

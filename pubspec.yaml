@@ -46,6 +46,7 @@ dependencies:
   screenshot: ^2.0.0
   appinio_social_share: ^0.2.2
   font_awesome_flutter: ^10.4.0
+  google_maps_place_picker_mb: ^3.0.2
 
 
 dev_dependencies:

@@ -27,6 +27,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
   String eventTime1 = "";
   String eventPlace = "";
   String eventMovie = "";
+  String eventDescription = "";
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +48,14 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
       eventMovie = event['movieName'];
       eventTime = eventTime1.substring(10, 15);
       eventDate = eventDate1.substring(0, 10);
+      eventDescription = event['eventDescription'];
     } else {
       eventName = "No upcoming events yet!";
       eventDate = "N/A";
       eventTime = "N/A";
       eventPlace = "N/A";
       eventMovie = "N/A";
+      eventDescription = "N/A";
     }
 
     return Scaffold(
@@ -69,14 +72,9 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                   child: Icon(Icons.account_circle),
                 ))
           ],
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  //FUNGERAR INTE ATT GÅ TILLBAKA!!!
-                },
-              );
+          leading: BackButton(
+            onPressed: () {
+              context.go("/group_page");
             },
           ),
           title: Text(eventName),
@@ -195,6 +193,24 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                 ]),
           ),
 
+          Container(
+            padding: EdgeInsets.fromLTRB(50, 40, 0, 10),
+            child: const Text("Description:",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25)),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(50, 10, 50, 0),
+            child: Text(
+              eventDescription,
+              style: TextStyle(color: Colors.white, fontSize: 17),
+              textAlign: TextAlign.left,
+            ),
+          ),
+
           //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
           //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
           //HAR TAGIT BORT ATTENDEES FOR NOW!!!!!!
@@ -215,7 +231,9 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
                       style: TextStyle(color: Colors.white, fontSize: 25))
                 ]),
           ),*/
-
+          const Padding(
+            padding: EdgeInsets.all(30),
+          ),
           Container(
             padding: const EdgeInsets.fromLTRB(110, 30, 110, 0),
             child: ElevatedButton(
@@ -240,7 +258,7 @@ class _PlannedEventPageState extends State<PlannedEventPage> {
               ),
               onPressed: () {
                 SocialShare.shareTwitter(
-                    "Using the app Clique I join a film club event called ${eventName} at ${eventTime} on ${eventDate} at ${eventPlace} to watch ${eventMovie}! Join me!",
+                    "Using the app Clique I joined a film club event called ${eventName} at ${eventTime} on ${eventDate} at ${eventPlace} to watch ${eventMovie}! Join me!",
                     hashtags: ["Clique", "FilmClub", "${eventMovie}"]);
               },
             ),

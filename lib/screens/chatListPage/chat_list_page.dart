@@ -106,6 +106,8 @@ class _ChatListPageState extends State<ChatListPage> {
                                     backgroundColor:
                                         Color.fromARGB(255, 147, 48, 48),
                                     shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                            color: Colors.black, width: 2),
                                         borderRadius:
                                             BorderRadius.circular(100)),
                                   ),

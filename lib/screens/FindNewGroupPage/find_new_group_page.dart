@@ -6,6 +6,7 @@ import '../../widgets/navigation_bar_widget.dart';
 
 //We need to add genres - either manually or through imdb's API.
 const List<String> genres = <String>[
+  "Genre:",
   'Action',
   'Adventure',
   'Comedy',
@@ -20,7 +21,12 @@ const List<String> genres = <String>[
   'Thriller',
   'Western',
 ];
-const List<String> level = <String>["Beginner", "Intermediate", "Expert"];
+const List<String> level = <String>[
+  "Discussion level:",
+  "Beginner",
+  "Intermediate",
+  "Expert"
+];
 
 class FindNewGroupPage extends StatefulWidget {
   const FindNewGroupPage({super.key});
@@ -164,18 +170,53 @@ class _FindNewGroupPageState extends State<FindNewGroupPage> {
                 ),
                 //Shuold not go to group page, this is placeholder. Should go to available groups.
                 onPressed: () {
-                  final CollectionReference groups =
-                      FirebaseFirestore.instance.collection('groups');
-                  final Stream<QuerySnapshot<Map<String, dynamic>>>
-                      foundGroups = FirebaseFirestore.instance
-                          .collection('groups')
-                          .where('genre', isEqualTo: genreValue.toString())
-                          .where('level', isEqualTo: levelValue.toString())
-                          .snapshots();
-                  context.goNamed(
-                    "find_group_result_page",
-                    extra: foundGroups,
-                  );
+                  if (genreValue == genres.first && levelValue == level.first) {
+                    final Stream<QuerySnapshot<Map<String, dynamic>>>
+                        foundGroups = FirebaseFirestore.instance
+                            .collection('groups')
+                            .snapshots();
+                    context.goNamed(
+                      "find_group_result_page",
+                      extra: foundGroups,
+                    );
+
+                    return;
+                  } else if (genreValue == genres.first &&
+                      levelValue != level.first) {
+                    final Stream<QuerySnapshot<Map<String, dynamic>>>
+                        foundGroups = FirebaseFirestore.instance
+                            .collection('groups')
+                            .where('level', isEqualTo: levelValue.toString())
+                            .snapshots();
+                    context.goNamed(
+                      "find_group_result_page",
+                      extra: foundGroups,
+                    );
+                    return;
+                  } else if (genreValue != genres.first &&
+                      levelValue == level.first) {
+                    final Stream<QuerySnapshot<Map<String, dynamic>>>
+                        foundGroups = FirebaseFirestore.instance
+                            .collection('groups')
+                            .where('genre', isEqualTo: genreValue.toString())
+                            .snapshots();
+                    context.goNamed(
+                      "find_group_result_page",
+                      extra: foundGroups,
+                    );
+                    return;
+                  } else {
+                    final Stream<QuerySnapshot<Map<String, dynamic>>>
+                        foundGroups = FirebaseFirestore.instance
+                            .collection('groups')
+                            .where('genre', isEqualTo: genreValue.toString())
+                            .where('level', isEqualTo: levelValue.toString())
+                            .snapshots();
+                    context.goNamed(
+                      "find_group_result_page",
+                      extra: foundGroups,
+                    );
+                  }
                 },
               ))
         ])));
