@@ -7,7 +7,8 @@ import 'package:pvt_23/widgets/navigation_bar_widget.dart';
 import '../../logic/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  FirebaseAuth? auth;
+  RegisterPage({Key? key, this.auth}) : super(key: key);
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -22,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _phoneController = TextEditingController();
 
   Future<void> loginUser() async {
-    await AuthService().login(
+    await AuthService(auth: FirebaseAuth.instance).login(
       email: _emailController.text,
       password: _passwordController.text,
     );
@@ -135,7 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   return;
                 }
 
-                final message = await AuthService().registration(
+                final message = await AuthService(auth: FirebaseAuth.instance).registration(
                   email: _emailController.text,
                   password: _passwordController.text,
                 );

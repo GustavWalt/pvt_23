@@ -46,7 +46,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
-          return const LoginPage();
+          return LoginPage();
         }),
     GoRoute(
       path: '/chat_page',
@@ -136,12 +136,12 @@ final GoRouter _router = GoRouter(
     GoRoute(
         path: '/login_page',
         builder: (BuildContext context, GoRouterState state) {
-          return const LoginPage();
+          return LoginPage();
         }),
     GoRoute(
       path: '/register_page',
       builder: (BuildContext context, GoRouterState state) {
-        return const RegisterPage();
+        return RegisterPage();
       },
     ),
     GoRoute(
