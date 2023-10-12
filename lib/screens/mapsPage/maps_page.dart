@@ -15,9 +15,7 @@ class MapsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlacePicker(
-      apiKey: Platform.isAndroid
-          ? "AIzaSyDICqYtHN5KxW8SUsjaxCqmurkJMtkNR_0"
-          : "AIzaSyDBw_wPVa0AMOthKmSk8_crBxok-e1TaqA",
+      apiKey: Platform.isAndroid ? "XXXXXXXXXXXXXXXXX" : "XXXXXXXXXXXX-e1TaqA",
       onPlacePicked: (result) {
         context.goNamed("create_event_page",
             extra: movie, queryParams: {'location': result.formattedAddress});

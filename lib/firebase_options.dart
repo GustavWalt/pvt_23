@@ -44,7 +44,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBXX5jlDhSWTGf4J-xZgQx3duSr_ZRXI_E',
+    apiKey: 'XXXXX',
     appId: '1:1012806088609:web:2d750f30734acd7b9bfde0',
     messagingSenderId: '1012806088609',
     projectId: 'pvt-23',
@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDSVv1yxTyRzfmWk0C5UB0Vxu0Bj1YZpGU',
+    apiKey: 'XXXXXXX',
     appId: '1:1012806088609:android:d587ca706d7507929bfde0',
     messagingSenderId: '1012806088609',
     projectId: 'pvt-23',
@@ -62,22 +62,24 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDvfcgUE9aSDdVFxCELpbLgWgmbBRyWsg0',
+    apiKey: 'XXXXXXXX',
     appId: '1:1012806088609:ios:11bf2e7b428360879bfde0',
     messagingSenderId: '1012806088609',
     projectId: 'pvt-23',
     storageBucket: 'pvt-23.appspot.com',
-    iosClientId: '1012806088609-r9feg4dro6pr29pl4h7fbsik6md6ajpn.apps.googleusercontent.com',
+    iosClientId:
+        '1012806088609-r9feg4dro6pr29pl4h7fbsik6md6ajpn.apps.googleusercontent.com',
     iosBundleId: 'com.example.pvt23',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDvfcgUE9aSDdVFxCELpbLgWgmbBRyWsg0',
+    apiKey: 'XXXXXXXXX',
     appId: '1:1012806088609:ios:11bf2e7b428360879bfde0',
     messagingSenderId: '1012806088609',
     projectId: 'pvt-23',
     storageBucket: 'pvt-23.appspot.com',
-    iosClientId: '1012806088609-r9feg4dro6pr29pl4h7fbsik6md6ajpn.apps.googleusercontent.com',
+    iosClientId:
+        '1012806088609-r9feg4dro6pr29pl4h7fbsik6md6ajpn.apps.googleusercontent.com',
     iosBundleId: 'com.example.pvt23',
   );
 }

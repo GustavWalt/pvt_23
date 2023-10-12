@@ -144,7 +144,7 @@ class _SearchPickPageState extends State<SearchPickPage> {
 
   Future<Movie> fetchMovie() async {
     final response = await http.get(Uri.parse(
-        'http://www.omdbapi.com/?t=${_searchBarController.text}&y=${_yearController.text}&plot=full&apikey=92943f28'));
+        'http://www.omdbapi.com/?t=${_searchBarController.text}&y=${_yearController.text}&plot=full&apikey=XXXXXXX'));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
